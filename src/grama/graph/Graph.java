@@ -16,11 +16,20 @@ public class Graph {
         }
     }
 
-    public void clear(){
+    public Noeud getOrCreate(Noeud noeud) {
+        for (Noeud node : noeuds) {
+            if (noeud.equals(node)) {
+                return node;
+            }
+        }
+        return noeud;
+    }
+
+    public void clear() {
         noeuds.clear();
     }
 
-    public boolean noeudExist(Noeud noeud){
+    public boolean noeudExist(Noeud noeud) {
         return noeuds.contains(noeud);
     }
 }
