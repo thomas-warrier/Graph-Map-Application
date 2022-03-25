@@ -1,5 +1,7 @@
 package grama.graph;
 
+import grama.exceptions.MauvaisType;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -10,10 +12,14 @@ public class Noeud {
     private char typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
-    public void setTypeLieu(char typeLieu) {
+    public void setTypeLieu(char typeLieu){
         if (typeLieu == 'V' || typeLieu == 'L' || typeLieu == 'R')
         {
             this.typeLieu = typeLieu;
+        }
+        else
+        {
+            throw new MauvaisType();
         }
     }
 

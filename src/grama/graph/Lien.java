@@ -1,4 +1,7 @@
 package grama.graph;
+
+import grama.exceptions.MauvaisType;
+
 public class Lien {
     private char typeLien; //A : autoroute ; N : national ; D : départemental
     private final int kilometrage;
@@ -12,8 +15,14 @@ public class Lien {
     }
 
     public void setTypeLien(char typeLien) {
-        if(typeLien == 'A' || typeLien == 'N' || typeLien == 'D')
+        if(typeLien == 'A' || typeLien == 'N' || typeLien == 'D'){
             this.typeLien = typeLien;
+        }
+        else
+        {
+            throw new MauvaisType();
+        }
+
     }
 
     public char getTypeLien() {
