@@ -23,4 +23,10 @@ public class Lien {
     public int getKilometrage() {
         return kilometrage;
     }
+
+
+    @Override
+    public String toString() {
+        return typeLien + ", " + kilometrage + " to " + destination;
+    }
 }
