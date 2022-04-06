@@ -11,7 +11,6 @@ public class Lien {
 
     private final Noeud destination;
     private final Noeud depart;
-    private char typeLien; //A : autoroute ; N : national ; D : départemental
 
     public Lien(char typeLien, int kilometrage, Noeud depart, Noeud destination) {
         this.typeLien = typeLien;

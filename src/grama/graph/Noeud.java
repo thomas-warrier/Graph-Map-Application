@@ -10,12 +10,6 @@ public class Noeud {
     private char typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
-    public void setTypeLieu(char typeLieu) {
-        if (typeLieu == 'V' || typeLieu == 'L' || typeLieu == 'R')
-        {
-            this.typeLieu = typeLieu;
-        }
-    }
 
     public Noeud(char newTypeLieu, String newNom)
     {
