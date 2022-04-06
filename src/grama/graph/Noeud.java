@@ -49,5 +49,8 @@ public class Noeud {
         return Objects.hash(typeLieu, nom);
     }
 
-
+    @Override
+    public String toString() {
+        return typeLieu + ":" + nom;
+    }
 }
