@@ -1,6 +1,6 @@
 package grama.graph;
 
-import grama.exceptions.MauvaisType;
+import grama.exceptions.MauvaisTypeException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,14 +8,14 @@ import java.util.Objects;
 
 public class Noeud {
 
-    private final List<Lien> liens;
+    private final List<Lien> listLien;
     private char typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
 
     public Noeud(char newTypeLieu, String newNom)
     {
-        liens = new LinkedList<>();
+        listLien = new LinkedList<>();
         this.typeLieu = newTypeLieu;
         this.nom = newNom;
     }
@@ -24,16 +24,16 @@ public class Noeud {
         if (typeLieu == 'V' || typeLieu == 'L' || typeLieu == 'R') {
             this.typeLieu = typeLieu;
         } else {
-            throw new MauvaisType();
+            throw new MauvaisTypeException();
         }
     }
 
-    public List<Lien> getLiens() {
-        return liens;
+    public List<Lien> getListLien() {
+        return listLien;
     }
 
     public void addLien(Lien lien) {
-        liens.add(lien);
+        listLien.add(lien);
     }
 
     @Override

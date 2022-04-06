@@ -10,10 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Graph {
-    private final List<Noeud> noeuds;
+    private final List<Noeud> listNoeud;
 
-    Graph() {
-        noeuds = new LinkedList<>();
+    public Graph() {
+        listNoeud = new LinkedList<>();
+    }
+
+    public List<Noeud> getListNoeud() {
+        return listNoeud;
     }
 
     public static String readUntil(FileInputStream stream, String endStr) throws IOException {
@@ -38,15 +42,15 @@ public class Graph {
     }
 
     public void addNoeud(Noeud noeud) {
-        if (!noeuds.contains(noeud)) {
-            noeuds.add(noeud);
+        if (!listNoeud.contains(noeud)) {
+            listNoeud.add(noeud);
         }
     }
 
     public Lien getOrCreate(Lien lien) {
 
-        for (Noeud node : noeuds) {
-            for (Lien link : node.getLiens()) {
+        for (Noeud node : listNoeud) {
+            for (Lien link : node.getListLien()) {
                 if (lien.equals(link)) {
                     return link;
                 }
@@ -56,7 +60,7 @@ public class Graph {
     }
 
     public Noeud getOrCreate(Noeud noeud) {
-        for (Noeud node : noeuds) {
+        for (Noeud node : listNoeud) {
             if (noeud.equals(node)) {
                 return node;
             }
@@ -65,11 +69,11 @@ public class Graph {
     }
 
     public void clear() {
-        noeuds.clear();
+        listNoeud.clear();
     }
 
     public boolean noeudExist(Noeud noeud) {
-        return noeuds.contains(noeud);
+        return listNoeud.contains(noeud);
     }
 
     public void loadFromFile(String path) throws IOException { // y compris throw notfilefound
@@ -90,7 +94,7 @@ public class Graph {
             line = line.replaceAll("[\n\t\r ]", ""); // remove posible '\n' or '\t' or '\r'
 
             Matcher nameMatch = namePattern.matcher(line);
-            if (nameMatch.find()) {
+            if (nameMatch.find()) {//err si trouve pas
                 String name = nameMatch.group();
                 char typeNode = name.charAt(0);
                 String nameNode = name.substring(2);
@@ -102,7 +106,7 @@ public class Graph {
                 line = line.substring(nameMatch.group().length() + 1); // remove the name from the reste of the String
             }
             String[] coupleLienNeoud = line.split(";");
-            liens = new ArrayList<>();
+            liens = noeudPrincipal.getListLien();
             for (String couple : coupleLienNeoud) {
                 String[] both = couple.split("::");
 
@@ -121,8 +125,8 @@ public class Graph {
 
                 liens.add(lien);
             }
-            System.out.println(noeudPrincipal + " = " + liens);
 
+            listNoeud.add(noeudPrincipal);
             //on a le noeudPrincipal et une list de lien (liens) qui parte de celui ci (avec les destination)
 
         }

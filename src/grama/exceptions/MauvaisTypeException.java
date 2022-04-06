@@ -1,8 +1,8 @@
 package grama.exceptions;
 
-public class MauvaisType extends RuntimeException
+public class MauvaisTypeException extends RuntimeException
 {
-        public MauvaisType()
+        public MauvaisTypeException()
         {
                 super("Le type entrée ne corresponds à aucun des types attendus");
         }
