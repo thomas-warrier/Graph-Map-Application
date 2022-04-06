@@ -30,7 +30,7 @@ public class Graph {
             str.append((char) unsignedByte);
         }
         if (countEnd == size) {
-            str = new StringBuilder(str.substring(0, str.length() - 2));
+            str = new StringBuilder(str.substring(0, str.length() - endStr.length()));
         } else if (unsignedByte < 0) {
             return null;
         }
@@ -78,11 +78,13 @@ public class Graph {
             line = line.replaceAll("[\n\t\r]", ""); // remove posible '\n' or '\t' or '\r'
 
             Matcher nameMatch = namePattern.matcher(line);
-            if (nameMatch.find()) {
+            if (nameMatch.find()) {//err si pas matche
                 String name = nameMatch.group().replaceAll(" ", "");
                 char typeNode = name.charAt(0);
                 String nameNode = name.substring(2);
                 noeudPrincipal = new Noeud(typeNode, nameNode);
+
+                noeudPrincipal = getOrCreate(noeudPrincipal);
 
                 line = line.substring(nameMatch.group().length() + 1); // remove the name from the reste of the String
             }
@@ -100,7 +102,8 @@ public class Graph {
                 String nameDst = both[1].substring(2);
 
                 Noeud node = new Noeud(typeDst, nameDst);
-                Lien lien = new Lien(type, distance, node);
+
+                Lien lien = new Lien(type, distance, noeudPrincipal, getOrCreate(node));
 
                 liens.add(lien);
             }
