@@ -7,10 +7,18 @@ import java.util.Objects;
 public class Noeud {
 
     private final List<Lien> liens;
-    private final String nom;
     private char typeLieu;  // V : ville , L : loisir , R : restaurant
+    private final String nom;
 
-    public Noeud(char newTypeLieu, String newNom) {
+    public void setTypeLieu(char typeLieu) {
+        if (typeLieu == 'V' || typeLieu == 'L' || typeLieu == 'R')
+        {
+            this.typeLieu = typeLieu;
+        }
+    }
+
+    public Noeud(char newTypeLieu, String newNom)
+    {
         liens = new LinkedList<>();
         this.typeLieu = newTypeLieu;
         this.nom = newNom;
@@ -19,7 +27,13 @@ public class Noeud {
     public void setTypeLieu(char typeLieu) {
         if (typeLieu == 'V' || typeLieu == 'L' || typeLieu == 'R') {
             this.typeLieu = typeLieu;
+        } else {
+            throw new MauvaisType();
         }
+    }
+
+    public List<Lien> getLiens() {
+        return liens;
     }
 
     public void addLien(Lien lien) {

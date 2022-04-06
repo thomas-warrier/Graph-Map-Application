@@ -1,9 +1,14 @@
 package grama.graph;
 
+import grama.exceptions.MauvaisType;
+
+
 import java.util.Objects;
 
 public class Lien {
+    private char typeLien; //A : autoroute ; N : national ; D : départemental
     private final int kilometrage;
+
     private final Noeud destination;
     private final Noeud depart;
     private char typeLien; //A : autoroute ; N : national ; D : départemental
@@ -15,20 +20,19 @@ public class Lien {
         this.depart = depart;
     }
 
+    public void setTypeLien(char typeLien) {
+        if(typeLien == 'A' || typeLien == 'N' || typeLien == 'D'){
+            this.typeLien = typeLien;
+        }
+        else
+        {
+            throw new MauvaisType();
+        }
+
+    }
+
     public char getTypeLien() {
         return typeLien;
-    }
-
-    public void setTypeLien(char typeLien) {
-        if (typeLien == 'A' || typeLien == 'N' || typeLien == 'D') this.typeLien = typeLien;
-    }
-
-    public Noeud getDestination() {
-        return destination;
-    }
-
-    public Noeud getDepart() {
-        return depart;
     }
 
     public int getKilometrage() {
