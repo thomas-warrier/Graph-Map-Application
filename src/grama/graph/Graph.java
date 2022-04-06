@@ -30,7 +30,7 @@ public class Graph {
             str.append((char) unsignedByte);
         }
         if (countEnd == size) {
-            str = new StringBuilder(str.substring(0, str.length() - 2));
+            str = new StringBuilder(str.substring(0, str.length() - endStr.length()));
         } else if (unsignedByte < 0) {
             return null;
         }
@@ -41,6 +41,18 @@ public class Graph {
         if (!noeuds.contains(noeud)) {
             noeuds.add(noeud);
         }
+    }
+
+    public Lien getOrCreate(Lien lien) {
+
+        for (Noeud node : noeuds) {
+            for (Lien link : node.getLiens()) {
+                if (lien.equals(link)) {
+                    return link;
+                }
+            }
+        }
+        return lien;
     }
 
     public Noeud getOrCreate(Noeud noeud) {
@@ -75,13 +87,14 @@ public class Graph {
         Pattern namePattern = Pattern.compile("^[^:]*");
 
         while ((line = readUntil(stream, ";;")) != null) {
-            line = line.replaceAll("[\n\t\r]", ""); // remove posible '\n' or '\t' or '\r'
+            line = line.replaceAll("[\n\t\r ]", ""); // remove posible '\n' or '\t' or '\r'
 
             Matcher nameMatch = namePattern.matcher(line);
             if (nameMatch.find()) {
-                String name = nameMatch.group().replaceAll(" ", "");
+                String name = nameMatch.group();
                 char typeNode = name.charAt(0);
                 String nameNode = name.substring(2);
+
                 noeudPrincipal = new Noeud(typeNode, nameNode);
 
                 line = line.substring(nameMatch.group().length() + 1); // remove the name from the reste of the String
@@ -91,16 +104,18 @@ public class Graph {
             for (String couple : coupleLienNeoud) {
                 String[] both = couple.split("::");
 
-                both[0] = both[0].replaceAll(" ", "");
+
                 char type = both[0].charAt(0);
                 int distance = Integer.parseInt(both[0].substring(2));
 
-                both[1] = both[1].replaceAll(" ", "");
+
                 char typeDst = both[1].charAt(0);
                 String nameDst = both[1].substring(2);
 
                 Noeud node = new Noeud(typeDst, nameDst);
-                Lien lien = new Lien(type, distance, node);
+                Lien lien = new Lien(type, distance, noeudPrincipal, getOrCreate(node));
+
+                lien = getOrCreate(lien);
 
                 liens.add(lien);
             }
