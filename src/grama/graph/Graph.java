@@ -50,7 +50,7 @@ public class Graph {
     }
 
     public void addNoeud(Noeud noeud) {
-        if (!listNoeud.contains(noeud)) {
+        if (!noeudExist(noeud)) {
             listNoeud.add(noeud);
         }
     }
@@ -140,8 +140,7 @@ public class Graph {
 
                 liens.add(lien);
             }
-
-            listNoeud.add(noeudPrincipal);
+            addNoeud(noeudPrincipal);
         }
 
 
