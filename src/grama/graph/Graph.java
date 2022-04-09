@@ -1,9 +1,10 @@
 package grama.graph;
 
+import grama.exceptions.FormatFileException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,29 +17,36 @@ public class Graph {
         listNoeud = new LinkedList<>();
     }
 
-    public List<Noeud> getListNoeud() {
-        return listNoeud;
-    }
+    public static String readFile(File file) throws IOException {
+        if (file == null) {
+            return "";
+        }
+        int unsignedByte;
 
-    public static String readUntil(FileInputStream stream, String endStr) throws IOException {
-        int unsignedByte = -1;
-        StringBuilder str = new StringBuilder();
-        int countEnd = 0;
-        int size = endStr.length();
-        while (countEnd < size && (unsignedByte = stream.read()) > -1) {
-            if ((char) unsignedByte == endStr.charAt(countEnd)) {
-                countEnd++;
-            } else {
-                countEnd = 0;
-            }
+        FileInputStream stream = new FileInputStream(file);
+        StringBuilder str = new StringBuilder();// more efficient than  StringBuffer
+        while ((unsignedByte = stream.read()) > -1) {
             str.append((char) unsignedByte);
         }
-        if (countEnd == size) {
-            str = new StringBuilder(str.substring(0, str.length() - endStr.length()));
-        } else if (unsignedByte < 0) {
-            return null;
-        }
+
+        stream.close();
         return str.toString();
+    }
+
+    private static String[] getCoupleFormatCharStr(String couple) throws FormatFileException {
+        String[] splited = couple.trim().split(",");
+        for (int i = 0; i < splited.length; i++) {
+            splited[i] = splited[i].trim();
+        }
+        if (splited.length != 2 || splited[0].length() != 1) {
+            throw new FormatFileException(couple);
+        }
+
+        return splited;
+    }
+
+    public List<Noeud> getListNoeud() {
+        return listNoeud;
     }
 
     public void addNoeud(Noeud noeud) {
@@ -76,47 +84,54 @@ public class Graph {
         return listNoeud.contains(noeud);
     }
 
-    public void loadFromFile(String path) throws IOException { // y compris throw notfilefound
+    public void loadFromFile(String path) throws IOException, FormatFileException { // compren throw notfilefound
         File file = new File(path);
 
+        String fileContent = readFile(file);
 
-        FileInputStream stream = new FileInputStream(file);
+        fileContent = fileContent.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
+
+        String[] eachNode = fileContent.split(";;");
 
 
-        String line;
-
-        Noeud noeudPrincipal = null;
+        Noeud noeudPrincipal;
         List<Lien> liens;
 
         Pattern namePattern = Pattern.compile("^[^:]*");
+        for (String line : eachNode) {
+            Matcher mainNodeMatch = namePattern.matcher(line);
+            if (mainNodeMatch.find()) {
+                String mainNode = mainNodeMatch.group();
+                String[] formatNode = getCoupleFormatCharStr(mainNode);
 
-        while ((line = readUntil(stream, ";;")) != null) {
-            line = line.replaceAll("[\n\t\r ]", ""); // remove posible '\n' or '\t' or '\r'
-
-            Matcher nameMatch = namePattern.matcher(line);
-            if (nameMatch.find()) {//err si trouve pas
-                String name = nameMatch.group();
-                char typeNode = name.charAt(0);
-                String nameNode = name.substring(2);
+                char typeNode = formatNode[0].charAt(0);
+                String nameNode = formatNode[1];
 
                 noeudPrincipal = new Noeud(typeNode, nameNode);
 
                 noeudPrincipal = getOrCreate(noeudPrincipal);
 
-                line = line.substring(nameMatch.group().length() + 1); // remove the name from the reste of the String
+                line = line.substring(mainNodeMatch.group().length() + 1); // remove the name from the reste of the String
+            } else {
+                throw new FormatFileException(line);
             }
             String[] coupleLienNeoud = line.split(";");
             liens = noeudPrincipal.getListLien();
             for (String couple : coupleLienNeoud) {
                 String[] both = couple.split("::");
+                if (both.length != 2) {
+                    throw new FormatFileException();
+                }
+                String lienStr = both[0];
+                String neoudStr = both[1];
 
+                String[] splitLienStr = getCoupleFormatCharStr(lienStr);
+                char type = splitLienStr[0].charAt(0);
+                int distance = Integer.parseInt(splitLienStr[1]);
 
-                char type = both[0].charAt(0);
-                int distance = Integer.parseInt(both[0].substring(2));
-
-
-                char typeDst = both[1].charAt(0);
-                String nameDst = both[1].substring(2);
+                String[] splitNeoudStr = getCoupleFormatCharStr(neoudStr);
+                char typeDst = splitNeoudStr[0].charAt(0);
+                String nameDst = splitNeoudStr[1];
 
                 Noeud node = new Noeud(typeDst, nameDst);
                 Lien lien = new Lien(type, distance, noeudPrincipal, getOrCreate(node));
@@ -127,11 +142,8 @@ public class Graph {
             }
 
             listNoeud.add(noeudPrincipal);
-            //on a le noeudPrincipal et une list de lien (liens) qui parte de celui ci (avec les destination)
-
         }
 
-        stream.close();
 
     }
 }
