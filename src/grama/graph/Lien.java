@@ -50,6 +50,6 @@ public class Lien {
 
     @Override
     public String toString() {
-        return typeLien + "," + kilometrage + " = " + depart + " -> " + destination;
+        return typeLien + "," + kilometrage + " = " + depart + "->" + destination;
     }
 }

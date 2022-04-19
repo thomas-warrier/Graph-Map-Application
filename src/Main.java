@@ -9,7 +9,7 @@ public class Main {
 
         Graph graphmap = new Graph();
         try {
-            graphmap.loadFromFile("C:\\Users\\twarr\\Desktop\\SAE graphe\\grama\\res\\test.csv");
+            graphmap.loadFromFile("/home/wwwazz/Projet/Grama/res/test.csv");
 
             for(Noeud node : graphmap.getListNoeud()){
                 System.out.println(node + " = " + node.getListLien());
