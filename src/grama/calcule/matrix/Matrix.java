@@ -10,9 +10,9 @@ import java.util.Objects;
  * @param <T>
  */
 public class Matrix<T> {
-
+    
     protected List<List<T>> matrix;
-
+    
     public Matrix(int length, T defaut) {
         matrix = new ArrayList<List<T>>();
         for (int i = 0; i < length; i++) {
@@ -23,33 +23,33 @@ public class Matrix<T> {
             matrix.add(line);
         }
     }
-
+    
     public Matrix(T[][] array) {
         matrix = new ArrayList<List<T>>();
         for (int i = 0; i < array.length; i++) {
             List<T> line = new ArrayList<>();
-
+            
             for (int j = 0; j < array[i].length; j++) {
                 line.add(array[i][j]);
             }
             matrix.add(line);
         }
     }
-
+    
     public Matrix(Matrix<T> other) {
         for (int i = 0; i < other.matrix.size(); i++) {
             matrix.add(other.matrix.get(i));
         }
-
+        
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 89 * hash + Objects.hashCode(this.matrix);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -64,7 +64,7 @@ public class Matrix<T> {
         final Matrix<?> other = (Matrix<?>) obj;
         return this.matrix.equals(other.matrix);
     }
-
+    
     @Override
     public String toString() {
         String str = "";

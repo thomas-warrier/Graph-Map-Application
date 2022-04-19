@@ -1,4 +1,5 @@
 
+import grama.calcule.matrix.FloydWarshall;
 import grama.graph.Graph;
 import grama.graph.Noeud;
 import java.io.IOException;
@@ -10,10 +11,12 @@ public class Main {
         Graph graphmap = new Graph();
         try {
             graphmap.loadFromFile("/home/wwwazz/Projet/Grama/res/test.csv");
-
-            for(Noeud node : graphmap.getListNoeud()){
-                System.out.println(node + " = " + node.getListLien());
-            }
+            
+            FloydWarshall f = FloydWarshall.initFloydWarshall(graphmap);
+            f.resolve();
+            System.out.println(f);
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

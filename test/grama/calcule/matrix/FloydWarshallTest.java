@@ -55,7 +55,9 @@ public class FloydWarshallTest {
         Graph graphmap = new Graph();
         try {
             graphmap.loadFromFile("/home/wwwazz/Projet/Grama/res/test.csv");
-
+            
+            FloydWarshall f = FloydWarshall.initFloydWarshall(graphmap);
+            System.out.println(f);
             
             
         } catch (IOException e) {
