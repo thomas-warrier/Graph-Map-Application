@@ -40,6 +40,7 @@ public class MatrixTest {
 
     @Test
     public void testEquals() {
+        System.out.println("equals");
         Num[][] arr = {
             {new Num(1), new Num(2), new Num(3)},
             {new Num(4), new Num(5), new Num(6)},
@@ -53,6 +54,31 @@ public class MatrixTest {
         instance2 = new Matrix(arr);
 
         assertNotEquals(instance, instance2);
+        
+        assertNotEquals(instance2, new Matrix<Num>(3, new Num(0)));
+        
+        assertEquals(new Matrix<Num>(5, new Num(7)), new Matrix<Num>(5, new Num(7)));
+    }
+
+    @Test
+    public void testAdd() {
+        System.out.println("add");
+        Num[][] arr = {
+            {new Num(1), new Num(2), new Num(3)},
+            {new Num(4), new Num(5), new Num(6)},
+            {new Num(7), new Num(8), new Num(9)}
+        };
+        Matrix instance = new Matrix(arr);
+        Matrix doble = instance.add(instance);
+        Num[][] arr2 = {
+            {new Num(2), new Num(4), new Num(6)},
+            {new Num(8), new Num(10), new Num(12)},
+            {new Num(14), new Num(16), new Num(18)}
+        };
+        Matrix m = new Matrix<>(arr2);
+        System.out.println(doble);
+        System.out.println(m);
+        assertEquals(doble, m);
     }
 
     /**
