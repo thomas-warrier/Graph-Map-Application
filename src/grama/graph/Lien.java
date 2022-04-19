@@ -5,6 +5,7 @@ import grama.exceptions.MauvaisTypeException;
 import java.util.Objects;
 
 public class Lien {
+
     private final int kilometrage;
     private final Noeud destination;
     private final Noeud depart;
@@ -34,11 +35,22 @@ public class Lien {
         return kilometrage;
     }
 
+    public Noeud getDstADepartDe(Noeud node) {//si plusieur le qqlq return
+        if (node.equals(destination)) {
+            return depart;
+        } else {
+            return destination;
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Lien lien = (Lien) o;
         return typeLien == lien.typeLien && kilometrage == lien.kilometrage && (Objects.equals(destination, lien.destination) && Objects.equals(depart, lien.depart) || Objects.equals(destination, lien.depart) && Objects.equals(depart, lien.destination));
     }

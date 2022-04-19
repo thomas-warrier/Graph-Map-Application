@@ -1,5 +1,6 @@
 package grama.graph;
 
+import grama.calcule.matrix.Matrix;
 import grama.exceptions.FormatFileException;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Graph {
+
     private final List<Noeud> listNoeud;
 
     public Graph() {
@@ -73,6 +75,9 @@ public class Graph {
                 return node;
             }
         }
+        //si pas trouvé c'est qu'il doit être créé
+        //donc ajouté à la liste de neud
+        addNoeud(noeud);
         return noeud;
     }
 
@@ -92,7 +97,6 @@ public class Graph {
         fileContent = fileContent.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
 
         String[] eachNode = fileContent.split(";;");
-
 
         Noeud noeudPrincipal;
         List<Lien> liens;
@@ -116,7 +120,7 @@ public class Graph {
                 throw new FormatFileException(line);
             }
             String[] coupleLienNeoud = line.split(";");
-            liens = noeudPrincipal.getListLien();
+//            liens = noeudPrincipal.getListLien();
             for (String couple : coupleLienNeoud) {
                 String[] both = couple.split("::");
                 if (both.length != 2) {
@@ -138,11 +142,10 @@ public class Graph {
 
                 lien = getOrCreate(lien);
 
-                liens.add(lien);
+                noeudPrincipal.addLien(lien);
             }
             addNoeud(noeudPrincipal);
         }
-
 
     }
 }

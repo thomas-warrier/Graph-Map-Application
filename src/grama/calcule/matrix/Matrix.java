@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Matrix<T> {
 
-    private List<List<T>> matrix;
+    protected List<List<T>> matrix;
 
     public Matrix(int length, T defaut) {
         matrix = new ArrayList<List<T>>();
@@ -67,6 +67,10 @@ public class Matrix<T> {
 
     @Override
     public String toString() {
-        return "Matrix{" + "matrix=" + matrix + '}';
+        String str = "";
+        for (int i = 0; i < matrix.size(); i++) {
+            str += matrix.get(i) + "\n";
+        }
+        return str;
     }
 }
