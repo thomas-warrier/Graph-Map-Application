@@ -12,9 +12,7 @@ public class Noeud {
     private char typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
-
-    public Noeud(char newTypeLieu, String newNom)
-    {
+    public Noeud(char newTypeLieu, String newNom) {
         listLien = new LinkedList<>();
         this.typeLieu = newTypeLieu;
         this.nom = newNom;
@@ -33,13 +31,29 @@ public class Noeud {
     }
 
     public void addLien(Lien lien) {
-        listLien.add(lien);
+        if (!listLien.contains(lien)) {
+            listLien.add(lien);
+            lien.getDstADepartDe(this).addLien(lien);//doit aussi être ajouté dans l'autre sense
+        }
+    }
+
+    public Integer getDistanceTo(Noeud node) {
+        for (Lien lien : listLien) {
+            if (lien.getDstADepartDe(this).equals(node)) {
+                return lien.getKilometrage();
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Noeud noeud = (Noeud) o;
         return typeLieu == noeud.typeLieu && Objects.equals(nom, noeud.nom);
     }
