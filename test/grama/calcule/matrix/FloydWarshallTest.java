@@ -47,11 +47,11 @@ public class FloydWarshallTest {
 
         FloydWarshall f = FloydWarshall.initFloydWarshall(graphmap);
 
-        String wanted = "(0, null)	(30, V:Macon)	(50, V:Macon)	(60, V:Macon)	(65, V:Meyzieu)	\n"
-                + "(30, R:Les Echets)	(0, null)	(80, V:Macon)	(90, V:Macon)	(95, V:Meyzieu)	\n"
-                + "(50, V:Villeurbanne)	(80, V:Macon)	(0, null)	(110, V:Macon)	(115, V:Meyzieu)	\n"
-                + "(60, V:Meyzieu)	(90, V:Macon)	(110, V:Macon)	(0, null)	(5, V:Meyzieu)	\n"
-                + "(65, V:Meyzieu)	(95, V:Macon)	(115, V:Macon)	(5, R:McDo-Decines)	(0, null)	\n"
+        String wanted = "(0, null)	(30, ville:Macon)	(50, ville:Macon)	(60, ville:Macon)	(65, ville:Meyzieu)	\n"
+                + "(30, restaurant:Les Echets)	(0, null)	(80, ville:Macon)	(90, ville:Macon)	(95, ville:Meyzieu)	\n"
+                + "(50, ville:Villeurbanne)	(80, ville:Macon)	(0, null)	(110, ville:Macon)	(115, ville:Meyzieu)	\n"
+                + "(60, ville:Meyzieu)	(90, ville:Macon)	(110, ville:Macon)	(0, null)	(5, ville:Meyzieu)	\n"
+                + "(65, ville:Meyzieu)	(95, ville:Macon)	(115, ville:Macon)	(5, restaurant:McDo-Decines)	(0, null)	\n"
                 + "";
 
         assertEquals(f.resolve().toString(), wanted);
@@ -63,11 +63,11 @@ public class FloydWarshallTest {
 
         f = FloydWarshall.initFloydWarshall(graphmap);
 
-        wanted = "(0, null)	(30, V:Macon)	(50, V:Macon)	(60, V:Macon)	(65, V:Meyzieu)	\n"
-                + "(30, R:Les Echets)	(0, null)	(80, V:Macon)	(90, V:Macon)	(95, V:Meyzieu)	\n"
-                + "(50, V:Villeurbanne)	(80, V:Macon)	(0, null)	(110, V:Macon)	(115, V:Meyzieu)	\n"
-                + "(60, V:Meyzieu)	(90, V:Macon)	(110, V:Macon)	(0, null)	(5, V:Meyzieu)	\n"
-                + "(65, V:Meyzieu)	(95, V:Macon)	(115, V:Macon)	(5, R:McDo-Decines)	(0, null)	\n"
+        wanted = "(0, null)	(30, ville:Macon)	(50, ville:Macon)	(60, ville:Macon)	(65, ville:Meyzieu)	\n"
+                + "(30, restaurant:Les Echets)	(0, null)	(80, ville:Macon)	(90, ville:Macon)	(95, ville:Meyzieu)	\n"
+                + "(50, ville:Villeurbanne)	(80, ville:Macon)	(0, null)	(110, ville:Macon)	(115, ville:Meyzieu)	\n"
+                + "(60, ville:Meyzieu)	(90, ville:Macon)	(110, ville:Macon)	(0, null)	(5, ville:Meyzieu)	\n"
+                + "(65, ville:Meyzieu)	(95, ville:Macon)	(115, ville:Macon)	(5, restaurant:McDo-Decines)	(0, null)	\n"
                 + "";
 
         assertEquals(f.resolve().toString(), wanted);
@@ -87,11 +87,11 @@ public class FloydWarshallTest {
 
         FloydWarshall f = FloydWarshall.initFloydWarshall(graphmap);
 
-        String wanted = "(0, null)	(30, V:Macon)	(50, V:Macon)	(60, V:Macon)	(null, V:Macon)	\n"
-                + "(30, R:Les Echets)	(0, null)	(null, R:Les Echets)	(null, R:Les Echets)	(null, R:Les Echets)	\n"
-                + "(50, V:Villeurbanne)	(null, V:Villeurbanne)	(0, null)	(null, V:Villeurbanne)	(null, V:Villeurbanne)	\n"
-                + "(60, V:Meyzieu)	(null, V:Meyzieu)	(null, V:Meyzieu)	(0, null)	(5, V:Meyzieu)	\n"
-                + "(null, R:McDo-Decines)	(null, R:McDo-Decines)	(null, R:McDo-Decines)	(5, R:McDo-Decines)	(0, null)	\n"
+        String wanted = "(0, null)	(30, ville:Macon)	(50, ville:Macon)	(60, ville:Macon)	(null, ville:Macon)	\n"
+                + "(30, restaurant:Les Echets)	(0, null)	(null, restaurant:Les Echets)	(null, restaurant:Les Echets)	(null, restaurant:Les Echets)	\n"
+                + "(50, ville:Villeurbanne)	(null, ville:Villeurbanne)	(0, null)	(null, ville:Villeurbanne)	(null, ville:Villeurbanne)	\n"
+                + "(60, ville:Meyzieu)	(null, ville:Meyzieu)	(null, ville:Meyzieu)	(0, null)	(5, ville:Meyzieu)	\n"
+                + "(null, restaurant:McDo-Decines)	(null, restaurant:McDo-Decines)	(null, restaurant:McDo-Decines)	(5, restaurant:McDo-Decines)	(0, null)	\n"
                 + "";
 
         assertEquals(f.toString(), wanted);

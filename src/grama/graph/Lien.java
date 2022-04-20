@@ -38,7 +38,7 @@ public class Lien {
 
         @Override
         public String toString() {
-            return Character.toString(representativeChar);
+            return super.toString().toLowerCase();
         }
     }
 

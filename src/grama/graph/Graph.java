@@ -2,6 +2,7 @@ package grama.graph;
 
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,36 @@ public class Graph {
 
     public List<Noeud> getListNoeud() {
         return listNoeud;
+    }
+
+    /**
+     * possibilité de récuperer certain noeuds à la demande
+     *
+     * @param t
+     * @return
+     */
+    public List<Noeud> getListNoeudOfType(Noeud.Type t) {
+        List<Noeud> listNoeudOfType = new ArrayList<>();
+        for (Noeud noeud : getListNoeud()) {
+            if (noeud.getTypeLieu().isType(t)) {
+                listNoeudOfType.add(noeud);
+            }
+        }
+        return listNoeudOfType;
+    }
+
+    public List<Lien> getListLienOfType(Lien.Type t) {
+        List<Lien> listLienOfType = new ArrayList<>();
+
+        for (Noeud noeud : getListNoeud()) {
+            for (Lien lien : noeud.getListLien()) {
+                if (lien.getTypeLien().isType(t) && !listLienOfType.contains(lien)) {
+                    listLienOfType.add(lien);
+                }
+            }
+        }
+
+        return listLienOfType;
     }
 
     public void addNoeud(Noeud noeud) {
