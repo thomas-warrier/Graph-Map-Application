@@ -69,7 +69,11 @@ public class Matrix<T> {
     public String toString() {
         String str = "";
         for (int i = 0; i < matrix.size(); i++) {
-            str += matrix.get(i) + "\n";
+            
+            for(int j = 0 ; j < matrix.get(i).size() ; j++){
+                str += matrix.get(i).get(j) + "\t";
+            }
+            str += "\n";
         }
         return str;
     }

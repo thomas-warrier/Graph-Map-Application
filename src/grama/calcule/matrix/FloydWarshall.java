@@ -31,7 +31,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     public void resolve() {
-        for (int currStep = 1; currStep < matrix.size(); currStep++) {
+        for (int currStep = 0; currStep < matrix.size(); currStep++) {
             for (int row = 0; row < matrix.size(); row++) {
                 if (row == currStep) {
                     continue;
@@ -41,10 +41,10 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
                         continue;
                     }
 
-                    if (matrix.get(currStep).get(col).val != null && matrix.get(row).get(currStep).val != null) {//si additionne avec un infini (null) => forcément pas mieux
+                    if (row != col /*optimisation*/ && matrix.get(currStep).get(col).val != null && matrix.get(row).get(currStep).val != null) {//si additionne avec un infini (null) => forcément pas mieux
                         int sum = matrix.get(currStep).get(col).val + matrix.get(row).get(currStep).val;
                         Noeud previousNode = matrix.get(currStep).get(col).prec;
-                        if (matrix.get(row).get(col).val == null || sum > matrix.get(row).get(col).val) {//meilleur chemin, doit être changé
+                        if (matrix.get(row).get(col).val == null || sum < matrix.get(row).get(col).val) {//meilleur chemin, doit être changé
                             matrix.get(row).set(col, new Couple(sum, previousNode));
                         }
                     }

@@ -148,4 +148,17 @@ public class Graph {
         }
 
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        
+        for(Noeud node : getListNoeud()){
+            str += node + " = " + node.getListLien() + "\n";
+        }
+        return str;
+    }
+    
+    
+    
 }
