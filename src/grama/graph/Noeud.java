@@ -1,6 +1,7 @@
 package grama.graph;
 
 import grama.exceptions.MauvaisTypeException;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,8 +27,28 @@ public class Noeud {
         }
     }
 
+    public char getTypeLieu() {
+        return typeLieu;
+    }
+
     public List<Lien> getListLien() {
         return listLien;
+    }
+
+    /**
+     * Voisins à 1-saut (voisin direct) d'un certein type
+     *
+     * @param typeVoisins le type des voisins qui doivent être récuperer
+     * @return Liste des voisins direct du type typeVoisins
+     */
+    public List<Noeud> getVoisinsOfType(char typeVoisins) {
+        List<Noeud> voisins = new ArrayList<>();
+        for (Lien lien : getListLien()) {
+            if (lien.getDstADepartDe(this).getTypeLieu() == typeVoisins) {
+                voisins.add(lien.getDstADepartDe(this));
+            }
+        }
+        return voisins;
     }
 
     public void addLien(Lien lien) {
