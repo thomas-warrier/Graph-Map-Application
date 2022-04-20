@@ -75,7 +75,7 @@ public class Graph {
                 char typeNode = formatNode[0].charAt(0);
                 String nameNode = formatNode[1];
 
-                noeudPrincipal = new Noeud(typeNode, nameNode);
+                noeudPrincipal = new Noeud(Noeud.Type.getType(typeNode), nameNode);
 
                 noeudPrincipal = getOrCreate(noeudPrincipal);
 
@@ -100,8 +100,8 @@ public class Graph {
                 char typeDst = splitNeoudStr[0].charAt(0);
                 String nameDst = splitNeoudStr[1];
 
-                Noeud node = new Noeud(typeDst, nameDst);
-                Lien lien = new Lien(type, distance, noeudPrincipal, getOrCreate(node));
+                Noeud node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
+                Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
 
                 lien = getOrCreate(lien);
 
