@@ -1,8 +1,6 @@
 package grama.calcule.matrix;
 
 import grama.graph.Graph;
-import grama.graph.Noeud;
-import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,6 +56,21 @@ public class FloydWarshallTest {
 
         assertEquals(f.resolve().toString(), wanted);
 
+        graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;A,100::R,McDo-Decines;;\n"
+                + "R,Les Echets: A,30::V, Macon;;\n"
+                + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;N,500::V, Villeurbanne;;\n"
+                + "R,McDo-Decines:D,5::V,Meyzieu;;");
+
+        f = FloydWarshall.initFloydWarshall(graphmap);
+
+        wanted = "(0, null)	(30, V:Macon)	(50, V:Macon)	(60, V:Macon)	(65, V:Meyzieu)	\n"
+                + "(30, R:Les Echets)	(0, null)	(80, V:Macon)	(90, V:Macon)	(95, V:Meyzieu)	\n"
+                + "(50, V:Villeurbanne)	(80, V:Macon)	(0, null)	(110, V:Macon)	(115, V:Meyzieu)	\n"
+                + "(60, V:Meyzieu)	(90, V:Macon)	(110, V:Macon)	(0, null)	(5, V:Meyzieu)	\n"
+                + "(65, V:Meyzieu)	(95, V:Macon)	(115, V:Macon)	(5, R:McDo-Decines)	(0, null)	\n"
+                + "";
+
+        assertEquals(f.resolve().toString(), wanted);
     }
 
     /**
