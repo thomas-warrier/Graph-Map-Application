@@ -1,11 +1,8 @@
 package grama.graph;
 
-import grama.calcule.matrix.Matrix;
 import grama.exceptions.FormatFileException;
+import grama.formater.StringFormater;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -17,34 +14,6 @@ public class Graph {
 
     public Graph() {
         listNoeud = new LinkedList<>();
-    }
-
-    public static String readFile(File file) throws IOException {
-        if (file == null) {
-            return "";
-        }
-        int unsignedByte;
-
-        FileInputStream stream = new FileInputStream(file);
-        StringBuilder str = new StringBuilder();// more efficient than  StringBuffer
-        while ((unsignedByte = stream.read()) > -1) {
-            str.append((char) unsignedByte);
-        }
-
-        stream.close();
-        return str.toString();
-    }
-
-    private static String[] getCoupleFormatCharStr(String couple) throws FormatFileException {
-        String[] splited = couple.trim().split(",");
-        for (int i = 0; i < splited.length; i++) {
-            splited[i] = splited[i].trim();
-        }
-        if (splited.length != 2 || splited[0].length() != 1) {
-            throw new FormatFileException(couple);
-        }
-
-        return splited;
     }
 
     public List<Noeud> getListNoeud() {
@@ -89,24 +58,19 @@ public class Graph {
         return listNoeud.contains(noeud);
     }
 
-    public void loadFromFile(String path) throws IOException, FormatFileException { // compren throw notfilefound
-        File file = new File(path);
-
-        String fileContent = readFile(file);
-
-        fileContent = fileContent.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
+    public void loadFromString(String str) throws FormatFileException { // compren throw notfilefound
+        String fileContent = str.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
 
         String[] eachNode = fileContent.split(";;");
 
         Noeud noeudPrincipal;
-        List<Lien> liens;
 
         Pattern namePattern = Pattern.compile("^[^:]*");
         for (String line : eachNode) {
             Matcher mainNodeMatch = namePattern.matcher(line);
             if (mainNodeMatch.find()) {
                 String mainNode = mainNodeMatch.group();
-                String[] formatNode = getCoupleFormatCharStr(mainNode);
+                String[] formatNode = StringFormater.getCoupleFormatCharStr(mainNode);
 
                 char typeNode = formatNode[0].charAt(0);
                 String nameNode = formatNode[1];
@@ -120,7 +84,6 @@ public class Graph {
                 throw new FormatFileException(line);
             }
             String[] coupleLienNeoud = line.split(";");
-//            liens = noeudPrincipal.getListLien();
             for (String couple : coupleLienNeoud) {
                 String[] both = couple.split("::");
                 if (both.length != 2) {
@@ -129,11 +92,11 @@ public class Graph {
                 String lienStr = both[0];
                 String neoudStr = both[1];
 
-                String[] splitLienStr = getCoupleFormatCharStr(lienStr);
+                String[] splitLienStr = StringFormater.getCoupleFormatCharStr(lienStr);
                 char type = splitLienStr[0].charAt(0);
                 int distance = Integer.parseInt(splitLienStr[1]);
 
-                String[] splitNeoudStr = getCoupleFormatCharStr(neoudStr);
+                String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
                 char typeDst = splitNeoudStr[0].charAt(0);
                 String nameDst = splitNeoudStr[1];
 
@@ -146,19 +109,16 @@ public class Graph {
             }
             addNoeud(noeudPrincipal);
         }
-
     }
 
     @Override
     public String toString() {
         String str = "";
-        
-        for(Noeud node : getListNoeud()){
+
+        for (Noeud node : getListNoeud()) {
             str += node + " = " + node.getListLien() + "\n";
         }
         return str;
     }
-    
-    
-    
+
 }

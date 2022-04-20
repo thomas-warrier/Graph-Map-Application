@@ -71,12 +71,12 @@ public class MatrixTest {
             {7, 8, 9}
         };
         Matrix instance = new Matrix(arr);
-        String expResult = "[1, 2, 3]\n[4, 5, 6]\n[7, 8, 9]\n";
+        String expResult = "1\t2\t3\t\n4\t5\t6\t\n7\t8\t9\t\n";
         String result = instance.toString();
         assertEquals(expResult, result);
 
         instance = new Matrix(4, 0);
-        expResult = "[0, 0, 0, 0]\n[0, 0, 0, 0]\n[0, 0, 0, 0]\n[0, 0, 0, 0]\n";
+        expResult = "0\t0\t0\t0\t\n0\t0\t0\t0\t\n0\t0\t0\t0\t\n0\t0\t0\t0\t\n";
         result = instance.toString();
         assertEquals(expResult, result);
     }
