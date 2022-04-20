@@ -43,6 +43,11 @@ public class Lien {
         }
     }
 
+    public Noeud[] getDstAndDepart() {
+        Noeud[] both = {depart, destination};
+        return both;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
