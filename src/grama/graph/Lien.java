@@ -1,6 +1,10 @@
 package grama.graph;
 
 import grama.exceptions.MauvaisTypeException;
+import grama.formater.StringFormater;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import java.util.Objects;
 
@@ -105,5 +109,14 @@ public class Lien {
     @Override
     public String toString() {
         return typeLien + "," + kilometrage + " = " + depart + "->" + destination;
+    }
+
+    public void draw(Graphics g, Font font) {
+        g.drawLine(depart.getLastLocation().x, depart.getLastLocation().y, destination.getLastLocation().x, destination.getLastLocation().y);
+
+        Rectangle rect = new Rectangle(Math.min(depart.getLastLocation().x, destination.getLastLocation().x), Math.min(depart.getLastLocation().y, destination.getLastLocation().y),
+                Math.abs(depart.getLastLocation().x - destination.getLastLocation().x), Math.abs(depart.getLastLocation().y - destination.getLastLocation().y));
+
+        StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), rect, font);
     }
 }

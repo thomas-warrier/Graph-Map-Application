@@ -49,10 +49,8 @@ public class Graph {
 
     public List<Lien> getListLienOfType(Lien.Type t) {
         if (listLienOfType.containsKey(t)) {
-            System.out.println("exitst");
             return listLienOfType.get(t);
         } else {
-            System.out.println("searching");
             List<Lien> listLienOfSpecifiedType = new ArrayList<>();
 
             for (Noeud noeud : getListNoeud()) {
