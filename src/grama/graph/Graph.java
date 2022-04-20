@@ -3,6 +3,7 @@ package grama.graph;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +12,14 @@ import java.util.regex.Pattern;
 
 public class Graph {
 
-    private final List<Noeud> listNoeud;
+    private final List<Noeud> listNoeud;//pour simplifier on stocke la liste de tout les noeuds ici (poura être truové en double dans listNoeudOfType
+    private final HashMap<Noeud.Type, List<Noeud>> listNoeudOfType;
+    private final HashMap<Lien.Type, List<Lien>> listLienOfType;
 
     public Graph() {
         listNoeud = new LinkedList<>();
+        listNoeudOfType = new HashMap<>();
+        listLienOfType = new HashMap<>();
     }
 
     public List<Noeud> getListNoeud() {
@@ -28,27 +33,40 @@ public class Graph {
      * @return
      */
     public List<Noeud> getListNoeudOfType(Noeud.Type t) {
-        List<Noeud> listNoeudOfType = new ArrayList<>();
-        for (Noeud noeud : getListNoeud()) {
-            if (noeud.getTypeLieu().isType(t)) {
-                listNoeudOfType.add(noeud);
+        if (listNoeudOfType.containsKey(t)) {
+            return listNoeudOfType.get(t);
+        } else {
+            List<Noeud> listNoeudOfSpecifiedType = new ArrayList<>();
+            for (Noeud noeud : getListNoeud()) {
+                if (noeud.getTypeLieu().isType(t)) {
+                    listNoeudOfSpecifiedType.add(noeud);
+                }
             }
+            listNoeudOfType.put(t, listNoeudOfSpecifiedType);
+            return getListNoeudOfType(t);
         }
-        return listNoeudOfType;
     }
 
     public List<Lien> getListLienOfType(Lien.Type t) {
-        List<Lien> listLienOfType = new ArrayList<>();
+        if (listLienOfType.containsKey(t)) {
+            System.out.println("exitst");
+            return listLienOfType.get(t);
+        } else {
+            System.out.println("searching");
+            List<Lien> listLienOfSpecifiedType = new ArrayList<>();
 
-        for (Noeud noeud : getListNoeud()) {
-            for (Lien lien : noeud.getListLien()) {
-                if (lien.getTypeLien().isType(t) && !listLienOfType.contains(lien)) {
-                    listLienOfType.add(lien);
+            for (Noeud noeud : getListNoeud()) {
+                for (Lien lien : noeud.getListLien()) {
+                    if (lien.getTypeLien().isType(t) && !listLienOfSpecifiedType.contains(lien)) {
+                        listLienOfSpecifiedType.add(lien);
+                    }
                 }
             }
+
+            listLienOfType.put(t, listLienOfSpecifiedType);
+            return getListLienOfType(t);
         }
 
-        return listLienOfType;
     }
 
     public void addNoeud(Noeud noeud) {
