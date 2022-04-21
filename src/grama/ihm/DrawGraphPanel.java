@@ -46,10 +46,12 @@ public class DrawGraphPanel extends JPanel {
 
         setFont(font);
     }
+    
+    
 
     @Override
     protected void paintComponent(Graphics g) {
-        //lisage
+        //ANTIALIASING
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -58,17 +60,15 @@ public class DrawGraphPanel extends JPanel {
         double angleRot = (2 * Math.PI) / graph.getListNoeud().size();
 
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
-        Vector2D rayon = new Vector2D(Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2, 0);
+        Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
 
-        for (int i = 0; i < graph.getListNoeudOfType(typeNoeud).size(); i++) {
-            Vector2D pos = center.add(rayon.setOrientation(angleRot * i - (Math.PI / 2.0)));
-
-            graph.getListNoeudOfType(typeNoeud).get(i).draw(g, pos, getFont());
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            Vector2D pos = center.add(rayon);
+            noeud.draw(g, pos, getFont());
+            rayon = rayon.rotateOf(angleRot);
         }
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-            lien.draw(g, new Vector2D(0, 0), getFont());
+            lien.draw(g, null, getFont());
         }
-
     }
-
 }

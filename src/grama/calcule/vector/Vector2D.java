@@ -48,6 +48,14 @@ public class Vector2D {
         return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
     }
 
+    public double getOrientation() {
+        return Math.atan2(this.y, this.x);
+    }
+
+    public Vector2D rotateOf(double r) {
+        return this.setOrientation(r + this.getOrientation());
+    }
+
     public void draw(Graphics g) {
         g.fillOval((int) x - 5, (int) y - 5, 10, 10);
     }
