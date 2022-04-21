@@ -40,10 +40,6 @@ public class Vector2D {
         return this.div(this.norm());
     }
 
-    public Vector2D abs() {
-        return new Vector2D(Math.abs(this.x), Math.abs(this.y));
-    }
-
     public Vector2D setOrientation(double r) {
         return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
     }

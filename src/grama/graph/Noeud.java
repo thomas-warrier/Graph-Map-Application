@@ -4,10 +4,9 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import java.util.LinkedList;
@@ -59,6 +58,7 @@ public class Noeud implements Drawable {
     private Type typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
+    //affichage
     private Vector2D lastLocation;
 
     public Noeud(Type newTypeLieu, String newNom) {
@@ -139,7 +139,6 @@ public class Noeud implements Drawable {
 
     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
-
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 

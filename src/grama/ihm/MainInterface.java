@@ -1,8 +1,6 @@
 package grama.ihm;
 
 import grama.graph.Graph;
-import grama.graph.Lien;
-import grama.graph.Noeud;
 
 /**
  *
@@ -27,6 +25,7 @@ public class MainInterface extends javax.swing.JFrame {
         DrawGraphPanel d = new DrawGraphPanel(graphmap, getFont());
 
         getContentPane().add(d);
+        
     }
 
     /**
