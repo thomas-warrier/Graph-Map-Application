@@ -1,7 +1,9 @@
 package grama.graph;
 
+import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
+import grama.ihm.Drawable;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -12,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Noeud {
+public class Noeud implements Drawable {
 
     public static int DIAMETRE = 50;
 
@@ -57,7 +59,7 @@ public class Noeud {
     private Type typeLieu;  // V : ville , L : loisir , R : restaurant
     private final String nom;
 
-    private Point lastLocation;
+    private Vector2D lastLocation;
 
     public Noeud(Type newTypeLieu, String newNom) {
         listLien = new LinkedList<>();
@@ -135,15 +137,16 @@ public class Noeud {
         return typeLieu + ":" + nom;
     }
 
-    public void draw(Graphics g, int x, int y, Font font) {
-        Rectangle rect = new Rectangle(x - (DIAMETRE / 2), y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
-        g.drawOval(rect.x, rect.y, rect.width, rect.height);
-        StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), rect, font);
+    @Override
+    public void draw(Graphics g, Vector2D center, Font font) {
 
-        lastLocation = new Point(x, y);
+        g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
+        StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
+
+        lastLocation = center;
     }
 
-    public Point getLastLocation() {
+    public Vector2D getLastLocation() {
         return lastLocation;
     }
 

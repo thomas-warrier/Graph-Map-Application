@@ -1,9 +1,11 @@
 package grama.formater;
 
+import grama.calcule.vector.Vector2D;
 import grama.exceptions.FormatFileException;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,10 +45,13 @@ public class StringFormater {
         return splited;
     }
 
-    public static void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+    public static void drawCenteredString(Graphics g, String text, Vector2D location, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
-        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
-        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        Graphics2D g2d = (Graphics2D) g.create();
+        FontMetrics fm = g2d.getFontMetrics();
+
+        int x = (int) (location.x - fm.stringWidth(text) / 2.0);
+        int y = (int) (location.y - fm.getHeight() / 2.0) + fm.getAscent();
         g.setFont(font);
         g.drawString(text, x, y);
     }

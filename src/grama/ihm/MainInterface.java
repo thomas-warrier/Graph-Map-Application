@@ -1,6 +1,8 @@
 package grama.ihm;
 
 import grama.graph.Graph;
+import grama.graph.Lien;
+import grama.graph.Noeud;
 
 /**
  *
@@ -19,7 +21,8 @@ public class MainInterface extends javax.swing.JFrame {
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
                 + "R,Les Echets: A,30::V, Macon;;\n"
                 + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
-                + "R,McDo-Decines:D,5::V,Meyzieu;;");
+                + "R,McDo-Decines:D,5::V,Meyzieu;;\n"
+                + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
 
         DrawGraphPanel d = new DrawGraphPanel(graphmap, getFont());
 
@@ -66,6 +69,40 @@ public class MainInterface extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                MainInterface mainInterface = new MainInterface();
+                mainInterface.setLocationRelativeTo(null);
+                mainInterface.setVisible(true);
+            }
+        });
+    }
+
+    public static void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
