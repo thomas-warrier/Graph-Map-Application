@@ -53,18 +53,17 @@ public class DrawGraphPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
+
         //draw les noeuds et liens entre ces noeuds
         double angleRot = (2 * Math.PI) / graph.getListNoeud().size();
-        int rayon = Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2;
 
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
+        Vector2D rayon = new Vector2D(Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2, 0);
 
         for (int i = 0; i < graph.getListNoeudOfType(typeNoeud).size(); i++) {
+            Vector2D pos = center.add(rayon.setOrientation(angleRot * i - (Math.PI / 2.0)));
 
-            double x = center.x + Math.sin(angleRot * i) * rayon;
-            double y = center.y - Math.cos(angleRot * i) * rayon;
-            graph.getListNoeudOfType(typeNoeud).get(i).draw(g, new Vector2D(x, y), getFont());
+            graph.getListNoeudOfType(typeNoeud).get(i).draw(g, pos, getFont());
         }
         for (Lien lien : graph.getListLienOfType(typeLien)) {
             lien.draw(g, new Vector2D(0, 0), getFont());

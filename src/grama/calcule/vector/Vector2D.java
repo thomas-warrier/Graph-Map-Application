@@ -43,9 +43,13 @@ public class Vector2D {
     public Vector2D abs() {
         return new Vector2D(Math.abs(this.x), Math.abs(this.y));
     }
-    
-    public void draw(Graphics g){
-        g.fillOval((int)x-5, (int)y-5, 10, 10);
+
+    public Vector2D setOrientation(double r) {
+        return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
+    }
+
+    public void draw(Graphics g) {
+        g.fillOval((int) x - 5, (int) y - 5, 10, 10);
     }
 
     @Override
