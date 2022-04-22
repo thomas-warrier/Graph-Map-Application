@@ -38,7 +38,7 @@ public class Graph {
         } else {
             List<Noeud> listNoeudOfSpecifiedType = new ArrayList<>();
             for (Noeud noeud : getListNoeud()) {
-                if (noeud.getTypeLieu().isType(t)) {
+                if (noeud.getTypeLieu().is(t)) {
                     listNoeudOfSpecifiedType.add(noeud);
                 }
             }
@@ -55,7 +55,7 @@ public class Graph {
 
             for (Noeud noeud : getListNoeud()) {
                 for (Lien lien : noeud.getListLien()) {
-                    if (lien.getTypeLien().isType(t) && !listLienOfSpecifiedType.contains(lien)) {
+                    if (lien.getTypeLien().is(t) && !listLienOfSpecifiedType.contains(lien)) {
                         listLienOfSpecifiedType.add(lien);
                     }
                 }
