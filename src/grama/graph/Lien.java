@@ -4,37 +4,34 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 
 import java.util.Objects;
 
 public class Lien implements Drawable {
-    
+
     public enum Type {
         AUTOROUTE('A'),
         NATIONAL('N'),
         DEPARTEMENTAL('D'),
-        ALL('+'),
-        NONE('-');
-        
+        ALL('*'),
+        NONE('\0');
+
         private final char representativeChar;
-        
+
         Type(char c) {
             this.representativeChar = c;
         }
-        
+
         public char getRepresentativeChar() {
             return representativeChar;
         }
-        
-        public boolean isType(Type t) {
-            return this == t || t == Type.ALL;
+
+        public boolean is(Type t) {
+            return this == t || t == ALL || this == ALL;
         }
-        
+
         public static Type getType(char c) {
             for (Type t : Type.values()) {
                 if (t.representativeChar == c) {
@@ -43,13 +40,13 @@ public class Lien implements Drawable {
             }
             return Type.NONE;
         }
-        
+
         @Override
         public String toString() {
             return super.toString().toLowerCase();
         }
     }
-    
+
     private final int kilometrage;
     private final Noeud destination;
     private final Noeud depart;
@@ -61,24 +58,24 @@ public class Lien implements Drawable {
         this.destination = destination;
         this.depart = depart;
     }
-    
+
     public Type getTypeLien() {
         return typeLien;
     }
-    
+
     public void setTypeLien(Type typeLien) {
         if (typeLien != Type.NONE && typeLien != Type.ALL) {
             this.typeLien = typeLien;
         } else {
             throw new MauvaisTypeException();
         }
-        
+
     }
-    
+
     public int getKilometrage() {
         return kilometrage;
     }
-    
+
     public Noeud getDstADepartDe(Noeud node) {//si plusieur le qqlq return
         if (node.equals(destination)) {
             return depart;
@@ -86,12 +83,12 @@ public class Lien implements Drawable {
             return destination;
         }
     }
-    
+
     public Noeud[] getDstAndDepart() {
         Noeud[] both = {depart, destination};
         return both;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,17 +101,17 @@ public class Lien implements Drawable {
         return typeLien == lien.typeLien && kilometrage == lien.kilometrage && (Objects.equals(destination, lien.destination)
                 && Objects.equals(depart, lien.depart) || Objects.equals(destination, lien.depart) && Objects.equals(depart, lien.destination));
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(typeLien, kilometrage, destination, depart);
     }
-    
+
     @Override
     public String toString() {
         return typeLien + "," + kilometrage + " = " + depart + "->" + destination;
     }
-    
+
     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
@@ -124,11 +121,11 @@ public class Lien implements Drawable {
         Vector2D arriver = new Vector2D(destination.getLastLocation().x, destination.getLastLocation().y);
         Vector2D line = new Vector2D(destination.getLastLocation().x - depart.getLastLocation().x, destination.getLastLocation().y - depart.getLastLocation().y);
         Vector2D rayon = line.unitaire().mul((Noeud.DIAMETRE / 2.0));
-        
+
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
-        
+
         center = debut.add(line.div(4));
         StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), center, font);
     }
