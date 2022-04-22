@@ -4,7 +4,6 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -21,8 +20,8 @@ public class Noeud implements Drawable {
         VILLE('V'),
         LOISIR('L'),
         RESTAURANT('R'),
-        ALL('+'),
-        NONE('-');
+        ALL('*'),
+        NONE('\0');
 
         private final char representativeChar;
 
@@ -34,8 +33,8 @@ public class Noeud implements Drawable {
             return representativeChar;
         }
 
-        public boolean isType(Type t) {
-            return this == t || t == Type.ALL;
+        public boolean is(Type t) {
+            return this == t || t == ALL || this == ALL;
         }
 
         public static Type getType(char c) {
