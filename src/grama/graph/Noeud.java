@@ -74,6 +74,12 @@ public class Noeud implements Drawable {
         }
     }
 
+    public String getNom() {
+        return nom;
+    }
+    
+    
+
     public Type getTypeLieu() {
         return typeLieu;
     }
@@ -81,6 +87,7 @@ public class Noeud implements Drawable {
     public List<Lien> getListLien() {
         return listLien;
     }
+    
 
     /**
      * Voisins à 1-saut (voisin direct) d'un certein type

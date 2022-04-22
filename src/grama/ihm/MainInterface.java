@@ -1,12 +1,22 @@
 package grama.ihm;
 
+import grama.formater.StringFormater;
 import grama.graph.Graph;
+import grama.graph.Lien;
+import java.awt.Component;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author wwwazz
  */
-public class MainInterface extends javax.swing.JFrame {
+public class MainInterface extends javax.swing.JFrame implements Updatable {
+
+    DrawGraphPanel drawGraphPanel;
 
     /**
      * Creates new form MainInterface
@@ -22,10 +32,11 @@ public class MainInterface extends javax.swing.JFrame {
                 + "R,McDo-Decines:D,5::V,Meyzieu;;\n"
                 + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
 
-        DrawGraphPanel d = new DrawGraphPanel(graphmap, getFont());
+        drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
+        splitPanel.setRightComponent(drawGraphPanel);
+        splitPanel.setDividerLocation(0.25);
 
-        getContentPane().add(d);
-        
+        this.update();
     }
 
     /**
@@ -36,6 +47,27 @@ public class MainInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        splitPanel = new javax.swing.JSplitPane();
+        infoPanel = new javax.swing.JPanel();
+        infoGenralPanel = new javax.swing.JPanel();
+        infoLieuPanel = new javax.swing.JPanel();
+        nbrLieuLabel = new javax.swing.JLabel();
+        nbrLieuOutputLabel = new javax.swing.JLabel();
+        titleGenralInfoLabel = new javax.swing.JLabel();
+        infoRoutePanel = new javax.swing.JPanel();
+        nbrRouteLabel = new javax.swing.JLabel();
+        nbrRouteOutputLabel = new javax.swing.JLabel();
+        infoSelectedPanel = new javax.swing.JPanel();
+        nameSelectedPanel = new javax.swing.JPanel();
+        titleSelectedInfoLabel = new javax.swing.JLabel();
+        nameSelectedLabel = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        typeSelectedPanel = new javax.swing.JPanel();
+        typeLabel = new javax.swing.JLabel();
+        typeSelectedLabel = new javax.swing.JLabel();
+        ouvetureSelectedPanel = new javax.swing.JPanel();
+        ouvertureLabel = new javax.swing.JLabel();
+        ouvertureSelectedLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -48,10 +80,97 @@ public class MainInterface extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(720, 480));
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        splitPanel.setDividerLocation(200);
+        splitPanel.setDividerSize(4);
+        splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        infoPanel.setBackground(new java.awt.Color(0, 0, 0));
+        infoPanel.setLayout(new java.awt.GridLayout(2, 0, 0, 1));
+
+        infoGenralPanel.setLayout(new javax.swing.BoxLayout(infoGenralPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        infoLieuPanel.setLayout(new java.awt.BorderLayout());
+
+        nbrLieuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLieuLabel.setText("nombre lieux : ");
+        infoLieuPanel.add(nbrLieuLabel, java.awt.BorderLayout.LINE_START);
+
+        nbrLieuOutputLabel.setText("null");
+        infoLieuPanel.add(nbrLieuOutputLabel, java.awt.BorderLayout.LINE_END);
+
+        titleGenralInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        titleGenralInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleGenralInfoLabel.setText("Général");
+        infoLieuPanel.add(titleGenralInfoLabel, java.awt.BorderLayout.PAGE_START);
+
+        infoGenralPanel.add(infoLieuPanel);
+
+        infoRoutePanel.setLayout(new java.awt.BorderLayout());
+
+        nbrRouteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrRouteLabel.setText("nombre routes : ");
+        infoRoutePanel.add(nbrRouteLabel, java.awt.BorderLayout.LINE_START);
+
+        nbrRouteOutputLabel.setText("null");
+        infoRoutePanel.add(nbrRouteOutputLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoRoutePanel);
+
+        infoPanel.add(infoGenralPanel);
+
+        infoSelectedPanel.setLayout(new javax.swing.BoxLayout(infoSelectedPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        nameSelectedPanel.setLayout(new java.awt.BorderLayout());
+
+        titleSelectedInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        titleSelectedInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleSelectedInfoLabel.setText("Selected element");
+        nameSelectedPanel.add(titleSelectedInfoLabel, java.awt.BorderLayout.PAGE_START);
+
+        nameSelectedLabel.setText("null");
+        nameSelectedPanel.add(nameSelectedLabel, java.awt.BorderLayout.LINE_END);
+
+        nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nameLabel.setText("name : ");
+        nameSelectedPanel.add(nameLabel, java.awt.BorderLayout.LINE_START);
+
+        infoSelectedPanel.add(nameSelectedPanel);
+
+        typeSelectedPanel.setLayout(new java.awt.BorderLayout());
+
+        typeLabel.setText("type : ");
+        typeSelectedPanel.add(typeLabel, java.awt.BorderLayout.LINE_START);
+
+        typeSelectedLabel.setText("null");
+        typeSelectedPanel.add(typeSelectedLabel, java.awt.BorderLayout.LINE_END);
+
+        infoSelectedPanel.add(typeSelectedPanel);
+
+        ouvetureSelectedPanel.setLayout(new java.awt.BorderLayout());
+
+        ouvertureLabel.setText("ouverture : ");
+        ouvetureSelectedPanel.add(ouvertureLabel, java.awt.BorderLayout.LINE_START);
+
+        ouvertureSelectedLabel.setText("null");
+        ouvetureSelectedPanel.add(ouvertureSelectedLabel, java.awt.BorderLayout.LINE_END);
+
+        infoSelectedPanel.add(ouvetureSelectedPanel);
+
+        infoPanel.add(infoSelectedPanel);
+
+        splitPanel.setLeftComponent(infoPanel);
+
+        getContentPane().add(splitPanel, "card2");
+
         fileMenu.setText("Fichier");
 
         OpenMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         OpenMenuItem.setText("Ouvrir");
+        OpenMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(OpenMenuItem);
 
         jMenuBar1.add(fileMenu);
@@ -63,6 +182,66 @@ public class MainInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OpenMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenMenuItemActionPerformed
+        openFile();
+    }//GEN-LAST:event_OpenMenuItemActionPerformed
+
+    /**
+     * show a dialog window for a warning
+     *
+     * @param parent the parent Component of this new dialog window
+     * @param msg the message do display in this new dialog window
+     */
+    private void showWarningDialog(Component parent, String msg) {
+        JOptionPane.showMessageDialog(parent, msg, "Bloc-notes", JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * show a dialog window for warn about the read right of a file
+     *
+     * @param file the file with wrong right.
+     */
+    private void showReadRightWarning(File file) {
+        showWarningDialog(this, file.getAbsolutePath() + "\nVous n'avez pas l'autorisation d'ouvrir ce fichier. Consultez le propriétaire du fichier ou un administrateur pour obtenir cette autorisation");
+
+    }
+
+    /**
+     * launch a graphical way to open a file
+     */
+    private void openFile() {
+        JFileChooser fileOpen = new JFileChooser();
+        fileOpen.setMultiSelectionEnabled(false);
+        fileOpen.setFileFilter(new FileNameExtensionFilter("fichier en .csv", "csv"));
+
+        int res = fileOpen.showOpenDialog(this);
+        File file = fileOpen.getSelectedFile();
+        while (res == JFileChooser.APPROVE_OPTION && file != null && !file.canRead()) {
+            showReadRightWarning(file);
+            res = fileOpen.showOpenDialog(this);
+            file = fileOpen.getSelectedFile();
+        }
+
+        if (res == JFileChooser.APPROVE_OPTION) {
+            String txt;
+            try {
+                txt = StringFormater.readFile(file);
+                if (txt != null) {
+
+                    Graph graphmap = new Graph();
+
+                    graphmap.loadFromString(txt);
+                    drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
+                    splitPanel.setRightComponent(drawGraphPanel);
+
+                    update();
+                }
+            } catch (IOException ex) {
+                showReadRightWarning(file);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -126,12 +305,10 @@ public class MainInterface extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MainInterface mainInterface = new MainInterface();
-                mainInterface.setLocationRelativeTo(null);
-                mainInterface.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            MainInterface mainInterface = new MainInterface();
+            mainInterface.setLocationRelativeTo(null);
+            mainInterface.setVisible(true);
         });
     }
 
@@ -139,6 +316,48 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem OpenMenuItem;
     private javax.swing.JMenu ViewMenu;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JPanel infoGenralPanel;
+    private javax.swing.JPanel infoLieuPanel;
+    private javax.swing.JPanel infoPanel;
+    private javax.swing.JPanel infoRoutePanel;
+    private javax.swing.JPanel infoSelectedPanel;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel nameSelectedLabel;
+    private javax.swing.JPanel nameSelectedPanel;
+    private javax.swing.JLabel nbrLieuLabel;
+    private javax.swing.JLabel nbrLieuOutputLabel;
+    private javax.swing.JLabel nbrRouteLabel;
+    private javax.swing.JLabel nbrRouteOutputLabel;
+    private javax.swing.JLabel ouvertureLabel;
+    private javax.swing.JLabel ouvertureSelectedLabel;
+    private javax.swing.JPanel ouvetureSelectedPanel;
+    private javax.swing.JSplitPane splitPanel;
+    private javax.swing.JLabel titleGenralInfoLabel;
+    private javax.swing.JLabel titleSelectedInfoLabel;
+    private javax.swing.JLabel typeLabel;
+    private javax.swing.JLabel typeSelectedLabel;
+    private javax.swing.JPanel typeSelectedPanel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        if (drawGraphPanel == null) {
+            return;
+        }
+        //Général
+        nbrLieuOutputLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeud().size()));
+        nbrRouteOutputLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
+
+        //Selected
+        if (drawGraphPanel.getSelectedNode() != null) {
+            nameSelectedLabel.setText(drawGraphPanel.getSelectedNode().getNom());
+            typeSelectedLabel.setText(drawGraphPanel.getSelectedNode().getTypeLieu().toString());
+            ouvertureSelectedLabel.setText(String.valueOf(drawGraphPanel.getSelectedNode().getListLien().size()));
+        } else {
+            nameSelectedLabel.setText("null");
+            typeSelectedLabel.setText("null");
+            ouvertureSelectedLabel.setText("null");
+        }
+    }
 }

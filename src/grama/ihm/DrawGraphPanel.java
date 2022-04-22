@@ -25,11 +25,23 @@ public class DrawGraphPanel extends JPanel {
 
     private Noeud selectedNode;
 
-    public DrawGraphPanel(Graph graph, Font font) {
+    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
         this.graph = graph;
-        typeNoeud = Noeud.Type.ALL;
-        typeLien = Lien.Type.ALL;
+        this.typeNoeud = Noeud.Type.ALL;
+        this.typeLien = Lien.Type.ALL;
 
+        this.init(parentFrame, font);
+    }
+
+    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
+        this.graph = graph;
+        this.typeNoeud = typeNoeud;
+        this.typeLien = typeLien;
+
+        this.init(parentFrame, font);
+    }
+
+    private void init(Updatable parentFrame, Font font) {
         setLayout(new BorderLayout());
 
         setMinimumSize(new Dimension(200, 200));
@@ -38,32 +50,19 @@ public class DrawGraphPanel extends JPanel {
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("clicked");
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
                         continue;
                     }
                     if (noeud.getLastLocation().sub(mousePos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
-                        System.out.println(noeud);
                         selectedNode = noeud;
                     }
                 }
                 repaint();
+                parentFrame.update();
             }
         });
-    }
-
-    public DrawGraphPanel(Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
-        this.graph = graph;
-        this.typeNoeud = typeNoeud;
-        this.typeLien = typeLien;
-
-        setLayout(new BorderLayout());
-
-        setMinimumSize(new Dimension(200, 200));
-
-        setFont(font);
     }
 
     @Override
@@ -96,5 +95,14 @@ public class DrawGraphPanel extends JPanel {
             lien.draw(g, null, getFont());
         }
     }
+
+    public Noeud getSelectedNode() {
+        return selectedNode;
+    }
+
+    public Graph getGraph() {
+        return graph;
+    }
+    
 
 }
