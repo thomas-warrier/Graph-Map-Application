@@ -3,9 +3,12 @@ package grama.ihm;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
 import grama.graph.Lien;
+import grama.graph.Noeud;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,7 +19,34 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
-    DrawGraphPanel drawGraphPanel;
+    enum ViewMode {
+        AFFICHAGE(1),
+        VOISIN_DIRECT(1),
+        VOISIN2ND(1),
+        COMPARAISON(2),
+        CHEMIN(2);
+
+        private final int nbrSelectableNode;
+
+        private ViewMode(int a) {
+            this.nbrSelectableNode = a;
+        }
+
+        public int getNbrSelectableNode() {
+            return nbrSelectableNode;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+
+    }
+
+    private DrawGraphPanel drawGraphPanel;
+    private ViewMode currMode = ViewMode.AFFICHAGE;
+
+    private ButtonGroup groupView = new ButtonGroup();
 
     /**
      * Creates new form MainInterface
@@ -36,6 +66,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         splitPanel.setRightComponent(drawGraphPanel);
         splitPanel.setDividerLocation(0.25);
 
+        groupView.add(principalMenuItem);
+        groupView.add(affichageMenuItem);
+        groupView.add(voisinDirectMenuItem);
+        groupView.add(voisin2ndMenuItem);
+        groupView.add(comparaisonMenuItem);
+        groupView.add(cheminMenuItem);
+
         this.update();
     }
 
@@ -48,15 +85,34 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private void initComponents() {
 
         splitPanel = new javax.swing.JSplitPane();
+        leftPanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         infoGenralPanel = new javax.swing.JPanel();
-        infoLieuPanel = new javax.swing.JPanel();
+        infoPanel1 = new javax.swing.JPanel();
+        nbrLabel = new javax.swing.JLabel();
         nbrLieuLabel = new javax.swing.JLabel();
-        nbrLieuOutputLabel = new javax.swing.JLabel();
         titleGenralInfoLabel = new javax.swing.JLabel();
-        infoRoutePanel = new javax.swing.JPanel();
+        infoPanel2 = new javax.swing.JPanel();
+        nbrLabel1 = new javax.swing.JLabel();
+        nbrVilleLabel = new javax.swing.JLabel();
+        infoPanel3 = new javax.swing.JPanel();
+        nbrLabel2 = new javax.swing.JLabel();
+        nbrRestoLabel = new javax.swing.JLabel();
+        infoPanel4 = new javax.swing.JPanel();
+        nbrLabel3 = new javax.swing.JLabel();
+        nbrLoisirLabel = new javax.swing.JLabel();
+        infoPanel5 = new javax.swing.JPanel();
+        nbrLabel4 = new javax.swing.JLabel();
         nbrRouteLabel = new javax.swing.JLabel();
-        nbrRouteOutputLabel = new javax.swing.JLabel();
+        infoPanel6 = new javax.swing.JPanel();
+        nbrLabel5 = new javax.swing.JLabel();
+        nbrDepartementalLabel = new javax.swing.JLabel();
+        infoPanel7 = new javax.swing.JPanel();
+        nbrLabel6 = new javax.swing.JLabel();
+        nbrNationalLabel = new javax.swing.JLabel();
+        infoPanel8 = new javax.swing.JPanel();
+        nbrLabel7 = new javax.swing.JLabel();
+        nbrAutorouteLabel = new javax.swing.JLabel();
         infoSelectedPanel = new javax.swing.JPanel();
         nameSelectedPanel = new javax.swing.JPanel();
         titleSelectedInfoLabel = new javax.swing.JLabel();
@@ -68,53 +124,136 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         ouvetureSelectedPanel = new javax.swing.JPanel();
         ouvertureLabel = new javax.swing.JLabel();
         ouvertureSelectedLabel = new javax.swing.JLabel();
+        voisinDirectPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        voisin2Panel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        comparaisonPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cheminPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
         ViewMenu = new javax.swing.JMenu();
+        principalMenuItem = new javax.swing.JRadioButtonMenuItem();
+        affichageMenuItem = new javax.swing.JRadioButtonMenuItem();
+        voisinDirectMenuItem = new javax.swing.JRadioButtonMenuItem();
+        voisin2ndMenuItem = new javax.swing.JRadioButtonMenuItem();
+        comparaisonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        cheminMenuItem = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grama");
         setMinimumSize(new java.awt.Dimension(144, 144));
         setPreferredSize(new java.awt.Dimension(720, 480));
         setSize(new java.awt.Dimension(720, 480));
-        getContentPane().setLayout(new java.awt.CardLayout());
 
         splitPanel.setDividerLocation(200);
-        splitPanel.setDividerSize(4);
+        splitPanel.setResizeWeight(0.1);
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        leftPanel.setLayout(new java.awt.CardLayout());
+
         infoPanel.setBackground(new java.awt.Color(0, 0, 0));
-        infoPanel.setLayout(new java.awt.GridLayout(2, 0, 0, 1));
+        infoPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
 
         infoGenralPanel.setLayout(new javax.swing.BoxLayout(infoGenralPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        infoLieuPanel.setLayout(new java.awt.BorderLayout());
+        infoPanel1.setLayout(new java.awt.BorderLayout());
 
-        nbrLieuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nbrLieuLabel.setText("nombre lieux : ");
-        infoLieuPanel.add(nbrLieuLabel, java.awt.BorderLayout.LINE_START);
+        nbrLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        nbrLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel.setText("nombre lieux : ");
+        infoPanel1.add(nbrLabel, java.awt.BorderLayout.LINE_START);
 
-        nbrLieuOutputLabel.setText("null");
-        infoLieuPanel.add(nbrLieuOutputLabel, java.awt.BorderLayout.LINE_END);
+        nbrLieuLabel.setText("null");
+        infoPanel1.add(nbrLieuLabel, java.awt.BorderLayout.LINE_END);
 
         titleGenralInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         titleGenralInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleGenralInfoLabel.setText("Général");
-        infoLieuPanel.add(titleGenralInfoLabel, java.awt.BorderLayout.PAGE_START);
+        infoPanel1.add(titleGenralInfoLabel, java.awt.BorderLayout.PAGE_START);
 
-        infoGenralPanel.add(infoLieuPanel);
+        infoGenralPanel.add(infoPanel1);
 
-        infoRoutePanel.setLayout(new java.awt.BorderLayout());
+        infoPanel2.setLayout(new java.awt.BorderLayout());
 
-        nbrRouteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nbrRouteLabel.setText("nombre routes : ");
-        infoRoutePanel.add(nbrRouteLabel, java.awt.BorderLayout.LINE_START);
+        nbrLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel1.setText("nombre ville : ");
+        infoPanel2.add(nbrLabel1, java.awt.BorderLayout.LINE_START);
 
-        nbrRouteOutputLabel.setText("null");
-        infoRoutePanel.add(nbrRouteOutputLabel, java.awt.BorderLayout.LINE_END);
+        nbrVilleLabel.setText("null");
+        infoPanel2.add(nbrVilleLabel, java.awt.BorderLayout.LINE_END);
 
-        infoGenralPanel.add(infoRoutePanel);
+        infoGenralPanel.add(infoPanel2);
+
+        infoPanel3.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel2.setText("nombre restaurant : ");
+        infoPanel3.add(nbrLabel2, java.awt.BorderLayout.LINE_START);
+
+        nbrRestoLabel.setText("null");
+        infoPanel3.add(nbrRestoLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel3);
+
+        infoPanel4.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel3.setText("nombre loisir : ");
+        infoPanel4.add(nbrLabel3, java.awt.BorderLayout.LINE_START);
+
+        nbrLoisirLabel.setText("null");
+        infoPanel4.add(nbrLoisirLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel4);
+
+        infoPanel5.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel4.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        nbrLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel4.setText("nombre routes : ");
+        infoPanel5.add(nbrLabel4, java.awt.BorderLayout.LINE_START);
+
+        nbrRouteLabel.setText("null");
+        infoPanel5.add(nbrRouteLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel5);
+
+        infoPanel6.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel5.setText("nombre departemental : ");
+        infoPanel6.add(nbrLabel5, java.awt.BorderLayout.LINE_START);
+
+        nbrDepartementalLabel.setText("null");
+        infoPanel6.add(nbrDepartementalLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel6);
+
+        infoPanel7.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel6.setText("nombre national : ");
+        infoPanel7.add(nbrLabel6, java.awt.BorderLayout.LINE_START);
+
+        nbrNationalLabel.setText("null");
+        infoPanel7.add(nbrNationalLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel7);
+
+        infoPanel8.setLayout(new java.awt.BorderLayout());
+
+        nbrLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nbrLabel7.setText("nombre autoroute : ");
+        infoPanel8.add(nbrLabel7, java.awt.BorderLayout.LINE_START);
+
+        nbrAutorouteLabel.setText("null");
+        infoPanel8.add(nbrAutorouteLabel, java.awt.BorderLayout.LINE_END);
+
+        infoGenralPanel.add(infoPanel8);
 
         infoPanel.add(infoGenralPanel);
 
@@ -124,14 +263,14 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         titleSelectedInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         titleSelectedInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleSelectedInfoLabel.setText("Selected element");
+        titleSelectedInfoLabel.setText("Élement selectionné");
         nameSelectedPanel.add(titleSelectedInfoLabel, java.awt.BorderLayout.PAGE_START);
 
         nameSelectedLabel.setText("null");
         nameSelectedPanel.add(nameSelectedLabel, java.awt.BorderLayout.LINE_END);
 
         nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nameLabel.setText("name : ");
+        nameLabel.setText("nom : ");
         nameSelectedPanel.add(nameLabel, java.awt.BorderLayout.LINE_START);
 
         infoSelectedPanel.add(nameSelectedPanel);
@@ -158,9 +297,31 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         infoPanel.add(infoSelectedPanel);
 
-        splitPanel.setLeftComponent(infoPanel);
+        leftPanel.add(infoPanel, "affichage");
 
-        getContentPane().add(splitPanel, "card2");
+        jLabel1.setText("voisins direct");
+        voisinDirectPanel.add(jLabel1);
+
+        leftPanel.add(voisinDirectPanel, "voisin_direct");
+
+        jLabel2.setText("voisin 2 saut");
+        voisin2Panel.add(jLabel2);
+
+        leftPanel.add(voisin2Panel, "voisin2nd");
+
+        jLabel3.setText("comparaison");
+        comparaisonPanel.add(jLabel3);
+
+        leftPanel.add(comparaisonPanel, "comparaison");
+
+        jLabel4.setText("Chemin");
+        cheminPanel.add(jLabel4);
+
+        leftPanel.add(cheminPanel, "chemin");
+
+        splitPanel.setLeftComponent(leftPanel);
+
+        getContentPane().add(splitPanel, java.awt.BorderLayout.CENTER);
 
         fileMenu.setText("Fichier");
 
@@ -176,6 +337,60 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         jMenuBar1.add(fileMenu);
 
         ViewMenu.setText("Vue");
+        ViewMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewMenuActionPerformed(evt);
+            }
+        });
+
+        principalMenuItem.setText("principal");
+        ViewMenu.add(principalMenuItem);
+
+        affichageMenuItem.setSelected(true);
+        affichageMenuItem.setText("affichage");
+        affichageMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                affichageMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(affichageMenuItem);
+
+        voisinDirectMenuItem.setSelected(true);
+        voisinDirectMenuItem.setText("voisins direct");
+        voisinDirectMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voisinDirectMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(voisinDirectMenuItem);
+
+        voisin2ndMenuItem.setSelected(true);
+        voisin2ndMenuItem.setText("voisins 2 sauts");
+        voisin2ndMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voisin2ndMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(voisin2ndMenuItem);
+
+        comparaisonMenuItem.setSelected(true);
+        comparaisonMenuItem.setText("comparaison");
+        comparaisonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comparaisonMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(comparaisonMenuItem);
+
+        cheminMenuItem.setSelected(true);
+        cheminMenuItem.setText("chemin");
+        cheminMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cheminMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(cheminMenuItem);
+
         jMenuBar1.add(ViewMenu);
 
         setJMenuBar(jMenuBar1);
@@ -186,6 +401,30 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private void OpenMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenMenuItemActionPerformed
         openFile();
     }//GEN-LAST:event_OpenMenuItemActionPerformed
+
+    private void ViewMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewMenuActionPerformed
+
+    }//GEN-LAST:event_ViewMenuActionPerformed
+
+    private void voisinDirectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voisinDirectMenuItemActionPerformed
+        switchToMode(ViewMode.VOISIN_DIRECT);
+    }//GEN-LAST:event_voisinDirectMenuItemActionPerformed
+
+    private void affichageMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_affichageMenuItemActionPerformed
+        switchToMode(ViewMode.AFFICHAGE);
+    }//GEN-LAST:event_affichageMenuItemActionPerformed
+
+    private void voisin2ndMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voisin2ndMenuItemActionPerformed
+        switchToMode(ViewMode.VOISIN2ND);
+    }//GEN-LAST:event_voisin2ndMenuItemActionPerformed
+
+    private void cheminMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheminMenuItemActionPerformed
+        switchToMode(ViewMode.CHEMIN);
+    }//GEN-LAST:event_cheminMenuItemActionPerformed
+
+    private void comparaisonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comparaisonMenuItemActionPerformed
+        switchToMode(ViewMode.COMPARAISON);
+    }//GEN-LAST:event_comparaisonMenuItemActionPerformed
 
     /**
      * show a dialog window for a warning
@@ -315,29 +554,62 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem OpenMenuItem;
     private javax.swing.JMenu ViewMenu;
+    private javax.swing.JRadioButtonMenuItem affichageMenuItem;
+    private javax.swing.JRadioButtonMenuItem cheminMenuItem;
+    private javax.swing.JPanel cheminPanel;
+    private javax.swing.JRadioButtonMenuItem comparaisonMenuItem;
+    private javax.swing.JPanel comparaisonPanel;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoGenralPanel;
-    private javax.swing.JPanel infoLieuPanel;
     private javax.swing.JPanel infoPanel;
-    private javax.swing.JPanel infoRoutePanel;
+    private javax.swing.JPanel infoPanel1;
+    private javax.swing.JPanel infoPanel2;
+    private javax.swing.JPanel infoPanel3;
+    private javax.swing.JPanel infoPanel4;
+    private javax.swing.JPanel infoPanel5;
+    private javax.swing.JPanel infoPanel6;
+    private javax.swing.JPanel infoPanel7;
+    private javax.swing.JPanel infoPanel8;
     private javax.swing.JPanel infoSelectedPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel leftPanel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameSelectedLabel;
     private javax.swing.JPanel nameSelectedPanel;
+    private javax.swing.JLabel nbrAutorouteLabel;
+    private javax.swing.JLabel nbrDepartementalLabel;
+    private javax.swing.JLabel nbrLabel;
+    private javax.swing.JLabel nbrLabel1;
+    private javax.swing.JLabel nbrLabel2;
+    private javax.swing.JLabel nbrLabel3;
+    private javax.swing.JLabel nbrLabel4;
+    private javax.swing.JLabel nbrLabel5;
+    private javax.swing.JLabel nbrLabel6;
+    private javax.swing.JLabel nbrLabel7;
     private javax.swing.JLabel nbrLieuLabel;
-    private javax.swing.JLabel nbrLieuOutputLabel;
+    private javax.swing.JLabel nbrLoisirLabel;
+    private javax.swing.JLabel nbrNationalLabel;
+    private javax.swing.JLabel nbrRestoLabel;
     private javax.swing.JLabel nbrRouteLabel;
-    private javax.swing.JLabel nbrRouteOutputLabel;
+    private javax.swing.JLabel nbrVilleLabel;
     private javax.swing.JLabel ouvertureLabel;
     private javax.swing.JLabel ouvertureSelectedLabel;
     private javax.swing.JPanel ouvetureSelectedPanel;
+    private javax.swing.JRadioButtonMenuItem principalMenuItem;
     private javax.swing.JSplitPane splitPanel;
     private javax.swing.JLabel titleGenralInfoLabel;
     private javax.swing.JLabel titleSelectedInfoLabel;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel typeSelectedLabel;
     private javax.swing.JPanel typeSelectedPanel;
+    private javax.swing.JPanel voisin2Panel;
+    private javax.swing.JRadioButtonMenuItem voisin2ndMenuItem;
+    private javax.swing.JRadioButtonMenuItem voisinDirectMenuItem;
+    private javax.swing.JPanel voisinDirectPanel;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -345,19 +617,38 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (drawGraphPanel == null) {
             return;
         }
-        //Général
-        nbrLieuOutputLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeud().size()));
-        nbrRouteOutputLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
+        if (currMode == ViewMode.AFFICHAGE) {
+            //Général
+            nbrLieuLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
+            nbrVilleLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
+            nbrRestoLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
+            nbrLoisirLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.LOISIR).size()));
 
-        //Selected
-        if (drawGraphPanel.getSelectedNode() != null) {
-            nameSelectedLabel.setText(drawGraphPanel.getSelectedNode().getNom());
-            typeSelectedLabel.setText(drawGraphPanel.getSelectedNode().getTypeLieu().toString());
-            ouvertureSelectedLabel.setText(String.valueOf(drawGraphPanel.getSelectedNode().getListLien().size()));
-        } else {
-            nameSelectedLabel.setText("null");
-            typeSelectedLabel.setText("null");
-            ouvertureSelectedLabel.setText("null");
+            nbrRouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
+            nbrDepartementalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTAL).size()));
+            nbrNationalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.NATIONAL).size()));
+            nbrAutorouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
+
+            //Selected
+            Noeud selected = drawGraphPanel.getSelectedNodes()[0];
+            if (selected != null) {
+                nameSelectedLabel.setText(selected.getNom());
+                typeSelectedLabel.setText(selected.getTypeLieu().toString());
+                ouvertureSelectedLabel.setText(String.valueOf(selected.getListLien().size()));
+            } else {
+                nameSelectedLabel.setText("null");
+                typeSelectedLabel.setText("null");
+                ouvertureSelectedLabel.setText("null");
+            }
+        }
+    }
+
+    public void switchToMode(ViewMode mode) {
+        this.currMode = mode;
+        if (leftPanel.getLayout() instanceof CardLayout) {
+            CardLayout crd = (CardLayout) leftPanel.getLayout();
+            crd.show(leftPanel, this.currMode.toString());
+            drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
         }
     }
 }

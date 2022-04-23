@@ -25,6 +25,9 @@ public class DrawGraphPanel extends JPanel {
 
     private Noeud selectedNode;
 
+    private Noeud[] selectedNodes;
+    private int currSelectedNode;
+
     public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
         this.graph = graph;
         this.typeNoeud = Noeud.Type.ALL;
@@ -47,6 +50,7 @@ public class DrawGraphPanel extends JPanel {
         setMinimumSize(new Dimension(200, 200));
 
         setFont(font);
+        setNbrSelectableNode(1);
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -56,7 +60,7 @@ public class DrawGraphPanel extends JPanel {
                         continue;
                     }
                     if (noeud.getLastLocation().sub(mousePos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
-                        selectedNode = noeud;
+                        selectedNodes[currSelectedNode++ % selectedNodes.length] = noeud;
                     }
                 }
                 repaint();
@@ -80,8 +84,8 @@ public class DrawGraphPanel extends JPanel {
 
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
             Vector2D pos = center.add(rayon);
-
-            if (noeud == selectedNode) {
+            
+            if (isSelected(noeud)) {
                 g.setColor(Color.yellow);
                 noeud.draw(g, pos, getFont());
                 g.setColor(Color.BLACK);
@@ -103,6 +107,24 @@ public class DrawGraphPanel extends JPanel {
     public Graph getGraph() {
         return graph;
     }
+
+    public void setNbrSelectableNode(int n) {
+        this.selectedNodes = new Noeud[n];
+        this.currSelectedNode = 0;
+    }
+
+    public Noeud[] getSelectedNodes() {
+        return selectedNodes;
+    }
     
+    
+    public boolean isSelected(Noeud noeud){
+        for(Noeud node : this.selectedNodes){
+            if(noeud == node){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
