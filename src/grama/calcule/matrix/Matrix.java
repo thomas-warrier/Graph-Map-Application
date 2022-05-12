@@ -12,17 +12,12 @@ import java.util.Objects;
  */
 public class Matrix<T> {
 
+    protected T defaut;
+
     protected List<List<T>> matrix;
 
     public Matrix(int length, T defaut) {
-        matrix = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
-            List<T> line = new ArrayList<>();
-            for (int j = 0; j < length; j++) {
-                line.add(defaut);
-            }
-            matrix.add(line);
-        }
+        init(length, defaut);
     }
 
     public Matrix(T[][] array) {
@@ -44,6 +39,18 @@ public class Matrix<T> {
             matrix.add(line);
         }
 
+    }
+
+    public void init(int length, T defaut) {
+        this.defaut = defaut;
+        matrix = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            List<T> line = new ArrayList<>();
+            for (int j = 0; j < length; j++) {
+                line.add(defaut);
+            }
+            matrix.add(line);
+        }
     }
 
     @Override

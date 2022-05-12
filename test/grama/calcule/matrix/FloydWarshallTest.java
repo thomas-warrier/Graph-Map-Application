@@ -1,10 +1,6 @@
 package grama.calcule.matrix;
 
 import grama.graph.Graph;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,25 +9,6 @@ import static org.junit.Assert.*;
  * @author wwwazz
  */
 public class FloydWarshallTest {
-
-    public FloydWarshallTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of resolve method, of class FloydWarshall.
@@ -54,7 +31,9 @@ public class FloydWarshallTest {
                 + "(65, ville:Meyzieu)	(95, ville:Macon)	(115, ville:Macon)	(5, restaurant:McDo-Decines)	(0, null)	\n"
                 + "";
 
-        assertEquals(f.resolve().toString(), wanted);
+        f.resolve();
+
+        assertEquals("1er", f.toString(), wanted);
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;A,100::R,McDo-Decines;;\n"
                 + "R,Les Echets: A,30::V, Macon;;\n"
@@ -70,7 +49,23 @@ public class FloydWarshallTest {
                 + "(65, ville:Meyzieu)	(95, ville:Macon)	(115, ville:Macon)	(5, restaurant:McDo-Decines)	(0, null)	\n"
                 + "";
 
-        assertEquals(f.resolve().toString(), wanted);
+        assertEquals("2 ème", f.resolve().toString(), wanted);
+
+        graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
+                + "R,Les Echets: A,30::V, Macon;;\n"
+                + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
+                + "R,McDo-Decines:D,5::V,Meyzieu;;");
+
+        FloydWarshall.getInstance().init(graphmap).resolve();
+
+        wanted = "(0, null)	(30, ville:Macon)	(50, ville:Macon)	(60, ville:Macon)	(65, ville:Meyzieu)	\n"
+                + "(30, restaurant:Les Echets)	(0, null)	(80, ville:Macon)	(90, ville:Macon)	(95, ville:Meyzieu)	\n"
+                + "(50, ville:Villeurbanne)	(80, ville:Macon)	(0, null)	(110, ville:Macon)	(115, ville:Meyzieu)	\n"
+                + "(60, ville:Meyzieu)	(90, ville:Macon)	(110, ville:Macon)	(0, null)	(5, ville:Meyzieu)	\n"
+                + "(65, ville:Meyzieu)	(95, ville:Macon)	(115, ville:Macon)	(5, restaurant:McDo-Decines)	(0, null)	\n"
+                + "";
+
+        assertEquals("getInstance()", f.toString(), wanted);
     }
 
     /**

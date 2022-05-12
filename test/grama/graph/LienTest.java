@@ -4,13 +4,6 @@
  */
 package grama.graph;
 
-import grama.calcule.vector.Vector2D;
-import java.awt.Font;
-import java.awt.Graphics;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,25 +12,6 @@ import static org.junit.Assert.*;
  * @author wwwazz
  */
 public class LienTest {
-    
-    public LienTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testTypeisType() {
@@ -51,5 +25,5 @@ public class LienTest {
 
         assertTrue(Lien.Type.ALL.is(Lien.Type.AUTOROUTE));
     }
-    
+
 }
