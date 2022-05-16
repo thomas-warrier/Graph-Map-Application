@@ -79,8 +79,6 @@ public class Noeud implements Drawable {
     public String getNom() {
         return nom;
     }
-    
-    
 
     public Type getTypeLieu() {
         return typeLieu;
@@ -89,7 +87,6 @@ public class Noeud implements Drawable {
     public List<Lien> getListLien() {
         return listLien;
     }
-    
 
     /**
      * Voisins à 1-saut (voisin direct) d'un certein type
@@ -156,17 +153,19 @@ public class Noeud implements Drawable {
     public Vector2D getLastLocation() {
         return lastLocation;
     }
-    
-    
-    
-    public List<Noeud> getVoisin2Dist(Graph graph,FloydWarshall floydMatrice){
-        
+
+    public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice) {
+
         List<Noeud> noeuds = new ArrayList();
-        for(int i =0;i<graph.getListNoeud().size();i++){
-            Couple couple =floydMatrice.getDistByIndice(graph.getIndiceNoeud(this),graph.getIndiceNoeud(graph.getListNoeud().get(i)));
-            if(couple.getVal()==2){
-                noeuds.add(graph.getListNoeud().get(i));
+        for (int i = 0; i < graph.getListNoeud().size(); i++) {
+            //ajout if pour voir si c'est le meme
+            if (this!=graph.getListNoeud().get(i)) {
+                Couple couple = floydMatrice.getDistByIndice(graph.getIndiceNoeud(this), i);
+                if (couple.getVal() <= 2) {
+                    noeuds.add(graph.getListNoeud().get(i));
+                }
             }
+
         }
         return noeuds;
     }
