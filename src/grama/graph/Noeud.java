@@ -1,5 +1,7 @@
 package grama.graph;
 
+import grama.calcule.matrix.FloydWarshall;
+import grama.calcule.matrix.FloydWarshall.Couple;
 import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
@@ -157,8 +159,16 @@ public class Noeud implements Drawable {
     
     
     
-    public List<Noeud> getVoisin2Dist(Noeud noeudArr){
+    public List<Noeud> getVoisin2Dist(Graph graph,FloydWarshall floydMatrice){
         
+        List<Noeud> noeuds = new ArrayList();
+        for(int i =0;i<graph.getListNoeud().size();i++){
+            Couple couple =floydMatrice.getDistByIndice(graph.getIndiceNoeud(this),graph.getIndiceNoeud(graph.getListNoeud().get(i)));
+            if(couple.getVal()==2){
+                noeuds.add(graph.getListNoeud().get(i));
+            }
+        }
+        return noeuds;
     }
 
 }

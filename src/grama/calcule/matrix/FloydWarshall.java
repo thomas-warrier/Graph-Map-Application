@@ -14,7 +14,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return instance;
     }
 
-    static class Couple {
+    public static class Couple {
 
         public Integer getVal() {
             return val;
