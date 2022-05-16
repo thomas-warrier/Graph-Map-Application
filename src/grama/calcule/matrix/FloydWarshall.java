@@ -104,4 +104,8 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         FloydWarshall m = new FloydWarshall(g.getListNoeud().size(), new Couple(null, null));
         return m.init(g);
     }
+    
+    public Couple getDistByIndice(int indiceNoeudDep,int indiceNoeudArr){
+        return  matrix.get(indiceNoeudDep).get(indiceNoeudArr);
+    }
 }
