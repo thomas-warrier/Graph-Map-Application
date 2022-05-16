@@ -16,6 +16,14 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     static class Couple {
 
+        public Integer getVal() {
+            return val;
+        }
+
+        public Noeud getPrec() {
+            return prec;
+        }
+
         private Integer val;//si val est null alors on considérera que la valeur est infinie.
         private Noeud prec;
 
