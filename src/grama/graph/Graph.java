@@ -167,5 +167,15 @@ public class Graph {
         }
         return str;
     }
+    
+    public int getIndiceNoeud(Noeud noeud){
+        int i = 0;
+        for (;i < getListNoeud().size();i++){
+            if ((getListNoeud().get(i)).equals(noeud)){
+                return i;
+            }
+        }
+        return -1; // si il n'existe pas
+    }
 
 }

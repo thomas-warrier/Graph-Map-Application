@@ -154,5 +154,10 @@ public class Noeud implements Drawable {
     public Vector2D getLastLocation() {
         return lastLocation;
     }
+    
+    
+    public List<Noeud> getVoisin2Dist(Noeud noeudArr){
+        
+    }
 
 }
