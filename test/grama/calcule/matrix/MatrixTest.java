@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class MatrixTest {
 
     @Test
-    public void testEquals() {
+    public void equalsTest() {
         System.out.println("equals");
         Integer[][] arr = {
             {1, 2, 3},
@@ -39,7 +39,7 @@ public class MatrixTest {
      * Test of toString method, of class Matrix.
      */
     @Test
-    public void testToString() {
+    public void toStringTest() {
         System.out.println("toString");
         Integer[][] arr = {
             {1, 2, 3},

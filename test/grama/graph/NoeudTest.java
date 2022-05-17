@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class NoeudTest {
 
     @Test
-    public void testTypeisType() {
+    public void TypeisTypeTest() {
         Noeud.Type t = Noeud.Type.LOISIR;
 
         assertTrue(t.is(Noeud.Type.ALL));
@@ -30,7 +30,7 @@ public class NoeudTest {
     }
 
     @Test
-    public void testgetVoisin2Dist() {
+    public void getVoisin2DistTest() {
         Graph graphmap = new Graph();
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"

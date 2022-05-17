@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class LienTest {
 
     @Test
-    public void testTypeisType() {
+    public void TypeisTypeTest() {
         Lien.Type t = Lien.Type.AUTOROUTE;
 
         assertTrue(t.is(Lien.Type.ALL));
