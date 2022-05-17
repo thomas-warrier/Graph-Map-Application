@@ -344,6 +344,11 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         });
 
         principalMenuItem.setText("principal");
+        principalMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                principalMenuItemActionPerformed(evt);
+            }
+        });
         ViewMenu.add(principalMenuItem);
 
         affichageMenuItem.setSelected(true);
@@ -425,6 +430,10 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private void comparaisonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comparaisonMenuItemActionPerformed
         switchToMode(ViewMode.COMPARAISON);
     }//GEN-LAST:event_comparaisonMenuItemActionPerformed
+
+    private void principalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_principalMenuItemActionPerformed
 
     /**
      * show a dialog window for a warning

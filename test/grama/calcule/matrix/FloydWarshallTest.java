@@ -56,7 +56,7 @@ public class FloydWarshallTest {
                 + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
                 + "R,McDo-Decines:D,5::V,Meyzieu;;");
 
-        FloydWarshall.getInstance().init(graphmap).resolve();
+        FloydWarshall.getInstance().initKilometrage(graphmap).resolve();
 
         wanted = "(0, null)	(30, ville:Macon)	(50, ville:Macon)	(60, ville:Macon)	(65, ville:Meyzieu)	\n"
                 + "(30, restaurant:Les Echets)	(0, null)	(80, ville:Macon)	(90, ville:Macon)	(95, ville:Meyzieu)	\n"

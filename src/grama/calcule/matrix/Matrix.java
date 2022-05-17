@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- * @author wwwazz
+ * Classe représentant une Matrice Carré dont les valeur sont de type T
+ * @author virgile
  * @param <T>
  */
 public class Matrix<T> {
@@ -16,10 +16,19 @@ public class Matrix<T> {
 
     protected List<List<T>> matrix;
 
+    /**
+     * Initialise la matrice pour lui mettre une taille et une valeur par défaut
+     * @param length la taille
+     * @param defaut la valeur par défaut
+     */
     public Matrix(int length, T defaut) {
         init(length, defaut);
     }
 
+    /**
+     * créé une matrice à partire d'une liste de liste
+     * @param array 
+     */
     public Matrix(T[][] array) {
         matrix = new ArrayList<>();
         for (T[] elemOfLine : array) {
@@ -29,6 +38,10 @@ public class Matrix<T> {
         }
     }
 
+    /**
+     * copie une matrice
+     * @param other la matrice à copié
+     */
     public Matrix(Matrix<T> other) {
         matrix = new ArrayList<>();
         for (int i = 0; i < other.matrix.size(); i++) {
@@ -41,6 +54,11 @@ public class Matrix<T> {
 
     }
 
+    /**
+     * Initialise la matrice pour lui mettre une taille et une valeur par défaut
+     * @param length la taille
+     * @param defaut la valeur par défaut
+     */
     public void init(int length, T defaut) {
         this.defaut = defaut;
         matrix = new ArrayList<>();
