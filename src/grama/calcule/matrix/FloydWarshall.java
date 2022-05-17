@@ -22,10 +22,15 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return instance;
     }
 
-    /**
-     * Classe qui permet de stocker la valeur et le prédécesseur
-     */
-    static class Couple {
+    public static class Couple {
+
+        public Integer getVal() {
+            return val;
+        }
+
+        public Noeud getPrec() {
+            return prec;
+        }
 
         private Integer val;//si val est null alors on considérera que la valeur est infinie.
         private Noeud prec;
@@ -143,5 +148,9 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     public static FloydWarshall initFloydWarshall(Graph g) {
         FloydWarshall m = new FloydWarshall(g.getListNoeud().size(), new Couple(null, null));
         return m.initKilometrage(g);
+    }
+    
+    public Couple getDistByIndice(int indiceNoeudDep,int indiceNoeudArr){
+        return  matrix.get(indiceNoeudDep).get(indiceNoeudArr);
     }
 }

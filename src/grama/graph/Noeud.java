@@ -1,5 +1,7 @@
 package grama.graph;
 
+import grama.calcule.matrix.FloydWarshall;
+import grama.calcule.matrix.FloydWarshall.Couple;
 import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
@@ -77,8 +79,6 @@ public class Noeud implements Drawable {
     public String getNom() {
         return nom;
     }
-    
-    
 
     public Type getTypeLieu() {
         return typeLieu;
@@ -87,7 +87,6 @@ public class Noeud implements Drawable {
     public List<Lien> getListLien() {
         return listLien;
     }
-    
 
     /**
      * Voisins à 1-saut (voisin direct) d'un certein type
@@ -153,6 +152,33 @@ public class Noeud implements Drawable {
 
     public Vector2D getLastLocation() {
         return lastLocation;
+    }
+    
+    
+
+    public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice) {
+        
+        List<Noeud> noeuds = new ArrayList();
+        int indiceNoeudCurr = graph.getIndiceNoeud(this);
+        for (int i = 0; i < graph.getListNoeud().size(); i++) {
+            Couple couple = floydMatrice.getDistByIndice(indiceNoeudCurr, i);
+            if (couple.getVal() == 2) {
+                System.out.println("here");
+                noeuds.add(graph.getListNoeud().get(i));
+            } else if (couple.getVal() == 1) {
+                System.out.println("here");
+                for ( Noeud voisinDep : this.getVoisinsOfType(Type.ALL)){
+                    for (Noeud voisinArr : voisinDep.getVoisinsOfType(Type.ALL)){
+                        if(graph.getListNoeud().get(i) == voisinArr){
+                            noeuds.add(graph.getListNoeud().get(i));
+                        }
+                    }
+                }
+            }
+            
+
+        }
+        return noeuds;
     }
 
 }
