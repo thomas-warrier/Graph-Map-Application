@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class NoeudTest {
 
     @Test
-    public void TypeisTypeTest() {
+    public void typeisTypeTest() {
         Noeud.Type t = Noeud.Type.LOISIR;
 
         assertTrue(t.is(Noeud.Type.ALL));
@@ -41,9 +41,8 @@ public class NoeudTest {
 
         FloydWarshall.getInstanceSaut().initSaut(graphmap).resolve();
         
-             
-        
         List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut());
+        
         assertEquals("devrait être Villeurbanne", voisins2.get(0), new Noeud(Noeud.Type.VILLE, "Villeurbanne"));
         assertEquals("devrait être McDo-Decines", voisins2.get(1), new Noeud(Noeud.Type.RESTAURANT, "McDo-Decines"));
         assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.LOISIR, "Parck"));        

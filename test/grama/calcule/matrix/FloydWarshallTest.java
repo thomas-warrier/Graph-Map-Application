@@ -14,7 +14,7 @@ public class FloydWarshallTest {
      * Test of resolve method, of class FloydWarshall.
      */
     @Test
-    public void ResolveTest() {
+    public void resolveTest() {
         Graph graphmap = new Graph();
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
@@ -72,7 +72,7 @@ public class FloydWarshallTest {
      * Test of initFloydWarshall method, of class FloydWarshall.
      */
     @Test
-    public void InitFloydWarshallTest() {
+    public void initFloydWarshallTest() {
         Graph graphmap = new Graph();
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
