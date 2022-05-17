@@ -32,8 +32,8 @@ public class Lien implements Drawable {
             return representativeChar;
         }
 
-        public boolean is(Type t) {
-            return this == t || t == ALL || this == ALL;
+        public boolean is(Type type) {
+            return this == type || type == ALL || this == ALL;
         }
 
         public static Type getType(char c) {

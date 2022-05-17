@@ -163,10 +163,8 @@ public class Noeud implements Drawable {
         for (int i = 0; i < graph.getListNoeud().size(); i++) {
             Couple couple = floydMatrice.getDistByIndice(indiceNoeudCurr, i);
             if (couple.getVal() == 2) {
-                System.out.println("here");
                 noeuds.add(graph.getListNoeud().get(i));
             } else if (couple.getVal() == 1) {
-                System.out.println("here");
                 for ( Noeud voisinDep : this.getVoisinsOfType(Type.ALL)){
                     for (Noeud voisinArr : voisinDep.getVoisinsOfType(Type.ALL)){
                         if(graph.getListNoeud().get(i) == voisinArr){

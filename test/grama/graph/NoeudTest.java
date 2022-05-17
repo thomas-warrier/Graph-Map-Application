@@ -5,6 +5,7 @@
 package grama.graph;
 
 import grama.calcule.matrix.FloydWarshall;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -39,13 +40,13 @@ public class NoeudTest {
                 + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
 
         FloydWarshall.getInstanceSaut().initSaut(graphmap).resolve();
-        System.out.println("noeud de départ  : " + graphmap.getListNoeud().get(0));
-        for( Noeud noeud : graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut())){
-            System.out.println(noeud);
-        }
         
-        assertTrue(false);
+             
         
+        List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut());
+        assertEquals("devrait être Villeurbanne", voisins2.get(0), new Noeud(Noeud.Type.VILLE, "Villeurbanne"));
+        assertEquals("devrait être McDo-Decines", voisins2.get(1), new Noeud(Noeud.Type.RESTAURANT, "McDo-Decines"));
+        assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.LOISIR, "Parck"));        
     }
 
 }
