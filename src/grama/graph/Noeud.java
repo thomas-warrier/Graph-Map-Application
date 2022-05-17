@@ -153,18 +153,29 @@ public class Noeud implements Drawable {
     public Vector2D getLastLocation() {
         return lastLocation;
     }
+    
+    
 
     public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice) {
-
+        
         List<Noeud> noeuds = new ArrayList();
+        int indiceNoeudCurr = graph.getIndiceNoeud(this);
         for (int i = 0; i < graph.getListNoeud().size(); i++) {
-            //ajout if pour voir si c'est le meme
-            if (this!=graph.getListNoeud().get(i)) {
-                Couple couple = floydMatrice.getDistByIndice(graph.getIndiceNoeud(this), i);
-                if (couple.getVal() <= 2) {
-                    noeuds.add(graph.getListNoeud().get(i));
+            Couple couple = floydMatrice.getDistByIndice(indiceNoeudCurr, i);
+            if (couple.getVal() == 2) {
+                System.out.println("here");
+                noeuds.add(graph.getListNoeud().get(i));
+            } else if (couple.getVal() == 1) {
+                System.out.println("here");
+                for ( Noeud voisinDep : this.getVoisinsOfType(Type.ALL)){
+                    for (Noeud voisinArr : voisinDep.getVoisinsOfType(Type.ALL)){
+                        if(graph.getListNoeud().get(i) == voisinArr){
+                            noeuds.add(graph.getListNoeud().get(i));
+                        }
+                    }
                 }
             }
+            
 
         }
         return noeuds;
