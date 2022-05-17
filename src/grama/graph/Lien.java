@@ -9,6 +9,10 @@ import java.awt.Graphics;
 
 import java.util.Objects;
 
+/**
+ * Classe representant un lien d'un graph
+ * @author virgile
+ */
 public class Lien implements Drawable {
 
     public enum Type {
@@ -59,10 +63,18 @@ public class Lien implements Drawable {
         this.depart = depart;
     }
 
+    /**
+     * 
+     * @return le type du lien
+     */
     public Type getTypeLien() {
         return typeLien;
     }
 
+    /**
+     * 
+     * @param typeLien le nouveau type de lien
+     */
     public void setTypeLien(Type typeLien) {
         if (typeLien != Type.NONE && typeLien != Type.ALL) {
             this.typeLien = typeLien;
@@ -72,10 +84,19 @@ public class Lien implements Drawable {
 
     }
 
+    /**
+     * 
+     * @return la distance un km du lien
+     */
     public int getKilometrage() {
         return kilometrage;
     }
-
+    
+    /**
+     * 
+     * @param node le (@link Noeud) de départ
+     * @return Le (@link Noeud) d'arriver (en partant du noeud "node")
+     */
     public Noeud getDstADepartDe(Noeud node) {//si plusieur le qqlq return
         if (node.equals(destination)) {
             return depart;

@@ -3,10 +3,18 @@ package grama.calcule.matrix;
 import grama.graph.Graph;
 import grama.graph.Noeud;
 
+/**
+ * Une matrice qui permet de résoudres les plus cours chemins d'un graph
+ * @author virgile
+ */
 public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     private static FloydWarshall instance;
 
+    /**
+     * 
+     * @return L'instance static De la matrice FloydWarshall
+     */
     public static FloydWarshall getInstance() {
         if (instance == null) {
             instance = new FloydWarshall(0, new Couple(null, null));
@@ -14,6 +22,9 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return instance;
     }
 
+    /**
+     * Classe qui permet de stocker la valeur et le prédécesseur
+     */
     static class Couple {
 
         private Integer val;//si val est null alors on considérera que la valeur est infinie.
@@ -46,11 +57,11 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     public FloydWarshall(Graph g) {
         super(g.getListNoeud().size(), new Couple(null, null));
 
-        init(g);
+        initKilometrage(g);
     }
 
     /**
-     * résouse avec l'algorithme de FloyWarshall
+     * Résouse avec l'algorithme de FloyWarshall
      * @return this
      */
     public FloydWarshall resolve() {
@@ -80,11 +91,11 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * initialize comme re créé un objet FloyWarshall
-     * @param g le graph avec lequelle initilizer
+     * Initialize comme re créé un objet FloyWarshall pour le kilométrage
+     * @param g le graph avec lequelle initialiser
      * @return this
      */
-    public FloydWarshall init(Graph g) {
+    public FloydWarshall initKilometrage(Graph g) {
         super.init(g.getListNoeud().size(), new Couple(null, null));
         
         for (int row = 0; row < matrix.size(); row++) {
@@ -99,9 +110,38 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         }
         return this;
     }
+    /**
+     * Initialize comme re créé un objet FloyWarshall pour le nombre de saut
+     * @param g le graph avec lequelle initialiser
+     * @return this
+     */
+    public FloydWarshall initSaut(Graph g) {
+        super.init(g.getListNoeud().size(), new Couple(null, null));
+        
+        for (int row = 0; row < matrix.size(); row++) {
+            for (int col = 0; col < matrix.size(); col++) {
+                if (col == row) {
+                    matrix.get(row).set(col, new Couple(0, null));
+                } else {
+                    Integer nbSaut = null;
+                    if(g.getListNoeud().get(row).getVoisinsOfType(Noeud.Type.ALL).contains(g.getListNoeud().get(col))){
+                        nbSaut = 1;
+                    }
+                    
+                    matrix.get(row).set(col, new Couple(nbSaut, g.getListNoeud().get(row)));
+                }
+            }
+        }
+        return this;
+    }
 
+    /**
+     * Créé objet FloyWarshall et l'initialise
+     * @param g le graph avec lequelle initiliser
+     * @return this
+     */
     public static FloydWarshall initFloydWarshall(Graph g) {
         FloydWarshall m = new FloydWarshall(g.getListNoeud().size(), new Couple(null, null));
-        return m.init(g);
+        return m.initKilometrage(g);
     }
 }
