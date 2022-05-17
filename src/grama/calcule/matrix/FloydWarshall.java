@@ -8,19 +8,28 @@ import grama.graph.Noeud;
  * @author virgile
  */
 public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
-
-    private static FloydWarshall instance;
-
     /**
      * 
      * @return L'instance static De la matrice FloydWarshall
      */
-    public static FloydWarshall getInstance() {
-        if (instance == null) {
-            instance = new FloydWarshall(0, new Couple(null, null));
+    private static FloydWarshall instanceKilometrage;
+     private static FloydWarshall instanceSaut;
+
+    public static FloydWarshall getInstanceKilometrage() {
+        if (instanceKilometrage == null) {
+            instanceKilometrage = new FloydWarshall(0, new Couple(null, null));
         }
-        return instance;
+        return instanceKilometrage;
     }
+    
+    public static FloydWarshall getInstanceSaut() {
+        if (instanceSaut == null) {
+            instanceSaut = new FloydWarshall(0, new Couple(null, null));
+        }
+        return instanceSaut;
+    }
+
+    
 
     public static class Couple {
 

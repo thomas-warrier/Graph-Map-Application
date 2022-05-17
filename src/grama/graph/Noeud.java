@@ -97,7 +97,7 @@ public class Noeud implements Drawable {
     public List<Noeud> getVoisinsOfType(Type typeVoisins) {
         List<Noeud> voisins = new ArrayList<>();
         for (Lien lien : getListLien()) {
-            if (lien.getDstADepartDe(this).getTypeLieu() == typeVoisins) {
+            if (lien.getDstADepartDe(this).getTypeLieu().is(typeVoisins)) {
                 voisins.add(lien.getDstADepartDe(this));
             }
         }
