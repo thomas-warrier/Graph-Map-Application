@@ -38,9 +38,9 @@ public class NoeudTest {
                 + "R,McDo-Decines:D,5::V,Meyzieu;;\n"
                 + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
 
-        FloydWarshall.getInstance().init(graphmap).resolve();
+        FloydWarshall.getInstanceSaut().initSaut(graphmap).resolve();
         System.out.println("noeud de départ  : " + graphmap.getListNoeud().get(0));
-        for( Noeud noeud : graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstance())){
+        for( Noeud noeud : graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut())){
             System.out.println(noeud);
         }
         
