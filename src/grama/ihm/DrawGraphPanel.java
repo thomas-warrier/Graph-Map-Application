@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 /**
@@ -18,16 +20,19 @@ import javax.swing.JPanel;
  *
  * @author virgile
  */
-public class DrawGraphPanel extends JPanel {
+public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     private final Graph graph;
     private Noeud.Type typeNoeud;
     private Lien.Type typeLien;
 
     private Noeud selectedNode;
+    private Noeud toMove;
 
     private Noeud[] selectedNodes;
     private int currSelectedNode;
+
+    private int firstTime = 0;
 
     /**
      * instansie un panel pour dessiner un graph
@@ -75,8 +80,13 @@ public class DrawGraphPanel extends JPanel {
         setFont(font);
         setNbrSelectableNode(1);
 
+        initNoeudsLocation();
+
+        this.addMouseMotionListener(this);
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds
+
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                System.out.println("clicked");
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
@@ -89,7 +99,30 @@ public class DrawGraphPanel extends JPanel {
                 repaint();
                 parentFrame.update();
             }
+
+            @Override
+            public void mousePressed(MouseEvent evt) {
+                System.out.println("Pressed");
+                Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
+                for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+                    if (noeud.getLastLocation() == null) {
+                        continue;
+                    }
+                    if (noeud.getLastLocation().sub(mousePos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
+                        toMove = noeud;
+                    }
+                }
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent evt) {
+                System.out.println("release");
+                toMove = null;
+            }
+
         });
+
     }
 
     /**
@@ -99,6 +132,10 @@ public class DrawGraphPanel extends JPanel {
      */
     @Override
     protected void paintComponent(Graphics g) {
+        if (firstTime < 2) {
+            firstTime++;
+//            initNoeudsLocation();
+        }
         //ANTIALIASING
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -107,30 +144,39 @@ public class DrawGraphPanel extends JPanel {
         g.clearRect(0, 0, getWidth(), getHeight());//clear les anciens dessins
 
         //draw les noeuds et liens entre ces noeuds (uniquement)
-        double angleRot = (2 * Math.PI) / graph.getListNoeud().size();//anlge de rotation pour dessiner les neouds en cercle
+        drawNoeuds(g);
+        drawLien(g);
 
-        Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
-        Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
+    }
 
-        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
-            Vector2D pos = center.add(rayon);
-
-            if (isSelected(noeud)) {
-                g.setColor(Color.yellow);
-                noeud.draw(g, pos, getFont());
-                g.setColor(Color.BLACK);
-            } else {
-                noeud.draw(g, pos, getFont());
-            }
-
-            rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
-        }
+    public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
             lien.draw(g, null, getFont());//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
-        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {//oublie la dernière position des noeuds (pour si on change d'affichage)
-            noeud.setLastLocation(null);
+    }
+
+    public void initNoeudsLocation() {
+        Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
+        Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
+        double angleRot = (2 * Math.PI) / graph.getListNoeud().size();//anlge de rotation pour dessiner les neouds en cercle
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
+            noeud.setLastLocation(center.add(rayon));
+
+            rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
+        }
+
+    }
+
+    public void drawNoeuds(Graphics g) {
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            if (isSelected(noeud)) {
+                g.setColor(Color.yellow);
+                noeud.draw(g, noeud.getLastLocation(), getFont());
+                g.setColor(Color.BLACK);
+            } else {
+                noeud.draw(g, noeud.getLastLocation(), getFont());
+            }
         }
     }
 
@@ -159,6 +205,20 @@ public class DrawGraphPanel extends JPanel {
             }
         }
         return false;
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent evt) {
+        if (toMove == null) {
+            return;
+        }
+        Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
+        toMove.setLastLocation(mousePos);
+        repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
     }
 
 }

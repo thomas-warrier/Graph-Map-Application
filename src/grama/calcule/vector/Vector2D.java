@@ -11,40 +11,77 @@ public class Vector2D {
     public double x;
     public double y;
 
+    /**
+     * créé un {@link Vector2D} avec x et y
+     * @param x
+     * @param y 
+     */
     public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * copie un autre {@link Vector2D}
+     * @param lastLocation l'objet à copié
+     */
     public Vector2D(Vector2D lastLocation) {
         this.x = lastLocation.x;
         this.y = lastLocation.y;
     }
 
+    /**
+     * Ajoute 2 {@link Vector2D}
+     * @param other le {@link Vector2D} avec lequelle additionner
+     * @return la somme des 2 {@link Vector2D}
+     */
     public Vector2D add(Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
+    /**
+     * Soustrai 2 {@link Vector2D}
+     * @param other le {@link Vector2D} avec lequelle soustraire
+     * @return la soustraction du {@link Vector2D} courrant par le {@link Vector2D} other
+     */
     public Vector2D sub(Vector2D other) {
         return this.add(other.mul(-1.0));
     }
 
+    /**
+     * multiplie avec un scalaire
+     * @param a le scalaire par lequelle multiplié
+     * @return la multiplication du {@link Vector2D} avec le scalaire
+     */
     public Vector2D mul(double a) {
         return new Vector2D(this.x * a, this.y * a);
     }
 
+    /**
+     * diviser par un scalaire
+     * @param a le scalaire par lequelle diviser
+     * @return la diviser du {@link Vector2D} par le scalaire
+     */
     public Vector2D div(double a) {
         return new Vector2D(this.x / a, this.y / a);
     }
 
+    /**
+     *
+     * @return La norm du {@link Vector2D}
+     */
     public double norm() {
         return Math.sqrt(x * x + y * y);
     }
 
+    /**
+     * 
+     * @return Le {@link Vector2D} unitaire
+     */
     public Vector2D unitaire() {
         return this.div(this.norm());
     }
-
+    
     public Vector2D setOrientation(double r) {
         return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
     }
