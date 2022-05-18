@@ -6,6 +6,7 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -142,16 +143,28 @@ public class Noeud implements Drawable {
         return typeLieu + ":" + nom;
     }
 
+public Color whichColor(Noeud noeud){
+        Type typeNoeud = getTypeLieu();
+        if (typeNoeud.equals(Type.VILLE)){
+            return Color.red;
+        }
+        if (typeNoeud.equals(Type.RESTAURANT)){
+            return Color.green;
+        }
+        if (typeNoeud.equals(Type.LOISIR)){
+            return Color.blue;
+        }
+        return Color.BLACK;
+    }
+    
     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
+        g.setColor(whichColor(this));
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
         lastLocation = center;
-    }
-
-    public Vector2D getLastLocation() {
-        return lastLocation;
+        g.setColor(Color.black);
     }
     
     
