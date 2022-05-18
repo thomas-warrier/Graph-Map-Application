@@ -143,7 +143,7 @@ public class Noeud implements Drawable {
         return typeLieu + ":" + nom;
     }
 
-public Color whichColor(Noeud noeud){
+    public Color whichColor(Noeud noeud){
         Type typeNoeud = getTypeLieu();
         if (typeNoeud.equals(Type.VILLE)){
             return Color.red;
@@ -157,7 +157,7 @@ public Color whichColor(Noeud noeud){
         return Color.BLACK;
     }
     
-    @Override
+     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
         g.setColor(whichColor(this));
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
@@ -165,6 +165,10 @@ public Color whichColor(Noeud noeud){
 
         lastLocation = center;
         g.setColor(Color.black);
+    }
+
+    public Vector2D getLastLocation() {
+        return lastLocation;
     }
     
     
