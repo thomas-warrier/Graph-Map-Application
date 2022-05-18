@@ -153,6 +153,11 @@ public class Noeud implements Drawable {
     public Vector2D getLastLocation() {
         return lastLocation;
     }
+
+    public void setLastLocation(Vector2D lastLocation) {
+        this.lastLocation = lastLocation;
+    }
+    
     
     
 
@@ -165,6 +170,10 @@ public class Noeud implements Drawable {
             if (couple.getVal() == 2) {
                 noeuds.add(graph.getListNoeud().get(i));
             } else if (couple.getVal() == 1) {
+                /*
+                Optimization : utiliser floydWarshall, regarder si distance entre 1 noeud (boucle for) 
+                    et le noeud de recherche (correspond à i) dist mini == 1
+                */
                 for ( Noeud voisinDep : this.getVoisinsOfType(Type.ALL)){
                     for (Noeud voisinArr : voisinDep.getVoisinsOfType(Type.ALL)){
                         if(graph.getListNoeud().get(i) == voisinArr){

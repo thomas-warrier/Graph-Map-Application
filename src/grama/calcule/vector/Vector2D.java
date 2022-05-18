@@ -16,6 +16,11 @@ public class Vector2D {
         this.y = y;
     }
 
+    public Vector2D(Vector2D lastLocation) {
+        this.x = lastLocation.x;
+        this.y = lastLocation.y;
+    }
+
     public Vector2D add(Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
