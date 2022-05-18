@@ -143,8 +143,8 @@ public class Noeud implements Drawable {
         return typeLieu + ":" + nom;
     }
 
-    public Color whichColor(Noeud noeud){
-        Type typeNoeud = getTypeLieu();
+    public Color whichColorNode(Noeud noeud){
+        Type typeNoeud = noeud.getTypeLieu();
         if (typeNoeud.equals(Type.VILLE)){
             return Color.red;
         }
@@ -159,7 +159,7 @@ public class Noeud implements Drawable {
     
      @Override
     public void draw(Graphics g, Vector2D center, Font font) {
-        g.setColor(whichColor(this));
+        g.setColor(whichColorNode(this));
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
