@@ -196,7 +196,7 @@ public class Noeud implements Drawable {
         return noeuds;
     }
     
-    public Noeud getMostOpenNode(Noeud noeudA,Noeud noeudB,Graph graph,FloydWarshall floydMatrice,Type typeNoeud){
+    public static Noeud getMostOpenNode(Noeud noeudA,Noeud noeudB,Graph graph,FloydWarshall floydMatrice,Type typeNoeud){
         int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice,typeNoeud).size();
         int nb2DistB = noeudB.getVoisin2Dist(graph,floydMatrice,typeNoeud).size();
         if (nb2DistA > nb2DistB){
@@ -204,7 +204,6 @@ public class Noeud implements Drawable {
         }
         return noeudB;
     }
-    
     
 
 }
