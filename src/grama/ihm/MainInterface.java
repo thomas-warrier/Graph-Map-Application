@@ -6,6 +6,8 @@ import grama.graph.Lien;
 import grama.graph.Noeud;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.ButtonGroup;
@@ -53,7 +55,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
      */
     public MainInterface() {
         initComponents();
-
         Graph graphmap = new Graph();
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"

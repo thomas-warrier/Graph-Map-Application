@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Noeud.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/test/grama/graph/NoeudTest.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/calcule/matrix/FloydWarshall.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Lien.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/test/grama/calcule/matrix/FloydWarshallTest.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/MainInterface.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Graph.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/calcule/matrix/Matrix.java</file>
+            <file>file:/C:/Users/twarr/Desktop/SAE%20graph/grama/src/grama/graph/Noeud.java</file>
+            <file>file:/C:/Users/twarr/Desktop/SAE%20graph/grama/src/Main.java</file>
+            <file>file:/C:/Users/twarr/Desktop/SAE%20graph/grama/src/grama/ihm/MainInterface.java</file>
+            <file>file:/C:/Users/twarr/Desktop/SAE%20graph/grama/src/grama/graph/Lien.java</file>
         </group>
     </open-files>
 </project-private>
