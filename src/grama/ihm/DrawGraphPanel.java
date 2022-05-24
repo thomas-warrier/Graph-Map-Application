@@ -32,11 +32,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Noeud[] selectedNodes;
     private int currSelectedNode;
 
-    
     private Dimension prevSizePanel;
-    private double scale;
-
-    
+    private Vector2D scale;
 
     /**
      * instansie un panel pour dessiner un graph
@@ -51,9 +48,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.graph = graph;
         this.typeNoeud = typeNoeud;
         this.typeLien = typeLien;
-        
+
         this.init(parentFrame, font);
     }
+
     /**
      * instansie un panel pour dessiner un graph
      *
@@ -80,14 +78,13 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         setNbrSelectableNode(1);
 
         prevSizePanel = getSize();
-        scale = 1.0;
+        scale = new Vector2D(1, 1);
         initNoeudsLocation();
 
         this.addMouseMotionListener(this);
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("clicked");
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
@@ -103,7 +100,6 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mousePressed(MouseEvent evt) {
-                System.out.println("Pressed");
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
@@ -118,12 +114,22 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-                System.out.println("release");
                 toMove = null;
             }
 
         });
 
+    }
+
+    private void setScale(Dimension prev, Dimension nouveau) {
+        double scaleX = nouveau.getWidth() / prev.getWidth();
+        double scaleY = nouveau.getHeight() / prev.getHeight();
+        if (!Double.isInfinite(scaleX)) {
+            scale.x = scaleX;
+        }
+        if (!Double.isInfinite(scaleY)) {
+            scale.y = scaleY;
+        }
     }
 
     /**
@@ -140,11 +146,14 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
         g.clearRect(0, 0, getWidth(), getHeight());//clear les anciens dessins
 
+        setScale(prevSizePanel, getSize());
+        prevSizePanel = getSize();
+        System.out.println("scale : " + scale);
+
         //draw les noeuds et liens entre ces noeuds (uniquement)
         drawNoeuds(g);
         drawLien(g);
-        
-        prevSizePanel = getSize();
+
     }
 
     public void drawLien(Graphics g) {
@@ -163,18 +172,19 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
         }
-        
+
     }
 
     public void drawNoeuds(Graphics g) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
             if (isSelected(noeud)) {
                 g.setColor(Color.yellow);
-                noeud.draw(g, noeud.getLastLocation(), getFont());
-                g.setColor(Color.BLACK);
-            } else {
-                noeud.draw(g, noeud.getLastLocation(), getFont());
             }
+            noeud.getLastLocation().x *= scale.x;
+            noeud.getLastLocation().y *= scale.y;
+            noeud.draw(g, noeud.getLastLocation(), getFont());
+
+            g.setColor(Color.BLACK);
         }
     }
 
