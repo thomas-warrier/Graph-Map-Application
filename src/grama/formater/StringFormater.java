@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class StringFormater {
 
+    //use bufer reader
     public static String readFile(File file) throws IOException {
         if (file == null) {
             return "";

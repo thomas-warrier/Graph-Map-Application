@@ -50,6 +50,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     private ButtonGroup groupView = new ButtonGroup();
 
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        drawGraphPanel.initNoeudsLocation();
+    }
+
+    
     /**
      * Creates new form MainInterface
      */

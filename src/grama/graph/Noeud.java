@@ -170,6 +170,11 @@ public class Noeud implements Drawable {
     public Vector2D getLastLocation() {
         return lastLocation;
     }
+
+    public void setLastLocation(Vector2D lastLocation) {
+        this.lastLocation = lastLocation;
+    }
+    
     
     
 

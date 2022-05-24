@@ -94,9 +94,8 @@ public class Lien implements Drawable {
     }
     
     /**
-     * 
-     * @param node le (@link Noeud) de départ
-     * @return Le (@link Noeud) d'arriver (en partant du noeud "node")
+     * @param node le {@link Noeud} de départ
+     * @return Le {@link Noeud} d'arriver (en partant du noeud "node")
      */
     public Noeud getDstADepartDe(Noeud node) {//si plusieur le qqlq return
         if (node.equals(destination)) {
