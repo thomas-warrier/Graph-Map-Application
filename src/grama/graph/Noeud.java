@@ -6,6 +6,7 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -142,12 +143,28 @@ public class Noeud implements Drawable {
         return typeLieu + ":" + nom;
     }
 
-    @Override
+    public Color whichColorNode(Noeud noeud){
+        Type typeNoeud = noeud.getTypeLieu();
+        if (typeNoeud.equals(Type.VILLE)){
+            return Color.red;
+        }
+        if (typeNoeud.equals(Type.RESTAURANT)){
+            return Color.green;
+        }
+        if (typeNoeud.equals(Type.LOISIR)){
+            return Color.blue;
+        }
+        return Color.BLACK;
+    }
+    
+     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
+        g.setColor(whichColorNode(this));
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
         lastLocation = center;
+        g.setColor(Color.black);
     }
 
     public Vector2D getLastLocation() {
@@ -161,7 +178,7 @@ public class Noeud implements Drawable {
     
     
 
-    public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice) {
+    public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice,Type typeNoeud) {
         
         List<Noeud> noeuds = new ArrayList();
         int indiceNoeudCurr = graph.getIndiceNoeud(this);
@@ -170,12 +187,8 @@ public class Noeud implements Drawable {
             if (couple.getVal() == 2) {
                 noeuds.add(graph.getListNoeud().get(i));
             } else if (couple.getVal() == 1) {
-                /*
-                Optimization : utiliser floydWarshall, regarder si distance entre 1 noeud (boucle for) 
-                    et le noeud de recherche (correspond à i) dist mini == 1
-                */
-                for ( Noeud voisinDep : this.getVoisinsOfType(Type.ALL)){
-                    for (Noeud voisinArr : voisinDep.getVoisinsOfType(Type.ALL)){
+                for ( Noeud voisinDep : this.getVoisinsOfType(typeNoeud)){
+                    for (Noeud voisinArr : voisinDep.getVoisinsOfType(typeNoeud)){
                         if(graph.getListNoeud().get(i) == voisinArr){
                             noeuds.add(graph.getListNoeud().get(i));
                         }
@@ -187,5 +200,15 @@ public class Noeud implements Drawable {
         }
         return noeuds;
     }
+    
+    public static Noeud getMostOpenNode(Noeud noeudA,Noeud noeudB,Graph graph,FloydWarshall floydMatrice,Type typeNoeud){
+        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice,typeNoeud).size();
+        int nb2DistB = noeudB.getVoisin2Dist(graph,floydMatrice,typeNoeud).size();
+        if (nb2DistA > nb2DistB){
+            return noeudA;
+        }
+        return noeudB;
+    }
+    
 
 }

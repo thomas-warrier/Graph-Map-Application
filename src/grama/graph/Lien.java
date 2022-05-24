@@ -4,6 +4,7 @@ import grama.calcule.vector.Vector2D;
 import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import grama.ihm.Drawable;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -131,7 +132,22 @@ public class Lien implements Drawable {
     public String toString() {
         return typeLien + "," + kilometrage + " = " + depart + "->" + destination;
     }
-
+    
+    public Color whichColorLink(Lien lien){
+        Type typeLien = lien.getTypeLien();
+        if (typeLien.equals(Type.AUTOROUTE)){
+            return Color.ORANGE;
+        }
+        if (typeLien.equals(Type.DEPARTEMENTAL)){
+            return Color.MAGENTA;
+        }
+        if (typeLien.equals(Type.NATIONAL)){
+            return Color.GRAY;
+        }
+        return Color.BLACK;
+    }
+  
+    
     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
@@ -144,9 +160,11 @@ public class Lien implements Drawable {
 
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
+        g.setColor(whichColorLink(this));
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 
         center = debut.add(line.div(4));
         StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), center, font);
+         g.setColor(Color.BLACK);
     }
 }
