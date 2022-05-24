@@ -32,22 +32,11 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Noeud[] selectedNodes;
     private int currSelectedNode;
 
-    private int firstTime = 0;
+    
+    private Dimension prevSizePanel;
+    private double scale;
 
-    /**
-     * instansie un panel pour dessiner un graph
-     *
-     * @param parentFrame la fenêtre parente (pour mettre à jours les info)
-     * @param graph le graph à dessiner
-     * @param font la policer d'écriture
-     */
-    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
-        this.graph = graph;
-        this.typeNoeud = Noeud.Type.ALL;
-        this.typeLien = Lien.Type.ALL;
-
-        this.init(parentFrame, font);
-    }
+    
 
     /**
      * instansie un panel pour dessiner un graph
@@ -62,8 +51,18 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.graph = graph;
         this.typeNoeud = typeNoeud;
         this.typeLien = typeLien;
-
+        
         this.init(parentFrame, font);
+    }
+    /**
+     * instansie un panel pour dessiner un graph
+     *
+     * @param parentFrame la fenêtre parente (pour mettre à jours les info)
+     * @param graph le graph à dessiner
+     * @param font la policer d'écriture
+     */
+    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
+        this(parentFrame, graph, font, Noeud.Type.ALL, Lien.Type.ALL);
     }
 
     /**
@@ -80,6 +79,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         setFont(font);
         setNbrSelectableNode(1);
 
+        prevSizePanel = getSize();
+        scale = 1.0;
         initNoeudsLocation();
 
         this.addMouseMotionListener(this);
@@ -132,10 +133,6 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      */
     @Override
     protected void paintComponent(Graphics g) {
-        if (firstTime < 2) {
-            firstTime++;
-//            initNoeudsLocation();
-        }
         //ANTIALIASING
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -146,7 +143,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         //draw les noeuds et liens entre ces noeuds (uniquement)
         drawNoeuds(g);
         drawLien(g);
-
+        
+        prevSizePanel = getSize();
     }
 
     public void drawLien(Graphics g) {
@@ -165,7 +163,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
         }
-
+        
     }
 
     public void drawNoeuds(Graphics g) {
