@@ -87,7 +87,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("clicked");
+                
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
@@ -103,7 +103,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mousePressed(MouseEvent evt) {
-                System.out.println("Pressed");
+                
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
                     if (noeud.getLastLocation() == null) {
@@ -118,7 +118,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-                System.out.println("release");
+                
                 toMove = null;
             }
 
