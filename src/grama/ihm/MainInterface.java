@@ -55,8 +55,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
      */
     public MainInterface() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
+        this.setIconImage(icon);
         Graph graphmap = new Graph();
-
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
                 + "R,Les Echets: A,30::V, Macon;;\n"
                 + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
@@ -147,7 +148,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grama");
         setMinimumSize(new java.awt.Dimension(144, 144));
-        setPreferredSize(new java.awt.Dimension(720, 480));
         setSize(new java.awt.Dimension(720, 480));
 
         splitPanel.setDividerLocation(200);
