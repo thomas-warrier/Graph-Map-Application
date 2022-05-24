@@ -63,6 +63,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     public MainInterface() {
         initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
+        this.setSize(800,600);
         this.setIconImage(icon);
         Graph graphmap = new Graph();
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
