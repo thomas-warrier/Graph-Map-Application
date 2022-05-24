@@ -211,9 +211,10 @@ public class Noeud implements Drawable {
     }
     
     public static Chemin getRouteTraversant(Noeud noeudArr,List<Type> typeLieu,FloydWarshall floydMatrice,Graph graph){
-        Chemin cheminPassantPar = new Chemin();
+        
         for (int i = 0;i < graph.getListNoeud().size();i++){
-            if
+            Chemin cheminPassantPar = new Chemin();
+            for ()
         }
         
         
