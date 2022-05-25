@@ -52,11 +52,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     @Override
     public void setVisible(boolean b) {
-        super.setVisible(b); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        drawGraphPanel.initNoeudsLocation();
+        super.setVisible(b);
     }
 
-    
     /**
      * Creates new form MainInterface
      */
@@ -65,11 +63,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
         this.setIconImage(icon);
         Graph graphmap = new Graph();
-        graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
-                + "R,Les Echets: A,30::V, Macon;;\n"
-                + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
-                + "R,McDo-Decines:D,5::V,Meyzieu;;\n"
-                + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
+        graphmap.loadFromString("V,Lyon:D,10::R,LyonRestau;A,120::V,Paris;A,150::V,Lille;N,170::V,Lille;;\n"
+                + "R,LyonRestau:D,10::V,Lyon;;\n"
+                + "V,Paris:A,120::V,Lyon;D,5::L,centreL;A,40::V,Lille;A,170::V,Toulouse;;\n"
+                + "L,centreL:D,5::V,Paris;;\n"
+                + "V,Lille:A,150::V,Lyon;N,170::V,Lyon;A,40::V,Paris;A,40::V,Toulouse;;\n"
+                + "V,Toulouse:A,170::V,Paris;A,40::V,Lille;A,40::V,Paris;;\n"
+                + "V,Toulouse:A,170::V,Paris;A,40::V,Lille;A,40::V,Paris;;");
 
         drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
         splitPanel.setRightComponent(drawGraphPanel);
@@ -642,8 +642,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             nbrLoisirLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.LOISIR).size()));
 
             nbrRouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
-            nbrDepartementalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTAL).size()));
-            nbrNationalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.NATIONAL).size()));
+            nbrDepartementalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTALE).size()));
+            nbrNationalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.NATIONALE).size()));
             nbrAutorouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
 
             //Selected
