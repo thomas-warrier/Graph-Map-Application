@@ -50,11 +50,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     private ButtonGroup groupView = new ButtonGroup();
 
-    @Override
-    public void setVisible(boolean b) {
-        super.setVisible(b);
-    }
-
     /**
      * Creates new form MainInterface
      */
@@ -63,13 +58,36 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
         this.setIconImage(icon);
         Graph graphmap = new Graph();
-        graphmap.loadFromString("V,Lyon:D,10::R,LyonRestau;A,120::V,Paris;A,150::V,Lille;N,170::V,Lille;;\n"
-                + "R,LyonRestau:D,10::V,Lyon;;\n"
-                + "V,Paris:A,120::V,Lyon;D,5::L,centreL;A,40::V,Lille;A,170::V,Toulouse;;\n"
-                + "L,centreL:D,5::V,Paris;;\n"
-                + "V,Lille:A,150::V,Lyon;N,170::V,Lyon;A,40::V,Paris;A,40::V,Toulouse;;\n"
-                + "V,Toulouse:A,170::V,Paris;A,40::V,Lille;A,40::V,Paris;;\n"
-                + "V,Toulouse:A,170::V,Paris;A,40::V,Lille;A,40::V,Paris;;");
+        graphmap.loadFromString("V, Lyon:A, 100::V, Grenoble; N, 50::V, Bourgoin-Jallieu; A, 700::V, Paris;A, 300::V, Marseille;A, 330::V, Nice;A, 600::V, Dijon; A, 550::V, Bordeaux;D, 5::R, Burger-King-Lyon;D, 4::L, Ciné-Part-Dieu;N, 50::L, Walibi;;\n" +
+"V, Grenoble:N, 45::V, Bourgoin-Jallieu; A, 800::V, Paris;A, 180::V, Marseille;A, 150::V, Nice;A, 660::V, Dijon; A, 600::V, Bordeaux;D, 5::R, Burger-King-Grenoble;;\n" +
+"V, Nice: N, 100::V, Marseille;;\n" +
+"V, Paris:;;\n" +
+"V, Marseille:;;\n" +
+"V, Toulouse:;;\n" +
+"V, Dijon:;;\n" +
+"V, Nante:;;\n" +
+"V, Bordeaux:;;\n" +
+"V, Lille:;;\n" +
+"V, Rouen:;;\n" +
+"V, Bourgoin-Jallieu:;;\n" +
+"V, Lisieux:;;\n" +
+"V, St-Laurent-de-chamousset:;;\n" +
+"V, Bourg-en-Bresse:;;\n" +
+"V, Brest:;;\n" +
+"V, Strasbourg:;;\n" +
+"V, l'isle d'abeau:;;\n" +
+"R, Burger-King-Lyon:;;\n" +
+"R, Burger-King-Grenoble:;;\n" +
+"R, Burger-King-Bordeaux:;;\n" +
+"R, Burger-King-Brest:;;\n" +
+"R, Sushi-Paris:;;\n" +
+"R, Royal-Bourgoin:;;\n" +
+"L, Ciné-Part-Dieu:;;\n" +
+"L, Ciné-Paris-Centre:;;\n" +
+"L, Parc-Le Pal:;;\n" +
+"L, Parc-Walibi:;;\n" +
+"L, Disneyland-Paris:;;\n" +
+"L, Parc-Asterix:;;");
 
         drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
         splitPanel.setRightComponent(drawGraphPanel);

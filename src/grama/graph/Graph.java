@@ -131,28 +131,30 @@ public class Graph {
                 throw new FormatFileException(line);
             }
             String[] coupleLienNeoud = line.split(";");
-            for (String couple : coupleLienNeoud) {
-                String[] both = couple.split("::");
-                if (both.length != 2) {
-                    throw new FormatFileException();
+            if (coupleLienNeoud.length != 1 || !coupleLienNeoud[0].isBlank()) {//si il y a un lien (pcq quand pas de lien la taille est de 1 avec élément vide)
+                for (String couple : coupleLienNeoud) {
+                    String[] both = couple.split("::");
+                    if (both.length != 2) {
+                        throw new FormatFileException("size is : " + both.length + " for " + couple);
+                    }
+                    String lienStr = both[0];
+                    String neoudStr = both[1];
+
+                    String[] splitLienStr = StringFormater.getCoupleFormatCharStr(lienStr);
+                    char type = splitLienStr[0].charAt(0);
+                    int distance = Integer.parseInt(splitLienStr[1]);
+
+                    String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
+                    char typeDst = splitNeoudStr[0].charAt(0);
+                    String nameDst = splitNeoudStr[1];
+
+                    Noeud node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
+                    Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
+
+                    lien = getOrCreate(lien);
+
+                    noeudPrincipal.addLien(lien);
                 }
-                String lienStr = both[0];
-                String neoudStr = both[1];
-
-                String[] splitLienStr = StringFormater.getCoupleFormatCharStr(lienStr);
-                char type = splitLienStr[0].charAt(0);
-                int distance = Integer.parseInt(splitLienStr[1]);
-
-                String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
-                char typeDst = splitNeoudStr[0].charAt(0);
-                String nameDst = splitNeoudStr[1];
-
-                Noeud node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
-                Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
-
-                lien = getOrCreate(lien);
-
-                noeudPrincipal.addLien(lien);
             }
             addNoeud(noeudPrincipal);
         }
@@ -167,11 +169,11 @@ public class Graph {
         }
         return str;
     }
-    
-    public int getIndiceNoeud(Noeud noeud){
+
+    public int getIndiceNoeud(Noeud noeud) {
         int i = 0;
-        for (;i < getListNoeud().size();i++){
-            if ((getListNoeud().get(i)).equals(noeud)){
+        for (; i < getListNoeud().size(); i++) {
+            if ((getListNoeud().get(i)).equals(noeud)) {
                 return i;
             }
         }

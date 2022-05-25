@@ -72,21 +72,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this(parentFrame, graph, font, Noeud.Type.ALL, Lien.Type.ALL);
     }
 
-    public Vector2D getScaleOffset() {
-        return scaleOffset;
-    }
-
-    private Noeud getNoeudAtPos(Vector2D pos) {
-        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            if (noeud.getLastLocation() == null) {
-                continue;
-            }
-            if (noeud.getLastLocation().sub(pos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
-                return noeud;
-            }
-        }
-        return null;
-    }
+    
 
     /**
      * Inisialise le panel
@@ -155,13 +141,39 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                
+
                 setScaleOffset(getScaleOffset().add(new Vector2D(0.05, 0.05).mul(e.getWheelRotation()).mul(-1)));
                 System.out.println(getScaleOffset());
                 repaint();
             }
         });
 
+    }
+    
+    private Noeud getNoeudAtPos(Vector2D pos) {
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            if (noeud.getLastLocation() == null) {
+                continue;
+            }
+            if (noeud.getLastLocation().sub(pos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
+                return noeud;
+            }
+        }
+        return null;
+    }
+
+    public Vector2D getScaleOffset() {
+        return scaleOffset;
+    }
+    
+    public Graph getGraph() {
+        return graph;
+    }
+    
+    /*##########POUR LA SCALE###########*/
+
+    private void setScaleOffset(Vector2D s) {
+        scaleOffset = s;
     }
 
     private Vector2D calculeScale(Dimension prev, Dimension nouveau) {
@@ -176,10 +188,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         }
         return scale;
     }
-
-    private void setScaleOffset(Vector2D s) {
-        scaleOffset = s;
-    }
+    
+    /*##########POUR L'AFFICHAGE###########*/
 
     public void initNoeudsLocation() {
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
@@ -191,7 +201,6 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
         }
-
     }
 
     /**
@@ -207,7 +216,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         g.clearRect(0, 0, getWidth(), getHeight());//clear les anciens dessins
-        
+
         setScaleOffset(getScaleOffset().add(calculeScale(prevSizePanel, getSize())).sub(new Vector2D(1, 1)));
         prevSizePanel = getSize();
 
@@ -239,9 +248,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         }
     }
 
-    public Graph getGraph() {
-        return graph;
-    }
+    
 
     /*##########POUR LA SELECTION###########*/
     public Noeud getSelectedNode() {
