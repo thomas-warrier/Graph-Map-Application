@@ -106,6 +106,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mousePressed(MouseEvent evt) {
+                
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 switch (evt.getButton()) {
                     case MouseEvent.BUTTON1:

@@ -210,5 +210,18 @@ public class Noeud implements Drawable {
         }
         return noeudB;
     }
+    
+    public Lien getLinkBetween(Noeud noeudArr) {
+            for (Lien lien : this.getListLien()) {
+                   if (lien.getDstADepartDe(this).equals(noeudArr)){
+                       return lien;
+                   }
+            }
+             return null;
+        }
+        
+        
+    
+    
 
 }

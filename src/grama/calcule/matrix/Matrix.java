@@ -24,6 +24,10 @@ public class Matrix<T> {
     public Matrix(int length, T defaut) {
         init(length, defaut);
     }
+    
+    public Matrix(){
+        
+    }
 
     /**
      * créé une matrice à partire d'une liste de liste

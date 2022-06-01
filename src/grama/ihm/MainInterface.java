@@ -77,6 +77,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     public MainInterface() {
         initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
+        this.setSize(800,600);
         this.setIconImage(icon);
 //        Graph graphmap = new Graph();
 //        graphmap.loadFromString("V,Paris:A,120::V,Lyon;A,220::V,Marseille;N,146::V,Rennes;N,59::V,Lille;D,35::L,DisneyLand;D,21::V,Reims;A,367::R,Mcdo;;\n"

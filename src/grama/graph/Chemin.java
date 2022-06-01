@@ -26,19 +26,26 @@ public class Chemin {
     public Chemin() {
         chemin = new ArrayList();
     }
-    
-    public void addLienToChemin(Lien lien){
+
+    public void addLienToChemin(Lien lien) {
         chemin.add(lien);
     }
-    
-    public int getKilometrageChemin(Chemin chemin){
+
+    public int getKilometrageChemin(Chemin chemin) {
         int kilometrageChemin = 0;
-        for (Lien lien : getChemin()){
-           kilometrageChemin+= lien.getKilometrage();
+        for (Lien lien : getChemin()) {
+            kilometrageChemin += lien.getKilometrage();
         }
         return kilometrageChemin;
     }
-   
-    
+
+    @Override
+    public String toString() {
+        String str ="";
+        for (Lien lien : chemin) {
+            str += "("+lien + "), ";
+        }
+        return str;
+    }
 
 }
