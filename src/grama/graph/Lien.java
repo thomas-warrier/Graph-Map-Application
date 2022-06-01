@@ -146,6 +146,7 @@ public class Lien implements Drawable {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
             return;
         }
+        
         Vector2D debut = new Vector2D(depart.getLastLocation().x, depart.getLastLocation().y);
         Vector2D arriver = new Vector2D(destination.getLastLocation().x, destination.getLastLocation().y);
         Vector2D line = new Vector2D(destination.getLastLocation().x - depart.getLastLocation().x, destination.getLastLocation().y - depart.getLastLocation().y);
@@ -153,7 +154,11 @@ public class Lien implements Drawable {
 
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
+        if(highlight){
+            g.setColor(new Color(254, 197, 1));
+        }else{
         g.setColor(getTypeLien().getColorLien());
+        }
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 
         centre = debut.add(line.div(4));
