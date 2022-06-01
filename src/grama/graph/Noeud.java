@@ -152,12 +152,6 @@ public class Noeud implements Drawable {
     @Override
     public void draw(Graphics g, Vector2D center, Font font, boolean highlight) {
 
-//        if (highlight) {
-//            int diametreHighlight = DIAMETRE + 6;
-//            g.setColor(new Color(251, 206, 1));
-//            g.fillOval((int) center.x - (diametreHighlight / 2), (int) center.y - (diametreHighlight / 2),
-//                    diametreHighlight, diametreHighlight);
-//        }
         if (highlight) {
             g.setColor(Color.cyan);
         } else {
