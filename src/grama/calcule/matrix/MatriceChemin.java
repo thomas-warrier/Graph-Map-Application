@@ -20,7 +20,7 @@ public class MatriceChemin extends Matrix<Chemin> {
     public MatriceChemin(Graph graph) {
         this.graph = graph;
         init(graph.getListNoeud().size(), null);
-        
+
     }
 
     public List<List<Chemin>> getMatrix() {
@@ -28,8 +28,7 @@ public class MatriceChemin extends Matrix<Chemin> {
     }
 
     /**
-     * @prec FloydWarshall.getInstanceKilometrage() doit être initialiser &
-     * resolved
+     * @prec FloydWarshall.getInstanceKilometrage() doit être initialiser & resolved
      * @param length
      * @param defaut
      */
@@ -43,13 +42,20 @@ public class MatriceChemin extends Matrix<Chemin> {
             for (int j = 0; j < matrix.size(); j++) {
                 Noeud arriver = graph.getListNoeud().get(j);
                 Chemin nouveau = new Chemin();
+                
                 Noeud prec = matrice.getDistByIndice(i, j).getPrec();
+                Noeud curr = arriver;
 
-                while (prec!=null && !prec.equals(depart)) {
-                    
-                    nouveau.addLienToChemin(arriver.getLinkBetween(prec));
+                if (prec != null) {
+                    while (!prec.equals(depart)) {
 
-                    prec = matrice.getDistByIndice(i, graph.getIndiceNoeud(prec)).getPrec();
+                        nouveau.addLienToChemin(curr.getLinkBetween(prec));
+                        
+                        curr = prec;
+
+                        prec = matrice.getDistByIndice(i, graph.getIndiceNoeud(prec)).getPrec();
+                    }
+                    nouveau.addLienToChemin(depart.getLinkBetween(curr));
                 }
 
                 matrix.get(i).set(j, nouveau);
