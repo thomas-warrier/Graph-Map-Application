@@ -19,7 +19,7 @@ public class LienTest {
 
         assertTrue(t.is(Lien.Type.ALL));
         assertFalse(t.is(Lien.Type.NONE));
-        assertFalse(t.is(Lien.Type.NATIONAL));
+        assertFalse(t.is(Lien.Type.NATIONALE));
 
         assertTrue(Lien.Type.NONE.is(Lien.Type.NONE));
 

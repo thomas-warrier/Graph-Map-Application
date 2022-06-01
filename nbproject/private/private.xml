@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Noeud.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/formater/StringFormater.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Lien.java</file>
             <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/MainInterface.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/DrawGraphPanel.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Graph.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/exceptions/FormatFileException.java</file>
         </group>
     </open-files>
 </project-private>

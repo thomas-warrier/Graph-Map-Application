@@ -9,4 +9,8 @@ public class FormatFileException extends RuntimeException {
     {
         super("Le format du fichier n'est pas conforme. partie non conforme : " + nonConforme);
     }
+    
+    public FormatFileException(String nonConforme, int lineNumber){
+        this("Le format du fichier n'est pas conforme. partie non conforme : " + nonConforme + " à la ligne " + lineNumber);
+    }
 }
