@@ -1,6 +1,7 @@
 package grama.ihm;
 
 import grama.calcule.matrix.FloydWarshall;
+import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
 import grama.graph.Lien;
@@ -11,6 +12,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -51,6 +54,23 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     private ButtonGroup groupView = new ButtonGroup();
 
+    private void loadFile(File fileGraph) throws IOException {
+        Graph graphmap = new Graph();
+
+        graphmap.loadFromString(StringFormater.readFile(fileGraph));
+
+        loadNewGraph(graphmap);
+        update();
+    }
+
+    private void loadNewGraph(Graph graph) {
+        drawGraphPanel = new DrawGraphPanel(this, graph, getFont());
+        splitPanel.setRightComponent(drawGraphPanel);
+        FloydWarshall.getInstanceKilometrage().initKilometrage(graph);
+        FloydWarshall.getInstanceSaut().initSaut(graph);
+
+    }
+
     /**
      * Creates new form MainInterface
      */
@@ -58,40 +78,40 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
         this.setIconImage(icon);
-        Graph graphmap = new Graph();
-        graphmap.loadFromString("V,Paris:A,120::V,Lyon;A,220::V,Marseille;N,146::V,Rennes;N,59::V,Lille;D,35::L,DisneyLand;D,21::V,Reims;A,367::R,Mcdo;;\n" +
-                                "V,Marseille:A,220::V,Paris;A,324::V,Toulouse;N,73::V,Nice;N,49::V,Toulon;D,14::R,Quick;D,346::V,SaintLaurentdeChamousset;N,24::R,Mcdo;;\n" +
-                                "V,Lyon:D,10::R,Bocuse;A,120::V,Paris;A,138::V,Grenoble;N,39::V,Dijon;N,237::L,LePal;D,3::V,Villeurbanne;N,34::R,Mcdo;;\n" +
-                                "V,Toulouse:A,324::V,Marseille;A,132::V,Bordeaux;N,337::V,Angers;N,342::R,Bocuse;D,37::V,Toulon;D,36::V,Rennes;N,344::L,Walibi;;\n" +
-                                "V,Nice:N,73::V,Marseille;A,356::V,Reims;A,254::V,Lille;N,213::V,Villeurbanne;D,34::R,Mcdo;D,43::V,Dijon;N,420::L,Asterix;;\n" +
-                                "V,Nantes:A,355::V,Montpellier;A,390::V,Strasbourg;N,572::V,Toulon;N,234::V,Bordeaux;D,53::V,Lille;D,252::V,Reims;N,53::L,CentreAere;;\n" +
-                                "V,Montpellier:A,355::V,Nantes;A,356::V,Strasbourg;N,342::V,Bordeaux;N,235::V,Rennes;D,329::V,SaintLaurentdeChamousset;D,379::V,Angers;N,525::R,Quick;;\n" +
-                                "V,Strasbourg:A,390::V,Nantes;A,356::V,Montpellier;N,220::V,Lille;N,35::V,Reims;D,437::L,Asterix;D,43::R,PizzàJo;D,35::R,PlanetSushi;;\n" +
-                                "V,Bordeaux:A,132::V,Toulouse;N,342::V,Montpellier;N,234::V,Nantes;A,356::V,Lille;D,23::R,PlanetSushi;D,352::V,Dijon;N,42::L,CentreAere;;\n" +
-                                "V,Lille:N,59::V,Paris;A,254::V,Nice;D,53::V,Nantes;N,220::V,Strasbourg;A,356::V,Bordeaux;D,432::V,Rennes;A,522::R,Bocuse;;\n" +
-                                "V,Rennes:N,146::V,Paris;D,36::V,Toulouse;N,235::V,Montpellier;D,432::V,Lille;A,355::V,SaintLaurentdeChamousset;A,53::V,Grenoble;A,353::R,PlanetSushi;;\n" +
-                                "V,Reims:D,21::V,Paris;A,356::V,Nice;D,252::V,Nantes;N,35::V,Strasbourg;N,83::V,SaintLaurentdeChamousset;A,356::V,Dijon;A,432::L,Futuroscope;;\n" +
-                                "V,SaintLaurentdeChamousset:D,346::V,Marseille;D,329::V,Montpellier;A,355::V,Rennes;N,83::V,Reims;A,356::R,BurgerKing;N,34::V,Villeurbanne;A,2::R,PizzàJo;;\n" +
-                                "V,Toulon:N,49::V,Marseille;D,37::V,Toulouse;N,572::V,Nantes;A,359::V,Dijon;A,352::V,Angers;D,348::R,Quick;N,449::L,DisneyLand;;\n" +
-                                "V,Grenoble:A,138::V,Lyon;A,53::V,Rennes;N,438::V,Dijon;N,438::R,PlanetSushi;D,238::R,PizzàJo;D,34::R,Mcdo;N,246::L,Futuroscope;;\n" +
-                                "V,Dijon:N,39::V,Lyon;D,43::V,Nice;D,352::V,Bordeaux;A,356::V,Reims;A,359::V,Toulon;N,438::V,Grenoble;;\n" +
-                                "V,Angers:N,337::V,Toulouse;D,379::V,Montpellier;A,352::V,Toulon;A,332::R,BurgerKing;N,324::R,PizzàJo;D,23::L,Walibi;;\n" +
-                                "V,Villeurbanne:D,3::V,Lyon;N,213::V,Nice;N,34::V,SaintLaurentdeChamousset;A,259::L,Futuroscope;A,345::L,Walibi;D,24::L,LePal;N,31::R,BurgerKing;;\n" +
-                                "R,Mcdo:D,34::V,Nice;D,34::V,Grenoble;A,223::R,Quick;A,367::V,Paris;N,34::V,Lyon;N,24::V,Marseille;;\n" +
-                                "R,BurgerKing:A,356::V,SaintLaurentdeChamousset;A,332::V,Angers;N,31::V,Villeurbanne;N,53::R,PizzàJo;D,523::L,CentreAere;D,59::L,Asterix;;\n" +
-                                "R,PlanetSushi:D,23::V,Bordeaux;N,438::V,Grenoble;D,35::V,Strasbourg;N,322::R,Bocuse;A,353::V,Rennes;A,532::L,DisneyLand;;\n" +
-                                "R,PizzàJo:D,43::V,Strasbourg;D,238::V,Grenoble;N,324::V,Angers;N,53::R,BurgerKing;A,2::V,SaintLaurentdeChamousset;A,53::L,Asterix;;\n" +
-                                "R,Bocuse:D,10::V,Lyon;N,342::V,Toulouse;N,322::R,PlanetSushi;D,24::L,CentreAere;A,246::L,LePal;A,522::V,Lille;D,32::L,Futuroscope;;\n" +
-                                "R,Quick:D,14::V,Marseille;D,348::V,Toulon;A,223::R,Mcdo;A,359::L,CentreAere;N,525::V,Montpellier;N,424::L,LePal;;\n" +
-                                "L,CentreAere:D,523::R,BurgerKing;A,359::R,Quick;A,123::L,DisneyLand;D,24::R,Bocuse;N,42::V,Bordeaux;N,53::V,Nantes;;\n" +
-                                "L,Asterix:D,437::V,Strasbourg;D,59::R,BurgerKing;A,53::R,PizzàJo;A,422::L,LePal;N,442::L,Walibi;N,420::V,Nice;;\n" +
-                                "L,LePal:N,237::V,Lyon;D,24::V,Villeurbanne;N,424::R,Quick;A,422::L,Asterix;A,246::R,Bocuse;D,39::L,Futuroscope;;\n" +
-                                "L,Walibi:D,23::V,Angers;A,345::V,Villeurbanne;N,442::L,Asterix;A,439::L,Futuroscope;N,344::V,Toulouse;D,44::L,DisneyLand;;\n" +
-                                "L,DisneyLand:D,35::V,Paris;A,532::R,PlanetSushi;A,123::L,CentreAere;D,44::L,Walibi;N,537::L,Futuroscope;N,449::V,Toulon;;\n" +
-                                "L,Futuroscope:A,259::V,Villeurbanne;D,39::L,LePal;N,537::L,DisneyLand;A,432::V,Reims;N,246::V,Grenoble;D,32::R,Bocuse;;");
-
-        drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
-        splitPanel.setRightComponent(drawGraphPanel);
+//        Graph graphmap = new Graph();
+//        graphmap.loadFromString("V,Paris:A,120::V,Lyon;A,220::V,Marseille;N,146::V,Rennes;N,59::V,Lille;D,35::L,DisneyLand;D,21::V,Reims;A,367::R,Mcdo;;\n"
+//                + "V,Marseille:A,220::V,Paris;A,324::V,Toulouse;N,73::V,Nice;N,49::V,Toulon;D,14::R,Quick;D,346::V,SaintLaurentdeChamousset;N,24::R,Mcdo;;\n"
+//                + "V,Lyon:D,10::R,Bocuse;A,120::V,Paris;A,138::V,Grenoble;N,39::V,Dijon;N,237::L,LePal;D,3::V,Villeurbanne;N,34::R,Mcdo;;\n"
+//                + "V,Toulouse:A,324::V,Marseille;A,132::V,Bordeaux;N,337::V,Angers;N,342::R,Bocuse;D,37::V,Toulon;D,36::V,Rennes;N,344::L,Walibi;;\n"
+//                + "V,Nice:N,73::V,Marseille;A,356::V,Reims;A,254::V,Lille;N,213::V,Villeurbanne;D,34::R,Mcdo;D,43::V,Dijon;N,420::L,Asterix;;\n"
+//                + "V,Nantes:A,355::V,Montpellier;A,390::V,Strasbourg;N,572::V,Toulon;N,234::V,Bordeaux;D,53::V,Lille;D,252::V,Reims;N,53::L,CentreAere;;\n"
+//                + "V,Montpellier:A,355::V,Nantes;A,356::V,Strasbourg;N,342::V,Bordeaux;N,235::V,Rennes;D,329::V,SaintLaurentdeChamousset;D,379::V,Angers;N,525::R,Quick;;\n"
+//                + "V,Strasbourg:A,390::V,Nantes;A,356::V,Montpellier;N,220::V,Lille;N,35::V,Reims;D,437::L,Asterix;D,43::R,PizzàJo;D,35::R,PlanetSushi;;\n"
+//                + "V,Bordeaux:A,132::V,Toulouse;N,342::V,Montpellier;N,234::V,Nantes;A,356::V,Lille;D,23::R,PlanetSushi;D,352::V,Dijon;N,42::L,CentreAere;;\n"
+//                + "V,Lille:N,59::V,Paris;A,254::V,Nice;D,53::V,Nantes;N,220::V,Strasbourg;A,356::V,Bordeaux;D,432::V,Rennes;A,522::R,Bocuse;;\n"
+//                + "V,Rennes:N,146::V,Paris;D,36::V,Toulouse;N,235::V,Montpellier;D,432::V,Lille;A,355::V,SaintLaurentdeChamousset;A,53::V,Grenoble;A,353::R,PlanetSushi;;\n"
+//                + "V,Reims:D,21::V,Paris;A,356::V,Nice;D,252::V,Nantes;N,35::V,Strasbourg;N,83::V,SaintLaurentdeChamousset;A,356::V,Dijon;A,432::L,Futuroscope;;\n"
+//                + "V,SaintLaurentdeChamousset:D,346::V,Marseille;D,329::V,Montpellier;A,355::V,Rennes;N,83::V,Reims;A,356::R,BurgerKing;N,34::V,Villeurbanne;A,2::R,PizzàJo;;\n"
+//                + "V,Toulon:N,49::V,Marseille;D,37::V,Toulouse;N,572::V,Nantes;A,359::V,Dijon;A,352::V,Angers;D,348::R,Quick;N,449::L,DisneyLand;;\n"
+//                + "V,Grenoble:A,138::V,Lyon;A,53::V,Rennes;N,438::V,Dijon;N,438::R,PlanetSushi;D,238::R,PizzàJo;D,34::R,Mcdo;N,246::L,Futuroscope;;\n"
+//                + "V,Dijon:N,39::V,Lyon;D,43::V,Nice;D,352::V,Bordeaux;A,356::V,Reims;A,359::V,Toulon;N,438::V,Grenoble;;\n"
+//                + "V,Angers:N,337::V,Toulouse;D,379::V,Montpellier;A,352::V,Toulon;A,332::R,BurgerKing;N,324::R,PizzàJo;D,23::L,Walibi;;\n"
+//                + "V,Villeurbanne:D,3::V,Lyon;N,213::V,Nice;N,34::V,SaintLaurentdeChamousset;A,259::L,Futuroscope;A,345::L,Walibi;D,24::L,LePal;N,31::R,BurgerKing;;\n"
+//                + "R,Mcdo:D,34::V,Nice;D,34::V,Grenoble;A,223::R,Quick;A,367::V,Paris;N,34::V,Lyon;N,24::V,Marseille;;\n"
+//                + "R,BurgerKing:A,356::V,SaintLaurentdeChamousset;A,332::V,Angers;N,31::V,Villeurbanne;N,53::R,PizzàJo;D,523::L,CentreAere;D,59::L,Asterix;;\n"
+//                + "R,PlanetSushi:D,23::V,Bordeaux;N,438::V,Grenoble;D,35::V,Strasbourg;N,322::R,Bocuse;A,353::V,Rennes;A,532::L,DisneyLand;;\n"
+//                + "R,PizzàJo:D,43::V,Strasbourg;D,238::V,Grenoble;N,324::V,Angers;N,53::R,BurgerKing;A,2::V,SaintLaurentdeChamousset;A,53::L,Asterix;;\n"
+//                + "R,Bocuse:D,10::V,Lyon;N,342::V,Toulouse;N,322::R,PlanetSushi;D,24::L,CentreAere;A,246::L,LePal;A,522::V,Lille;D,32::L,Futuroscope;;\n"
+//                + "R,Quick:D,14::V,Marseille;D,348::V,Toulon;A,223::R,Mcdo;A,359::L,CentreAere;N,525::V,Montpellier;N,424::L,LePal;;\n"
+//                + "L,CentreAere:D,523::R,BurgerKing;A,359::R,Quick;A,123::L,DisneyLand;D,24::R,Bocuse;N,42::V,Bordeaux;N,53::V,Nantes;;\n"
+//                + "L,Asterix:D,437::V,Strasbourg;D,59::R,BurgerKing;A,53::R,PizzàJo;A,422::L,LePal;N,442::L,Walibi;N,420::V,Nice;;\n"
+//                + "L,LePal:N,237::V,Lyon;D,24::V,Villeurbanne;N,424::R,Quick;A,422::L,Asterix;A,246::R,Bocuse;D,39::L,Futuroscope;;\n"
+//                + "L,Walibi:D,23::V,Angers;A,345::V,Villeurbanne;N,442::L,Asterix;A,439::L,Futuroscope;N,344::V,Toulouse;D,44::L,DisneyLand;;\n"
+//                + "L,DisneyLand:D,35::V,Paris;A,532::R,PlanetSushi;A,123::L,CentreAere;D,44::L,Walibi;N,537::L,Futuroscope;N,449::V,Toulon;;\n"
+//                + "L,Futuroscope:A,259::V,Villeurbanne;D,39::L,LePal;N,537::L,DisneyLand;A,432::V,Reims;N,246::V,Grenoble;D,32::R,Bocuse;A,439::L,Walibi;;");
+//
+//        loadNewGraph(graphmap);
+        splitPanel.setRightComponent(null);
         splitPanel.setDividerLocation(0.25);
 
         groupView.add(principalMenuItem);
@@ -100,8 +120,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(voisin2ndMenuItem);
         groupView.add(comparaisonMenuItem);
         groupView.add(cheminMenuItem);
-        
-        
 
         this.update();
     }
@@ -471,7 +489,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
      * @param msg the message do display in this new dialog window
      */
     private void showWarningDialog(Component parent, String msg) {
-        JOptionPane.showMessageDialog(parent, msg, "Bloc-notes", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(parent, msg, "Grama", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -501,22 +519,14 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         }
 
         if (res == JFileChooser.APPROVE_OPTION) {
-            String txt;
             try {
-                txt = StringFormater.readFile(file);
-                if (txt != null) {
-
-                    Graph graphmap = new Graph();
-
-                    graphmap.loadFromString(txt);
-                    drawGraphPanel = new DrawGraphPanel(this, graphmap, getFont());
-                    splitPanel.setRightComponent(drawGraphPanel);
-
-                    update();
-                }
+                loadFile(file);
+            } catch (FormatFileException e) {
+                showWarningDialog(this, "Erreur à la ligne : " + e.getLineNumber() + "\n" + e.getNonConforme());
             } catch (IOException ex) {
                 showReadRightWarning(file);
             }
+
         }
     }
 

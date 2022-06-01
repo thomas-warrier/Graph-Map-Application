@@ -72,8 +72,6 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this(parentFrame, graph, font, Noeud.Type.ALL, Lien.Type.ALL);
     }
 
-    
-
     /**
      * Inisialise le panel
      *
@@ -149,7 +147,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         });
 
     }
-    
+
     private Noeud getNoeudAtPos(Vector2D pos) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
             if (noeud.getLastLocation() == null) {
@@ -165,13 +163,12 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     public Vector2D getScaleOffset() {
         return scaleOffset;
     }
-    
+
     public Graph getGraph() {
         return graph;
     }
-    
-    /*##########POUR LA SCALE###########*/
 
+    /*##########POUR LA SCALE###########*/
     private void setScaleOffset(Vector2D s) {
         scaleOffset = s;
     }
@@ -188,9 +185,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         }
         return scale;
     }
-    
-    /*##########POUR L'AFFICHAGE###########*/
 
+    /*##########POUR L'AFFICHAGE###########*/
     public void initNoeudsLocation() {
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
         Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
@@ -230,25 +226,21 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-            lien.draw(g, null, getFont());//affiche en fonction des position des neouds qu'il relie s'il on été affiché
+            lien.draw(g, null, getFont(), false);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
     }
 
     public void drawNoeuds(Graphics g) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            if (isSelected(noeud)) {
-                g.setColor(Color.yellow);
-            }
+
             noeud.getLastLocation().x *= scaleOffset.x;
             noeud.getLastLocation().y *= scaleOffset.y;
             noeud.setLastLocation(noeud.getLastLocation().add(offsetForLocation));
-            noeud.draw(g, noeud.getLastLocation(), getFont());
+            noeud.draw(g, noeud.getLastLocation(), getFont(), isSelected(noeud));
 
             g.setColor(Color.BLACK);
         }
     }
-
-    
 
     /*##########POUR LA SELECTION###########*/
     public Noeud getSelectedNode() {
