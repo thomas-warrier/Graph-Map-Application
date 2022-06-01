@@ -55,7 +55,6 @@ public class Matrix<T> {
             }
             matrix.add(line);
         }
-
     }
 
     /**

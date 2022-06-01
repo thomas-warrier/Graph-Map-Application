@@ -14,5 +14,5 @@ import java.awt.Graphics;
  */
 public interface Drawable {
 
-    public void draw(Graphics g, Vector2D center, Font font);
+    public void draw(Graphics g, Vector2D center, Font font, boolean highlight);
 }

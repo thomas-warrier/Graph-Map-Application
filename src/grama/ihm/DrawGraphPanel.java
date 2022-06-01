@@ -6,6 +6,7 @@ import grama.graph.Lien;
 import grama.graph.Noeud;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.JPanel;
 
 /**
@@ -32,11 +35,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Noeud[] selectedNodes;
     private int currSelectedNode;
 
-    
     private Dimension prevSizePanel;
-    private double scale;
-
-    
+    private Vector2D scaleOffset, offsetForLocation, lastMouseLocation;
 
     /**
      * instansie un panel pour dessiner un graph
@@ -51,9 +51,16 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.graph = graph;
         this.typeNoeud = typeNoeud;
         this.typeLien = typeLien;
-        
+        offsetForLocation = new Vector2D(0, 0);
+
+        Dimension dimenstion = new Dimension(300, 300);
+        this.setMaximumSize(dimenstion);
+        setSize(dimenstion);
+        setPreferredSize(dimenstion);
+
         this.init(parentFrame, font);
     }
+
     /**
      * instansie un panel pour dessiner un graph
      *
@@ -80,50 +87,117 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         setNbrSelectableNode(1);
 
         prevSizePanel = getSize();
-        scale = 1.0;
+        scaleOffset = new Vector2D(1, 1);
         initNoeudsLocation();
 
         this.addMouseMotionListener(this);
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                
-                Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
-                for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-                    if (noeud.getLastLocation() == null) {
-                        continue;
+                if (evt.getButton() == MouseEvent.BUTTON1) {
+                    Noeud clicked = getNoeudAtPos(new Vector2D(evt.getX(), evt.getY()));
+                    if (clicked != null) {
+                        selectedNodes[currSelectedNode++ % selectedNodes.length] = clicked;
                     }
-                    if (noeud.getLastLocation().sub(mousePos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
-                        selectedNodes[currSelectedNode++ % selectedNodes.length] = noeud;
-                    }
+                    repaint();
+                    parentFrame.update();
                 }
-                repaint();
-                parentFrame.update();
             }
 
             @Override
             public void mousePressed(MouseEvent evt) {
                 
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
-                for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-                    if (noeud.getLastLocation() == null) {
-                        continue;
-                    }
-                    if (noeud.getLastLocation().sub(mousePos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
-                        toMove = noeud;
-                    }
+                switch (evt.getButton()) {
+                    case MouseEvent.BUTTON1:
+                        Noeud clicked = getNoeudAtPos(mousePos);
+                        if (clicked != null) {
+                            toMove = clicked;
+                            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                        }
+                        break;
+                    case MouseEvent.BUTTON2:
+                        lastMouseLocation = mousePos;
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        break;
                 }
-                repaint();
             }
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-                
-                toMove = null;
+                switch (evt.getButton()) {
+                    case MouseEvent.BUTTON1:
+                        toMove = null;
+                        break;
+                    case MouseEvent.BUTTON2:
+                        lastMouseLocation = null;
+                        offsetForLocation = new Vector2D(0, 0);
+                        break;
+                }
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
+        });
+        this.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
 
+                setScaleOffset(getScaleOffset().add(new Vector2D(0.05, 0.05).mul(e.getWheelRotation()).mul(-1)));
+                System.out.println(getScaleOffset());
+                repaint();
+            }
         });
 
+    }
+
+    private Noeud getNoeudAtPos(Vector2D pos) {
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            if (noeud.getLastLocation() == null) {
+                continue;
+            }
+            if (noeud.getLastLocation().sub(pos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
+                return noeud;
+            }
+        }
+        return null;
+    }
+
+    public Vector2D getScaleOffset() {
+        return scaleOffset;
+    }
+
+    public Graph getGraph() {
+        return graph;
+    }
+
+    /*##########POUR LA SCALE###########*/
+    private void setScaleOffset(Vector2D s) {
+        scaleOffset = s;
+    }
+
+    private Vector2D calculeScale(Dimension prev, Dimension nouveau) {
+        double scaleX = nouveau.getWidth() / prev.getWidth();
+        double scaleY = nouveau.getHeight() / prev.getHeight();
+        Vector2D scale = new Vector2D(1, 1);
+        if (!Double.isInfinite(scaleX)) {
+            scale.x = scaleX;
+        }
+        if (!Double.isInfinite(scaleY)) {
+            scale.y = scaleY;
+        }
+        return scale;
+    }
+
+    /*##########POUR L'AFFICHAGE###########*/
+    public void initNoeudsLocation() {
+        Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
+        Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
+        double angleRot = (2 * Math.PI) / graph.getListNoeud().size();//anlge de rotation pour dessiner les neouds en cercle
+        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+            //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
+            noeud.setLastLocation(center.add(rayon).add(offsetForLocation));
+
+            rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
+        }
     }
 
     /**
@@ -140,46 +214,33 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
         g.clearRect(0, 0, getWidth(), getHeight());//clear les anciens dessins
 
+        setScaleOffset(getScaleOffset().add(calculeScale(prevSizePanel, getSize())).sub(new Vector2D(1, 1)));
+        prevSizePanel = getSize();
+
         //draw les noeuds et liens entre ces noeuds (uniquement)
         drawNoeuds(g);
         drawLien(g);
-        
-        prevSizePanel = getSize();
+
+        setScaleOffset(new Vector2D(1, 1));
+
     }
 
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-            lien.draw(g, null, getFont());//affiche en fonction des position des neouds qu'il relie s'il on été affiché
+            lien.draw(g, null, getFont(), false);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
-    }
-
-    public void initNoeudsLocation() {
-        Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
-        Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
-        double angleRot = (2 * Math.PI) / graph.getListNoeud().size();//anlge de rotation pour dessiner les neouds en cercle
-        for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
-            noeud.setLastLocation(center.add(rayon));
-
-            rayon = rayon.rotateOf(angleRot);//fait tourner le vec rayon
-        }
-        
     }
 
     public void drawNoeuds(Graphics g) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            if (isSelected(noeud)) {
-                g.setColor(Color.yellow);
-                noeud.draw(g, noeud.getLastLocation(), getFont());
-                g.setColor(Color.BLACK);
-            } else {
-                noeud.draw(g, noeud.getLastLocation(), getFont());
-            }
-        }
-    }
 
-    public Graph getGraph() {
-        return graph;
+            noeud.getLastLocation().x *= scaleOffset.x;
+            noeud.getLastLocation().y *= scaleOffset.y;
+            noeud.setLastLocation(noeud.getLastLocation().add(offsetForLocation));
+            noeud.draw(g, noeud.getLastLocation(), getFont(), isSelected(noeud));
+
+            g.setColor(Color.BLACK);
+        }
     }
 
     /*##########POUR LA SELECTION###########*/
@@ -207,12 +268,15 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent evt) {
-        if (toMove == null) {
-            return;
-        }
         Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
-        toMove.setLastLocation(mousePos);
-        repaint();
+        if (toMove != null) {// on veux déplacer un noeud
+            toMove.setLastLocation(mousePos);
+            repaint();
+        } else if (lastMouseLocation != null) {//on veux se déplacer sur le graph
+            offsetForLocation = mousePos.sub(lastMouseLocation);
+            lastMouseLocation = mousePos;
+            repaint();
+        }
     }
 
     @Override

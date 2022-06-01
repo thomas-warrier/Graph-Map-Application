@@ -13,8 +13,9 @@ public class Vector2D {
 
     /**
      * créé un {@link Vector2D} avec x et y
+     *
      * @param x
-     * @param y 
+     * @param y
      */
     public Vector2D(double x, double y) {
         this.x = x;
@@ -23,6 +24,7 @@ public class Vector2D {
 
     /**
      * copie un autre {@link Vector2D}
+     *
      * @param lastLocation l'objet à copié
      */
     public Vector2D(Vector2D lastLocation) {
@@ -32,6 +34,7 @@ public class Vector2D {
 
     /**
      * Ajoute 2 {@link Vector2D}
+     *
      * @param other le {@link Vector2D} avec lequelle additionner
      * @return la somme des 2 {@link Vector2D}
      */
@@ -41,6 +44,7 @@ public class Vector2D {
 
     /**
      * Soustrai 2 {@link Vector2D}
+     *
      * @param other le {@link Vector2D} avec lequelle soustraire
      * @return la soustraction du {@link Vector2D} courrant par le {@link Vector2D} other
      */
@@ -50,6 +54,7 @@ public class Vector2D {
 
     /**
      * multiplie avec un scalaire
+     *
      * @param a le scalaire par lequelle multiplié
      * @return la multiplication du {@link Vector2D} avec le scalaire
      */
@@ -59,6 +64,7 @@ public class Vector2D {
 
     /**
      * diviser par un scalaire
+     *
      * @param a le scalaire par lequelle diviser
      * @return la diviser du {@link Vector2D} par le scalaire
      */
@@ -75,13 +81,13 @@ public class Vector2D {
     }
 
     /**
-     * 
+     *
      * @return Le {@link Vector2D} unitaire
      */
     public Vector2D unitaire() {
         return this.div(this.norm());
     }
-    
+
     public Vector2D setOrientation(double r) {
         return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
     }
@@ -96,6 +102,11 @@ public class Vector2D {
 
     public void draw(Graphics g) {
         g.fillOval((int) x - 5, (int) y - 5, 10, 10);
+    }
+
+    @Override
+    public String toString() {
+        return x + ", " + y;
     }
 
     @Override
