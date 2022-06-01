@@ -210,15 +210,17 @@ public class Noeud implements Drawable {
         return noeudB;
     }
     
-    public static Chemin getRouteTraversant(Noeud noeudArr,List<Type> typeLieu,FloydWarshall floydMatrice,Graph graph){
-        
-        for (int i = 0;i < graph.getListNoeud().size();i++){
-            Chemin cheminPassantPar = new Chemin();
-            for ()
+    public Lien getLinkBetween(Noeud noeudArr) {
+            for (Lien lien : this.getListLien()) {
+                   if (lien.getDstADepartDe(this).equals(noeudArr)){
+                       return lien;
+                   }
+            }
+             return null;
         }
         
         
-    }
+    
     
 
 }

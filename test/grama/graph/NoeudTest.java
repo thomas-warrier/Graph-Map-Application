@@ -28,8 +28,7 @@ public class NoeudTest {
         assertTrue(Noeud.Type.ALL.is(Noeud.Type.VILLE));
 
     }
-
-    @Test
+@Test
     public void getVoisin2DistTest() {
         Graph graphmap = new Graph();
 
@@ -40,12 +39,11 @@ public class NoeudTest {
                 + "L,Parck:N,15::V,Villeurbanne;A,45::V, Macon;;");
 
         FloydWarshall.getInstanceSaut().initSaut(graphmap).resolve();
-        
-        List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut());
-        
+
+        List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+
         assertEquals("devrait être Villeurbanne", voisins2.get(0), new Noeud(Noeud.Type.VILLE, "Villeurbanne"));
         assertEquals("devrait être McDo-Decines", voisins2.get(1), new Noeud(Noeud.Type.RESTAURANT, "McDo-Decines"));
-        assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.LOISIR, "Parck"));        
+        assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.LOISIR, "Parck"));
     }
-
 }
