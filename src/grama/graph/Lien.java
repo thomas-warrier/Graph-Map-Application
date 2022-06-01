@@ -142,7 +142,7 @@ public class Lien implements Drawable {
     }
 
     @Override
-    public void draw(Graphics g, Vector2D centre, Font font) {
+    public void draw(Graphics g, Vector2D centre, Font font, boolean highlight) {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
             return;
         }
@@ -157,6 +157,7 @@ public class Lien implements Drawable {
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 
         centre = debut.add(line.div(4));
+        g.setColor(Color.BLACK);
         StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), centre, font);
         g.setColor(Color.BLACK);
     }

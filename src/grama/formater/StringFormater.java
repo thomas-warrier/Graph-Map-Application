@@ -2,6 +2,7 @@ package grama.formater;
 
 import grama.calcule.vector.Vector2D;
 import grama.exceptions.FormatFileException;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -47,6 +48,7 @@ public class StringFormater {
     }
 
     public static void drawCenteredString(Graphics g, String text, Vector2D location, Font font) {
+        
         FontMetrics metrics = g.getFontMetrics(font);
         Graphics2D g2d = (Graphics2D) g.create();
         FontMetrics fm = g2d.getFontMetrics();
@@ -55,5 +57,6 @@ public class StringFormater {
         int y = (int) (location.y - fm.getHeight() / 2.0) + fm.getAscent();
         g.setFont(font);
         g.drawString(text, x, y);
+        
     }
 }

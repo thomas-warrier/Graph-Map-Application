@@ -1,0 +1,7 @@
+V,Paris:A,120::V,Lyon;A,220::V,Marseille;N,146::V,Rennes;N,59::V,Lille;D,35::L,DisneyLand;D,21::V,Reims;A,367::R,Mcdo;;
+V,Marseille:A,220::V,Paris;A,324::V,Toulouse;N,73::V,Nice;N,49::V,Toulon;D,14::R,Quick;D,346::V,SaintLaurentdeChamousset;N,24::R,Mcdo;;
+V,Lyon:D,10::R,Bocuse;A,120::V,Paris;A,138::V,Grenoble;N,39::V,Dijon;N,237::L,LePal;D,3::V,Villeurbanne;N,34::R,Mcdo;;
+V,Toulouse:A,324::V,Marseille;A,132::V,Bordeaux;N,337::V,Angers;N,342::R,Bocuse;D,37::V,Toulon;D,36::V,Rennes;N,344::L,Walibi;;
+V,Nice:N,73::V,Marseille;A,356::V,Reims;A,254::V,Lille;N,213::V,Villeurbanne;D,34::R,Mcdo;D,43::V,Dijon;N,420::L,Asterix;;
+V,Nantes:A,355::V,Montpellier;A,390::V,Strasbourg;N,572::V,Toulon;N,234Bordeaux;D,53::V,Lille;D,252::V,Reims;N,53::L,CentreAere;;
+V,Montpellier:A,355::V,Nantes;A,356::V,Strasbourg;N,342::V,Bordeaux;N,235::V,Rennes;D,329::V,SaintLaurentdeChamousset;D,379::V,Angers;N,525::R,Quick;;

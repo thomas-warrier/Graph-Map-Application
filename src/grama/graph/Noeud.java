@@ -150,9 +150,22 @@ public class Noeud implements Drawable {
     }
 
     @Override
-    public void draw(Graphics g, Vector2D center, Font font) {
-        g.setColor(getTypeLieu().getColorNode());
-        g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
+    public void draw(Graphics g, Vector2D center, Font font, boolean highlight) {
+
+        if (highlight) {
+            g.setColor(Color.cyan);
+        } else {
+            g.setColor(getTypeLieu().getColorNode());
+        }
+        g.fillOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
+
+        
+        if (highlight) {
+            g.setColor(Color.BLACK);
+        } else {
+            g.setColor(Color.WHITE);
+        }
+        
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
         lastLocation = center;

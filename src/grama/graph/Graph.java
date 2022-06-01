@@ -113,7 +113,7 @@ public class Graph {
         Noeud noeudPrincipal;
 
         Pattern namePattern = Pattern.compile("^[^:]*");
-        
+
         int lineNumber = 0;
         for (String line : eachNode) {
             Matcher mainNodeMatch = namePattern.matcher(line);
@@ -137,7 +137,7 @@ public class Graph {
                 for (String couple : coupleLienNeoud) {
                     String[] both = couple.split("::");
                     if (both.length != 2) {
-                        throw new FormatFileException("size is : " + both.length + " for " + couple, lineNumber);
+                        throw new FormatFileException("[size " + both.length + "] " + couple, lineNumber);
                     }
                     String lienStr = both[0];
                     String neoudStr = both[1];

@@ -27,4 +27,4 @@ L,Asterix:D,437::V,Strasbourg;D,59::R,BurgerKing;A,53::R,PizzàJo;A,422::L,LePal
 L,LePal:N,237::V,Lyon;D,24::V,Villeurbanne;N,424::R,Quick;A,422::L,Asterix;A,246::R,Bocuse;D,39::L,Futuroscope;;
 L,Walibi:D,23::V,Angers;A,345::V,Villeurbanne;N,442::L,Asterix;A,439::L,Futuroscope;N,344::V,Toulouse;D,44::L,DisneyLand;;
 L,DisneyLand:D,35::V,Paris;A,532::R,PlanetSushi;A,123::L,CentreAere;D,44::L,Walibi;N,537::L,Futuroscope;N,449::V,Toulon;;
-L,Futuroscope:A,259::V,Villeurbanne;D,39::L,LePal;N,537::L,DisneyLand;A,432::V,Reims;N,246::V,Grenoble;D,32::R,Bocuse;;
+L,Futuroscope:A,259::V,Villeurbanne;D,39::L,LePal;N,537::L,DisneyLand;A,432::V,Reims;N,246::V,Grenoble;D,32::R,Bocuse;A,439::L,Walibi;;
