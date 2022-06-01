@@ -113,6 +113,8 @@ public class Graph {
         Noeud noeudPrincipal;
 
         Pattern namePattern = Pattern.compile("^[^:]*");
+        
+        int lineNumber = 0;
         for (String line : eachNode) {
             Matcher mainNodeMatch = namePattern.matcher(line);
             if (mainNodeMatch.find()) {
@@ -128,14 +130,14 @@ public class Graph {
 
                 line = line.substring(mainNodeMatch.group().length() + 1); // remove the name from the reste of the String
             } else {
-                throw new FormatFileException(line);
+                throw new FormatFileException(line, lineNumber);
             }
             String[] coupleLienNeoud = line.split(";");
             if (coupleLienNeoud.length != 1 || !coupleLienNeoud[0].isBlank()) {//si il y a un lien (pcq quand pas de lien la taille est de 1 avec élément vide)
                 for (String couple : coupleLienNeoud) {
                     String[] both = couple.split("::");
                     if (both.length != 2) {
-                        throw new FormatFileException("size is : " + both.length + " for " + couple);
+                        throw new FormatFileException("size is : " + both.length + " for " + couple, lineNumber);
                     }
                     String lienStr = both[0];
                     String neoudStr = both[1];
@@ -157,6 +159,7 @@ public class Graph {
                 }
             }
             addNoeud(noeudPrincipal);
+            lineNumber++;
         }
     }
 

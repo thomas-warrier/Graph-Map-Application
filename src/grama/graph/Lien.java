@@ -18,21 +18,28 @@ import java.util.Objects;
 public class Lien implements Drawable {
 
     public enum Type {
-        AUTOROUTE('A'),
-        NATIONALE('N'),
-        DEPARTEMENTALE('D'),
-        ALL('*'),
-        NONE('\0');
+        AUTOROUTE('A', new Color(0, 140, 100)),
+        NATIONALE('N', new Color(23, 42, 58)),
+        DEPARTEMENTALE('D', new Color(78, 133, 141)),
+        ALL('*', Color.BLACK),
+        NONE('\0', Color.black);
 
         private final char representativeChar;
-
-        Type(char c) {
+        private final Color colorLien;
+        
+        Type(char c, Color color) {
             this.representativeChar = c;
+            this.colorLien = color;
         }
 
         public char getRepresentativeChar() {
             return representativeChar;
         }
+
+        public Color getColorLien() {
+            return colorLien;
+        }
+        
 
         public boolean is(Type type) {
             return this == type || type == ALL || this == ALL;
@@ -134,20 +141,6 @@ public class Lien implements Drawable {
         return typeLien + "," + kilometrage + " = " + depart + "->" + destination;
     }
 
-    public Color whichColorLink(Lien lien) {
-        Type typeLien = lien.getTypeLien();
-        if (typeLien.equals(Type.AUTOROUTE)) {
-            return Color.ORANGE;
-        }
-        if (typeLien.equals(Type.DEPARTEMENTALE)) {
-            return Color.MAGENTA;
-        }
-        if (typeLien.equals(Type.NATIONALE)) {
-            return Color.GRAY;
-        }
-        return Color.BLACK;
-    }
-
     @Override
     public void draw(Graphics g, Vector2D centre, Font font) {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
@@ -160,7 +153,7 @@ public class Lien implements Drawable {
 
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
-        g.setColor(whichColorLink(this));
+        g.setColor(getTypeLien().getColorLien());
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 
         centre = debut.add(line.div(4));

@@ -20,20 +20,26 @@ public class Noeud implements Drawable {
     public static int DIAMETRE = 50;
 
     public enum Type {
-        VILLE('V'),
-        LOISIR('L'),
-        RESTAURANT('R'),
-        ALL('*'),
-        NONE('\0');
+        VILLE('V', new Color(204, 41, 54)),
+        LOISIR('L', new Color(8, 65, 92)),
+        RESTAURANT('R', new Color(56, 134, 151)),
+        ALL('*', Color.BLACK),
+        NONE('\0', Color.white);
 
         private final char representativeChar;
+        private final Color colorNode;
 
-        Type(char c) {
+        Type(char c, Color color) {
             this.representativeChar = c;
+            this.colorNode = color;
         }
 
         public char getRepresentativeChar() {
             return representativeChar;
+        }
+
+        public Color getColorNode() {
+            return colorNode;
         }
 
         public boolean is(Type t) {
@@ -143,23 +149,9 @@ public class Noeud implements Drawable {
         return typeLieu + ":" + nom;
     }
 
-    public Color whichColorNode(Noeud noeud) {
-        Type typeNoeud = noeud.getTypeLieu();
-        if (typeNoeud.equals(Type.VILLE)) {
-            return Color.red;
-        }
-        if (typeNoeud.equals(Type.RESTAURANT)) {
-            return Color.green;
-        }
-        if (typeNoeud.equals(Type.LOISIR)) {
-            return Color.blue;
-        }
-        return Color.BLACK;
-    }
-
     @Override
     public void draw(Graphics g, Vector2D center, Font font) {
-        g.setColor(whichColorNode(this));
+        g.setColor(getTypeLieu().getColorNode());
         g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
