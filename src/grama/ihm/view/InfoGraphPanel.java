@@ -1,25 +1,21 @@
 package grama.ihm.view;
 
-import grama.graph.Graph;
 import grama.graph.Lien;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
-import grama.ihm.Updatable;
 
 /**
  *
  * @author wwwazz
  */
-public class InfoGraphPanel extends javax.swing.JPanel implements Updatable {
-
-    MainInterface parent;
+public class InfoGraphPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form infoGraphPanel
      */
     public InfoGraphPanel(MainInterface parent) {
-        this.parent = parent;
+        super(parent);
         initComponents();
     }
 
@@ -269,7 +265,7 @@ public class InfoGraphPanel extends javax.swing.JPanel implements Updatable {
     @Override
     public void update() {
 
-        DrawGraphPanel graphPanel = parent.getDrawGraphPanel();
+        DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
         nbrLieuLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
         nbrVilleLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
         nbrRestoLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
