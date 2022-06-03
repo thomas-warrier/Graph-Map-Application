@@ -244,11 +244,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /*##########POUR LA SELECTION###########*/
-    public Noeud getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setNbrSelectableNode(int n) {
+        public void setNbrSelectableNode(int n) {
         this.selectedNodes = new Noeud[n];
         this.currSelectedNode = 0;
     }

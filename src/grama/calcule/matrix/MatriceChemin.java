@@ -35,7 +35,6 @@ public class MatriceChemin extends Matrix<Chemin> {
     @Override
     public void init(int length, Chemin defaut) {
         super.init(length, null);
-        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         FloydWarshall matrice = FloydWarshall.getInstanceKilometrage();
         for (int i = 0; i < matrix.size(); i++) {
             Noeud depart = graph.getListNoeud().get(i);
