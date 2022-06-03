@@ -4,17 +4,13 @@ import grama.calcule.matrix.FloydWarshall;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
-import grama.graph.Lien;
-import grama.graph.Noeud;
+import grama.ihm.view.InfoAbstractPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import grama.ihm.view.InfoGraphPanel;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -53,7 +49,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     public DrawGraphPanel getDrawGraphPanel() {
         return drawGraphPanel;
     }
-    
 
     private DrawGraphPanel drawGraphPanel;
     private ViewMode currMode = ViewMode.AFFICHAGE;
@@ -428,29 +423,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         }
         if (currMode == ViewMode.AFFICHAGE) {
 
-            ((InfoGraphPanel) infoPanel).update();
-            //Général
-//            nbrLieuLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
-//            nbrVilleLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
-//            nbrRestoLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
-//            nbrLoisirLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListNoeudOfType(Noeud.Type.LOISIR).size()));
-//
-//            nbrRouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
-//            nbrDepartementalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTALE).size()));
-//            nbrNationalLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.NATIONALE).size()));
-//            nbrAutorouteLabel.setText(Integer.toString(drawGraphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
-//
-//            //Selected
-//            Noeud selected = drawGraphPanel.getSelectedNodes()[0];
-//            if (selected != null) {
-//                nameSelectedLabel.setText(selected.getNom());
-//                typeSelectedLabel.setText(selected.getTypeLieu().toString());
-//                ouvertureSelectedLabel.setText(String.valueOf(selected.getListLien().size()));
-//            } else {
-//                nameSelectedLabel.setText("null");
-//                typeSelectedLabel.setText("null");
-//                ouvertureSelectedLabel.setText("null");
-//            }
+            ((InfoAbstractPanel) infoPanel).update();
         }
     }
 
