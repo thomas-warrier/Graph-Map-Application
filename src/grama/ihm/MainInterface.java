@@ -58,7 +58,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     private DrawGraphPanel drawGraphPanel;
-    private ViewMode currMode = ViewMode.AFFICHAGE;
+    private ViewMode currMode = ViewMode.PRINCIPAL;
 
     private ButtonGroup groupView = new ButtonGroup();
 
@@ -97,6 +97,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(voisin2ndMenuItem);
         groupView.add(comparaisonMenuItem);
         groupView.add(cheminMenuItem);
+        
+        switchToMode(currMode);
 
         this.update();
     }
@@ -111,12 +113,12 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         splitPanel = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
+        acceuilPanel = new Acceuil(this);
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
         voisinDirectPanel = new VoisinDirect(this);
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new Comparaison(this);
         cheminPanel = new CheminGraphPanel(this);
-        acceuilPanel = new Acceuil(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -138,6 +140,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         leftPanel.setLayout(new java.awt.CardLayout());
+        leftPanel.add(acceuilPanel, "principal");
 
         infoPanel.setBackground(new java.awt.Color(0, 0, 0));
         infoPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
@@ -146,7 +149,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel.add(voisin2Panel, "voisin2saut");
         leftPanel.add(comparaisonPanel, "comparaison");
         leftPanel.add(cheminPanel, "chemin");
-        leftPanel.add(acceuilPanel, "principal");
 
         splitPanel.setLeftComponent(leftPanel);
 
@@ -172,6 +174,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             }
         });
 
+        principalMenuItem.setSelected(true);
         principalMenuItem.setText("principal");
         principalMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +183,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         });
         ViewMenu.add(principalMenuItem);
 
-        affichageMenuItem.setSelected(true);
         affichageMenuItem.setText("affichage");
         affichageMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +263,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }//GEN-LAST:event_comparaisonMenuItemActionPerformed
 
     private void principalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalMenuItemActionPerformed
-        // TODO add your handling code here:
+        switchToMode(ViewMode.PRINCIPAL);
     }//GEN-LAST:event_principalMenuItemActionPerformed
 
     /**
