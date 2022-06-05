@@ -8,6 +8,8 @@ import grama.calcule.matrix.FloydWarshall;
 import grama.calcule.matrix.MatriceChemin;
 import grama.graph.Chemin;
 import grama.graph.Graph;
+import grama.graph.Noeud;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,17 +28,36 @@ public class MatriceCheminTest {
                 + "R,Les Echets: A,30::V, Macon;;\n"
                 + "V,Meyzieu:A,60::V,Macon;D,5::R,McDo-Decines;;\n"
                 + "R,McDo-Decines:D,5::V,Meyzieu;;");
-          FloydWarshall.getInstanceKilometrage().initKilometrage(graphmap).resolve();
-                MatriceChemin matrice = new MatriceChemin(graphmap);
-                matrice.init(graphmap.getListNoeud().size() , null);
-                int i=0;
-                for ( List<Chemin> arrayChemin : matrice.getMatrix()){
-                    int j=0;
-                    for (Chemin chemin : arrayChemin){
-                                System.out.println(graphmap.getListNoeud().get(i) + " vers "  + graphmap.getListNoeud().get(j)+ " : "  + chemin.toString());
-                                j++;
-                    }
-                    i++;
-                } 
+        FloydWarshall.getInstanceKilometrage().initKilometrage(graphmap).resolve();
+        MatriceChemin matrice = new MatriceChemin(graphmap);
+        matrice.init(graphmap.getListNoeud().size(), null);
+
+        int i = 0;
+        for (List<Chemin> arrayChemin : matrice.getMatrix()) {
+            int j = 0;
+            for (Chemin chemin : arrayChemin) {
+                System.out.println(graphmap.getListNoeud().get(i) + " vers " + graphmap.getListNoeud().get(j) + " : " + chemin.toString());
+                j++;
+            }
+            i++;
+        }
+    }
+
+    @Test
+    public void getCheminBetweenWithTypeTest() {
+        Graph graphmap = new Graph();
+        graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
+                + "R,Les Echets: A,30::V, Macon;;\n"
+                + "V,Meyzieu:A,60::V,Macon;D,5::L,McDo-Decines;;\n"
+                + "L,McDo-Decines:D,5::V,Meyzieu;;");
+        FloydWarshall.getInstanceKilometrage().initKilometrage(graphmap).resolve();
+        MatriceChemin matrice = new MatriceChemin(graphmap);
+        matrice.init(graphmap.getListNoeud().size(), null);
+
+        List<Noeud.Type> ts = new LinkedList<>();
+        ts.add(Noeud.Type.LOISIR);
+        
+        System.out.println("----------------------------------------");
+        System.out.println(matrice.getCheminBetween(graphmap.getListNoeud().get(1), graphmap.getListNoeud().get(2), ts, FloydWarshall.getInstanceKilometrage()));
     }
 }
