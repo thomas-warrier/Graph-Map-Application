@@ -142,7 +142,7 @@ public class Lien implements Drawable {
     }
 
     @Override
-    public void draw(Graphics g, Vector2D centre, Font font, boolean highlight) {
+    public void draw(Graphics g, Vector2D centre, Font font, Color highlight) {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
             return;
         }
@@ -154,8 +154,8 @@ public class Lien implements Drawable {
 
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
-        if(highlight){
-            g.setColor(new Color(254, 197, 1));
+        if(highlight != null){
+            g.setColor(highlight);
         }else{
         g.setColor(getTypeLien().getColorLien());
         }

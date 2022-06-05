@@ -15,6 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import grama.ihm.view.Voisin2SautPanel;
 
 /**
  *
@@ -67,8 +68,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private void loadNewGraph(Graph graph) {
         drawGraphPanel = new DrawGraphPanel(this, graph, getFont());
         splitPanel.setRightComponent(drawGraphPanel);
-        FloydWarshall.getInstanceKilometrage().initKilometrage(graph);
-        FloydWarshall.getInstanceSaut().initSaut(graph);
+        FloydWarshall.getInstanceKilometrage().initKilometrage(graph).resolve();
+        FloydWarshall.getInstanceSaut().initSaut(graph).resolve();
 
     }
 
@@ -107,8 +108,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
         voisinDirectPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        voisin2Panel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cheminPanel = new javax.swing.JPanel();
@@ -143,10 +143,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         voisinDirectPanel.add(jLabel1);
 
         leftPanel.add(voisinDirectPanel, "voisin_direct");
-
-        jLabel2.setText("voisin 2 saut");
-        voisin2Panel.add(jLabel2);
-
         leftPanel.add(voisin2Panel, "voisin2saut");
 
         jLabel3.setText("comparaison");
@@ -403,7 +399,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -424,7 +419,12 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (currMode == ViewMode.AFFICHAGE) {
 
             ((InfoAbstractPanel) infoPanel).update();
+        }else if(currMode == ViewMode.VOISIN2SAUT){
+            System.out.println("fucke");
+            ((InfoAbstractPanel) voisin2Panel).update();
         }
+        
+        System.out.println("update : " + currMode);
     }
 
     public void switchToMode(ViewMode mode) {
