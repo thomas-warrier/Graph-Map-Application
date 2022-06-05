@@ -26,7 +26,7 @@ public class Lien implements Drawable {
 
         private final char representativeChar;
         private final Color colorLien;
-        
+
         Type(char c, Color color) {
             this.representativeChar = c;
             this.colorLien = color;
@@ -39,7 +39,6 @@ public class Lien implements Drawable {
         public Color getColorLien() {
             return colorLien;
         }
-        
 
         public boolean is(Type type) {
             return this == type || type == ALL || this == ALL;
@@ -146,7 +145,7 @@ public class Lien implements Drawable {
         if (depart.getLastLocation() == null || destination.getLastLocation() == null) {
             return;
         }
-        
+
         Vector2D debut = new Vector2D(depart.getLastLocation().x, depart.getLastLocation().y);
         Vector2D arriver = new Vector2D(destination.getLastLocation().x, destination.getLastLocation().y);
         Vector2D line = new Vector2D(destination.getLastLocation().x - depart.getLastLocation().x, destination.getLastLocation().y - depart.getLastLocation().y);
@@ -154,10 +153,10 @@ public class Lien implements Drawable {
 
         debut = debut.add(rayon);
         arriver = arriver.sub(rayon);
-        if(highlight != null){
+        if (highlight != null) {
             g.setColor(highlight);
-        }else{
-        g.setColor(getTypeLien().getColorLien());
+        } else {
+            g.setColor(getTypeLien().getColorLien());
         }
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 

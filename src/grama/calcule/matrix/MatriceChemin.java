@@ -41,7 +41,7 @@ public class MatriceChemin extends Matrix<Chemin> {
             for (int j = 0; j < matrix.size(); j++) {
                 Noeud arriver = graph.getListNoeud().get(j);
                 Chemin nouveau = new Chemin();
-                
+
                 Noeud prec = matrice.getDistByIndice(i, j).getPrec();
                 Noeud curr = arriver;
 
@@ -49,7 +49,7 @@ public class MatriceChemin extends Matrix<Chemin> {
                     while (!prec.equals(depart)) {
 
                         nouveau.addLienToChemin(curr.getLinkBetween(prec));
-                        
+
                         curr = prec;
 
                         prec = matrice.getDistByIndice(i, graph.getIndiceNoeud(prec)).getPrec();
@@ -61,7 +61,12 @@ public class MatriceChemin extends Matrix<Chemin> {
 
             }
         }
+    }
 
+    public Chemin getCheminBetween(Noeud depart, Noeud arriver) {
+        int de = graph.getIndiceNoeud(depart);
+        int ar = graph.getIndiceNoeud(arriver);
+        return getMatrix().get(de).get(ar);
     }
 
 }

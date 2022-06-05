@@ -7,12 +7,11 @@ package grama.ihm.view;
 import grama.calcule.matrix.FloydWarshall;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
+import grama.ihm.Drawable;
 import grama.ihm.MainInterface;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- *
- * @author wwwazz
- */
 public class Voisin2SautPanel extends InfoAbstractPanel {
 
     public Voisin2SautPanel(MainInterface parent) {
@@ -28,27 +27,81 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        titleView = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        nbrVoinsin2Saut = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listVoisin = new javax.swing.JTextArea();
 
-        jLabel1.setText("jLabel1");
-        add(jLabel1);
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        titleView.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleView.setText("Voisin 2 sauts :");
+        jPanel1.add(titleView, java.awt.BorderLayout.NORTH);
+
+        jLabel1.setText("Nombre voisins 2 sauts :");
+        jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
+
+        nbrVoinsin2Saut.setText("null");
+        jPanel1.add(nbrVoinsin2Saut, java.awt.BorderLayout.EAST);
+
+        add(jPanel1);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setText("voisins :");
+        jPanel2.add(jLabel2, java.awt.BorderLayout.WEST);
+
+        listVoisin.setEditable(false);
+        listVoisin.setColumns(20);
+        listVoisin.setRows(5);
+        listVoisin.setTabSize(4);
+        listVoisin.setText("null");
+        jScrollPane1.setViewportView(listVoisin);
+
+        jPanel2.add(jScrollPane1, java.awt.BorderLayout.EAST);
+
+        add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
         Noeud selected = graphPanel.getSelectedNodes().get(0);
+        listVoisin.enableInputMethods(false);
 
+        listVoisin.setText("");
         if (selected != null) {
-            graphPanel.setHighlitedNodes(selected.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL));
-        }
+            List<Noeud> nodes = selected.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+            List<Drawable> nodeHighlite = new LinkedList<>();
 
-        System.out.println("here");
+            nbrVoinsin2Saut.setText(String.valueOf(nodes.size()));
+            for (Noeud node : nodes) {
+                listVoisin.setText(listVoisin.getText() + "\n" + node.toString());
+                nodeHighlite.add((Drawable) node);
+
+            }
+
+            graphPanel.setHighlited(nodeHighlite);
+
+        }
 
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea listVoisin;
+    private javax.swing.JLabel nbrVoinsin2Saut;
+    private javax.swing.JLabel titleView;
     // End of variables declaration//GEN-END:variables
 }

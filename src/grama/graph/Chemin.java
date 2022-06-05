@@ -31,7 +31,7 @@ public class Chemin {
         chemin.add(lien);
     }
 
-    public int getKilometrageChemin(Chemin chemin) {
+    public int getKilometrageChemin() {
         int kilometrageChemin = 0;
         for (Lien lien : getChemin()) {
             kilometrageChemin += lien.getKilometrage();

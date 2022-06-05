@@ -1,6 +1,7 @@
 package grama.ihm;
 
 import grama.calcule.matrix.FloydWarshall;
+import grama.calcule.matrix.MatriceChemin;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
@@ -18,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import grama.ihm.view.VoisinDirect;
 import grama.ihm.view.Comparaison;
 import grama.ihm.view.Voisin2SautPanel;
+import grama.ihm.view.CheminGraphPanel;
 
 /**
  *
@@ -114,7 +116,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         comparaisonPanel = new Comparaison(this);
 
         voisinDirectPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -149,10 +150,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel.add(voisinDirectPanel, "voisin_direct");
         leftPanel.add(voisin2Panel, "voisin2saut");
         leftPanel.add(comparaisonPanel, "comparaison");
-
-        jLabel4.setText("Chemin");
-        cheminPanel.add(jLabel4);
-
         leftPanel.add(cheminPanel, "chemin");
 
         splitPanel.setLeftComponent(leftPanel);
@@ -401,7 +398,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JRadioButtonMenuItem principalMenuItem;
@@ -417,12 +413,18 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (drawGraphPanel == null) {
             return;
         }
-        if (currMode == ViewMode.AFFICHAGE) {
-
-            ((InfoAbstractPanel) infoPanel).update();
-        }else if(currMode == ViewMode.VOISIN2SAUT){
-            System.out.println("fucke");
-            ((InfoAbstractPanel) voisin2Panel).update();
+        if (null != currMode) switch (currMode) {
+            case AFFICHAGE:
+                ((InfoAbstractPanel) infoPanel).update();
+                break;
+            case VOISIN2SAUT:
+                ((InfoAbstractPanel) voisin2Panel).update();
+                break;
+            case CHEMIN:
+                ((InfoAbstractPanel) cheminPanel).update();
+                break;
+            default:
+                break;
         }
         else if(currMode == ViewMode.VOISIN_DIRECT){
             ((InfoAbstractPanel) voisinDirectPanel).update();
