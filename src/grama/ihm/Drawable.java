@@ -5,6 +5,7 @@
 package grama.ihm;
 
 import grama.calcule.vector.Vector2D;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -14,5 +15,5 @@ import java.awt.Graphics;
  */
 public interface Drawable {
 
-    public void draw(Graphics g, Vector2D center, Font font, boolean highlight);
+    public void draw(Graphics g, Vector2D center, Font font, Color highlight);
 }

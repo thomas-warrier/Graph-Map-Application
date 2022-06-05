@@ -266,6 +266,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public void update() {
 
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        
         nbrLieuLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
         nbrVilleLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
         nbrRestoLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
@@ -277,7 +278,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         nbrAutorouteLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
 
         //Selected
-        Noeud selected = graphPanel.getSelectedNodes()[0];
+        Noeud selected = graphPanel.getSelectedNodes().get(0);
         if (selected != null) {
             nameSelectedLabel.setText(selected.getNom());
             typeSelectedLabel.setText(selected.getTypeLieu().toString());

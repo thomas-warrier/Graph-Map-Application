@@ -12,10 +12,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -23,20 +28,28 @@ import javax.swing.JPanel;
  *
  * @author virgile
  */
-public class DrawGraphPanel extends JPanel implements MouseMotionListener {
+public class DrawGraphPanel extends JPanel implements MouseMotionListener, ComponentListener {
 
     private final Graph graph;
     private Noeud.Type typeNoeud;
     private Lien.Type typeLien;
 
-    private Noeud selectedNode;
     private Noeud toMove;
 
-    private Noeud[] selectedNodes;
+    private List<Noeud> selectedNodes;
     private int currSelectedNode;
+
+    private List<Noeud> highlitedNodes;
 
     private Dimension prevSizePanel;
     private Vector2D scaleOffset, offsetForLocation, lastMouseLocation;
+    private int nbrSelectedNode;
+
+    public void setHighlitedNodes(List<Noeud> highlitedNodes) {
+        this.highlitedNodes = highlitedNodes;
+    }
+    
+    
 
     /**
      * instansie un panel pour dessiner un graph
@@ -97,7 +110,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
                 if (evt.getButton() == MouseEvent.BUTTON1) {
                     Noeud clicked = getNoeudAtPos(new Vector2D(evt.getX(), evt.getY()));
                     if (clicked != null) {
-                        selectedNodes[currSelectedNode++ % selectedNodes.length] = clicked;
+                        selectedNodes.set(currSelectedNode++ % nbrSelectedNode, clicked);
                     }
                     repaint();
                     parentFrame.update();
@@ -106,7 +119,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
             @Override
             public void mousePressed(MouseEvent evt) {
-                
+
                 Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
                 switch (evt.getButton()) {
                     case MouseEvent.BUTTON1:
@@ -227,7 +240,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-            lien.draw(g, null, getFont(), false);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
+            lien.draw(g, null, getFont(), null);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
     }
 
@@ -237,19 +250,32 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
             noeud.getLastLocation().x *= scaleOffset.x;
             noeud.getLastLocation().y *= scaleOffset.y;
             noeud.setLastLocation(noeud.getLastLocation().add(offsetForLocation));
-            noeud.draw(g, noeud.getLastLocation(), getFont(), isSelected(noeud));
+
+            Color color = null;
+            if (isSelected(noeud)) {
+                color = Color.yellow;
+            }
+            if (highlitedNodes != null && highlitedNodes.contains(noeud)) {
+                color = Color.cyan;
+            }
+            noeud.draw(g, noeud.getLastLocation(), getFont(), color);
 
             g.setColor(Color.BLACK);
         }
     }
 
     /*##########POUR LA SELECTION###########*/
-        public void setNbrSelectableNode(int n) {
-        this.selectedNodes = new Noeud[n];
-        this.currSelectedNode = 0;
+    public void setNbrSelectableNode(int n) {
+        this.selectedNodes = new ArrayList<>();
+        this.nbrSelectedNode = n;
+        for (int i = 0; i < nbrSelectedNode; i++) {
+            selectedNodes.add(null);
+        }
+//        this.selectedNodes = new Noeud[n];
+//        this.currSelectedNode = 0;
     }
 
-    public Noeud[] getSelectedNodes() {
+    public List<Noeud> getSelectedNodes() {
         return selectedNodes;
     }
 
@@ -277,6 +303,25 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        Toolkit.getDefaultToolkit().sync();
     }
 
 }

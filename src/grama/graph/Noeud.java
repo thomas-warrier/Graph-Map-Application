@@ -150,22 +150,25 @@ public class Noeud implements Drawable {
     }
 
     @Override
-    public void draw(Graphics g, Vector2D center, Font font, boolean highlight) {
+    public void draw(Graphics g, Vector2D center, Font font, Color highlight) {
 
-        if (highlight) {
-            g.setColor(Color.cyan);
+        if (highlight != null) {
+            g.setColor(highlight);
         } else {
             g.setColor(getTypeLieu().getColorNode());
         }
         g.fillOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
+        if (highlight != null) {
+            g.setColor(Color.BLACK);
+            g.drawOval((int) center.x - (DIAMETRE / 2), (int) center.y - (DIAMETRE / 2), DIAMETRE, DIAMETRE);
+        }
 
-        
-        if (highlight) {
+        if (highlight != null) {
             g.setColor(Color.BLACK);
         } else {
             g.setColor(Color.WHITE);
         }
-        
+
         StringFormater.drawCenteredString(g, this.typeLieu.getRepresentativeChar() + ", " + this.nom.substring(0, 2), center, font);
 
         lastLocation = center;
@@ -210,18 +213,14 @@ public class Noeud implements Drawable {
         }
         return noeudB;
     }
-    
+
     public Lien getLinkBetween(Noeud noeudArr) {
-            for (Lien lien : this.getListLien()) {
-                   if (lien.getDstADepartDe(this).equals(noeudArr)){
-                       return lien;
-                   }
+        for (Lien lien : this.getListLien()) {
+            if (lien.getDstADepartDe(this).equals(noeudArr)) {
+                return lien;
             }
-             return null;
         }
-        
-        
-    
-    
+        return null;
+    }
 
 }
