@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import grama.ihm.view.VoisinDirect;
 import grama.ihm.view.Comparaison;
+import grama.ihm.view.Voisin2SautPanel;
 
 /**
  *
@@ -111,6 +112,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         voisin2Panel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         comparaisonPanel = new Comparaison(this);
+
+        voisinDirectPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        voisin2Panel = new Voisin2SautPanel(this);
+        comparaisonPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+
         cheminPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -139,10 +147,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         infoPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
         leftPanel.add(infoPanel, "affichage");
         leftPanel.add(voisinDirectPanel, "voisin_direct");
-
-        jLabel2.setText("voisin 2 saut");
-        voisin2Panel.add(jLabel2);
-
         leftPanel.add(voisin2Panel, "voisin2saut");
         leftPanel.add(comparaisonPanel, "comparaison");
 
@@ -395,6 +399,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel leftPanel;
@@ -414,6 +420,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (currMode == ViewMode.AFFICHAGE) {
 
             ((InfoAbstractPanel) infoPanel).update();
+        }else if(currMode == ViewMode.VOISIN2SAUT){
+            System.out.println("fucke");
+            ((InfoAbstractPanel) voisin2Panel).update();
         }
         else if(currMode == ViewMode.VOISIN_DIRECT){
             ((InfoAbstractPanel) voisinDirectPanel).update();
@@ -421,6 +430,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         else if(currMode == ViewMode.COMPARAISON){
             ((InfoAbstractPanel) comparaisonPanel).update();
         }
+        
+        System.out.println("update : " + currMode);
     }
 
     public void switchToMode(ViewMode mode) {
