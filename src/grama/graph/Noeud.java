@@ -202,13 +202,13 @@ public class Noeud implements Drawable {
         return noeuds;
     }
 
-    public static Noeud getMostOpenNode(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
+    public static boolean getMostOpenNode(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
         int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size();
         int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size();
         if (nb2DistA > nb2DistB) {
-            return noeudA;
+            return true;
         }
-        return noeudB;
+        return false;
     }
     
     public Lien getLinkBetween(Noeud noeudArr) {
