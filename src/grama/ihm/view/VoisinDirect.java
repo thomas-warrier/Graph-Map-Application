@@ -73,12 +73,14 @@ public class VoisinDirect extends InfoAbstractPanel {
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
-        Noeud selected = graphPanel.getSelectedNodes().get(0);
-        if (selected != null) {
-            nbVoisinLabel.setText(String.valueOf(selected.getVoisinsOfType(Noeud.Type.ALL).size()));
-            listVoisinArea.setText("");
-            for (Noeud noeud : selected.getVoisinsOfType(Noeud.Type.ALL)) {
-                listVoisinArea.setText(listVoisinArea.getText() + "\n" + noeud);
+        if (graphPanel != null && graphPanel.getGraph() != null) {
+            Noeud selected = graphPanel.getSelectedNodes().get(0);
+            if (selected != null) {
+                nbVoisinLabel.setText(String.valueOf(selected.getVoisinsOfType(Noeud.Type.ALL).size()));
+                listVoisinArea.setText("");
+                for (Noeud noeud : selected.getVoisinsOfType(Noeud.Type.ALL)) {
+                    listVoisinArea.setText(listVoisinArea.getText() + "\n" + noeud);
+                }
             }
         }
 

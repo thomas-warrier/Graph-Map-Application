@@ -266,27 +266,29 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public void update() {
 
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
-        
-        nbrLieuLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
-        nbrVilleLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
-        nbrRestoLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
-        nbrLoisirLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.LOISIR).size()));
+        if (graphPanel != null && graphPanel.getGraph() != null) {
 
-        nbrRouteLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
-        nbrDepartementalLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTALE).size()));
-        nbrNationalLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.NATIONALE).size()));
-        nbrAutorouteLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
+            nbrLieuLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
+            nbrVilleLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
+            nbrRestoLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.RESTAURANT).size()));
+            nbrLoisirLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.LOISIR).size()));
 
-        //Selected
-        Noeud selected = graphPanel.getSelectedNodes().get(0);
-        if (selected != null) {
-            nameSelectedLabel.setText(selected.getNom());
-            typeSelectedLabel.setText(selected.getTypeLieu().toString());
-            ouvertureSelectedLabel.setText(String.valueOf(selected.getListLien().size()));
-        } else {
-            nameSelectedLabel.setText("null");
-            typeSelectedLabel.setText("null");
-            ouvertureSelectedLabel.setText("null");
+            nbrRouteLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.ALL).size()));
+            nbrDepartementalLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.DEPARTEMENTALE).size()));
+            nbrNationalLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.NATIONALE).size()));
+            nbrAutorouteLabel.setText(Integer.toString(graphPanel.getGraph().getListLienOfType(Lien.Type.AUTOROUTE).size()));
+
+            //Selected
+            Noeud selected = graphPanel.getSelectedNodes().get(0);
+            if (selected != null) {
+                nameSelectedLabel.setText(selected.getNom());
+                typeSelectedLabel.setText(selected.getTypeLieu().toString());
+                ouvertureSelectedLabel.setText(String.valueOf(selected.getListLien().size()));
+            } else {
+                nameSelectedLabel.setText("null");
+                typeSelectedLabel.setText("null");
+                ouvertureSelectedLabel.setText("null");
+            }
         }
     }
 }

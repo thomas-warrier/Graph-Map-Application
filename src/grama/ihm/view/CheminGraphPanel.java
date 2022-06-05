@@ -75,23 +75,25 @@ public class CheminGraphPanel extends InfoAbstractPanel {
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
-        matrice = new MatriceChemin(graphPanel.getGraph());
-        matrice.init(graphPanel.getGraph().getListNoeud().size(), null);
+        if (graphPanel != null && graphPanel.getGraph() != null) {
+            matrice = new MatriceChemin(graphPanel.getGraph());
+            matrice.init(graphPanel.getGraph().getListNoeud().size(), null);
 
-        Noeud depart = graphPanel.getSelectedNodes().get(0);
-        Noeud arriver = graphPanel.getSelectedNodes().get(1);
+            Noeud depart = graphPanel.getSelectedNodes().get(0);
+            Noeud arriver = graphPanel.getSelectedNodes().get(1);
 
-        if (depart != null && arriver != null) {
-            Chemin chemins = matrice.getCheminBetween(depart, arriver);
-            List<Drawable> liens = new LinkedList<>();
-            for (Lien lien : chemins.getChemin()) {
-                liens.add((Drawable) lien);
+            if (depart != null && arriver != null) {
+                Chemin chemins = matrice.getCheminBetween(depart, arriver);
+                List<Drawable> liens = new LinkedList<>();
+                for (Lien lien : chemins.getChemin()) {
+                    liens.add((Drawable) lien);
+                }
+
+                graphPanel.setHighlited(liens);
+
+                nbrSaut.setText(String.valueOf(chemins.getChemin().size()));
+                nbrKilometre.setText(String.valueOf(chemins.getKilometrageChemin()));
             }
-
-            graphPanel.setHighlited(liens);
-
-            nbrSaut.setText(String.valueOf(chemins.getChemin().size()));
-            nbrKilometre.setText(String.valueOf(chemins.getKilometrageChemin()));
         }
 
     }
