@@ -72,23 +72,25 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
-        Noeud selected = graphPanel.getSelectedNodes().get(0);
-        listVoisin.enableInputMethods(false);
+        if (graphPanel != null && graphPanel.getGraph() != null) {
+            Noeud selected = graphPanel.getSelectedNodes().get(0);
+            listVoisin.enableInputMethods(false);
 
-        listVoisin.setText("");
-        if (selected != null) {
-            List<Noeud> nodes = selected.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
-            List<Drawable> nodeHighlite = new LinkedList<>();
+            listVoisin.setText("");
+            if (selected != null) {
+                List<Noeud> nodes = selected.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+                List<Drawable> nodeHighlite = new LinkedList<>();
 
-            nbrVoinsin2Saut.setText(String.valueOf(nodes.size()));
-            for (Noeud node : nodes) {
-                listVoisin.setText(listVoisin.getText() + "\n" + node.toString());
-                nodeHighlite.add((Drawable) node);
+                nbrVoinsin2Saut.setText(String.valueOf(nodes.size()));
+                for (Noeud node : nodes) {
+                    listVoisin.setText(listVoisin.getText() + "\n" + node.toString());
+                    nodeHighlite.add((Drawable) node);
+
+                }
+
+                graphPanel.setHighlited(nodeHighlite);
 
             }
-
-            graphPanel.setHighlited(nodeHighlite);
-
         }
 
     }

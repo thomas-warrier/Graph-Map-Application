@@ -28,6 +28,7 @@ import grama.ihm.view.CheminGraphPanel;
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     enum ViewMode {
+        PRINCIPAL(0),
         AFFICHAGE(1),
         VOISIN_DIRECT(1),
         VOISIN2SAUT(1),
@@ -429,12 +430,20 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     public void switchToMode(ViewMode mode) {
         this.currMode = mode;
-        if (leftPanel.getLayout() instanceof CardLayout) {
+        if (leftPanel.getLayout() instanceof CardLayout && ((drawGraphPanel != null && drawGraphPanel.getGraph() != null) || mode == ViewMode.PRINCIPAL)) {
+
             CardLayout crd = (CardLayout) leftPanel.getLayout();
             crd.show(leftPanel, this.currMode.toString());
-            drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
+            if (mode != ViewMode.PRINCIPAL) {
+                drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
+            }
+
             update();
             repaint();
+        } else {
+            principalMenuItem.setSelected(true);
+            switchToMode(ViewMode.PRINCIPAL);
+
         }
     }
 }
