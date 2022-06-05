@@ -20,6 +20,7 @@ import grama.ihm.view.VoisinDirect;
 import grama.ihm.view.Comparaison;
 import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
+import grama.ihm.view.Acceuil;
 
 /**
  *
@@ -114,6 +115,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new Comparaison(this);
         cheminPanel = new CheminGraphPanel(this);
+        acceuilPanel = new Acceuil(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -143,6 +145,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel.add(voisin2Panel, "voisin2saut");
         leftPanel.add(comparaisonPanel, "comparaison");
         leftPanel.add(cheminPanel, "chemin");
+        leftPanel.add(acceuilPanel, "principal");
 
         splitPanel.setLeftComponent(leftPanel);
 
@@ -380,6 +383,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem OpenMenuItem;
     private javax.swing.JMenu ViewMenu;
+    private javax.swing.JPanel acceuilPanel;
     private javax.swing.JRadioButtonMenuItem affichageMenuItem;
     private javax.swing.JRadioButtonMenuItem cheminMenuItem;
     private javax.swing.JPanel cheminPanel;
