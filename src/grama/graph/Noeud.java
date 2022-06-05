@@ -189,16 +189,20 @@ public class Noeud implements Drawable {
         int indiceNoeudCurr = graph.getIndiceNoeud(this);
         for (int i = 0; i < graph.getListNoeud().size(); i++) {
             Couple couple = floydMatrice.getDistByIndice(indiceNoeudCurr, i);
+            boolean toAdd = false;
             if (couple.getVal() == 2) {
-                noeuds.add(graph.getListNoeud().get(i));
+                toAdd = true;
             } else if (couple.getVal() == 1) {
                 for (Noeud voisinDep : this.getVoisinsOfType(typeNoeud)) {
                     for (Noeud voisinArr : voisinDep.getVoisinsOfType(typeNoeud)) {
                         if (graph.getListNoeud().get(i) == voisinArr) {
-                            noeuds.add(graph.getListNoeud().get(i));
+                            toAdd = true;
                         }
                     }
                 }
+            }
+            if (toAdd && !noeuds.contains(graph.getListNoeud().get(i))) {
+                noeuds.add(graph.getListNoeud().get(i));
             }
 
         }
