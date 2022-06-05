@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/graph/Noeud.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/view/InfoAbstractPanel.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/test/grama/calcule/chemin/MatriceCheminTest.java</file>
             <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/MainInterface.java</file>
-            <file>file:/home/wwwazz/Projet/Grama/src/grama/calcule/matrix/Matrix.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/view/Voisin2SautPanel.java</file>
             <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/view/InfoGraphPanel.java</file>
             <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/DrawGraphPanel.java</file>
+            <file>file:/home/wwwazz/Projet/Grama/src/grama/ihm/view/CheminGraphPanel.java</file>
         </group>
     </open-files>
 </project-private>

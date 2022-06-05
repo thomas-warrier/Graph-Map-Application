@@ -39,17 +39,11 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     private List<Noeud> selectedNodes;
     private int currSelectedNode;
 
-    private List<Noeud> highlitedNodes;
+    private List<Drawable> highlited;
 
     private Dimension prevSizePanel;
     private Vector2D scaleOffset, offsetForLocation, lastMouseLocation;
-    private int nbrSelectedNode;
-
-    public void setHighlitedNodes(List<Noeud> highlitedNodes) {
-        this.highlitedNodes = highlitedNodes;
-    }
-    
-    
+    private int nbrSelectabelNodes;
 
     /**
      * instansie un panel pour dessiner un graph
@@ -110,7 +104,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
                 if (evt.getButton() == MouseEvent.BUTTON1) {
                     Noeud clicked = getNoeudAtPos(new Vector2D(evt.getX(), evt.getY()));
                     if (clicked != null) {
-                        selectedNodes.set(currSelectedNode++ % nbrSelectedNode, clicked);
+                        selectedNodes.set(currSelectedNode++ % nbrSelectabelNodes, clicked);
+                    } else {
+                        setNbrSelectableNode(nbrSelectabelNodes);
                     }
                     repaint();
                     parentFrame.update();
@@ -240,7 +236,12 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
 
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-            lien.draw(g, null, getFont(), null);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
+
+            Color color = null;
+            if (highlited != null && highlited.contains(lien)) {
+                color = Color.yellow;
+            }
+            lien.draw(g, null, getFont(), color);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
     }
 
@@ -254,8 +255,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
             Color color = null;
             if (isSelected(noeud)) {
                 color = Color.yellow;
-            }
-            if (highlitedNodes != null && highlitedNodes.contains(noeud)) {
+            } else if (highlited != null && highlited.contains(noeud)) {
                 color = Color.cyan;
             }
             noeud.draw(g, noeud.getLastLocation(), getFont(), color);
@@ -264,13 +264,19 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
         }
     }
 
+    public void setHighlited(List<Drawable> highlited) {
+        this.highlited = highlited;
+    }
+
     /*##########POUR LA SELECTION###########*/
     public void setNbrSelectableNode(int n) {
         this.selectedNodes = new ArrayList<>();
-        this.nbrSelectedNode = n;
-        for (int i = 0; i < nbrSelectedNode; i++) {
+        this.nbrSelectabelNodes = n;
+        for (int i = 0; i < nbrSelectabelNodes; i++) {
             selectedNodes.add(null);
         }
+        setHighlited(null);
+
 //        this.selectedNodes = new Noeud[n];
 //        this.currSelectedNode = 0;
     }

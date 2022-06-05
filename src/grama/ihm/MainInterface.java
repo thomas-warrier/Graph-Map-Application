@@ -1,6 +1,7 @@
 package grama.ihm;
 
 import grama.calcule.matrix.FloydWarshall;
+import grama.calcule.matrix.MatriceChemin;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
@@ -16,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import grama.ihm.view.Voisin2SautPanel;
+import grama.ihm.view.CheminGraphPanel;
 
 /**
  *
@@ -107,12 +109,10 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel = new javax.swing.JPanel();
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
         voisinDirectPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        cheminPanel = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        cheminPanel = new CheminGraphPanel(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -138,10 +138,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         infoPanel.setBackground(new java.awt.Color(0, 0, 0));
         infoPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
         leftPanel.add(infoPanel, "affichage");
-
-        jLabel1.setText("voisins direct");
-        voisinDirectPanel.add(jLabel1);
-
         leftPanel.add(voisinDirectPanel, "voisin_direct");
         leftPanel.add(voisin2Panel, "voisin2saut");
 
@@ -149,10 +145,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         comparaisonPanel.add(jLabel3);
 
         leftPanel.add(comparaisonPanel, "comparaison");
-
-        jLabel4.setText("Chemin");
-        cheminPanel.add(jLabel4);
-
         leftPanel.add(cheminPanel, "chemin");
 
         splitPanel.setLeftComponent(leftPanel);
@@ -398,9 +390,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JPanel comparaisonPanel;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JRadioButtonMenuItem principalMenuItem;
@@ -416,14 +406,20 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (drawGraphPanel == null) {
             return;
         }
-        if (currMode == ViewMode.AFFICHAGE) {
-
-            ((InfoAbstractPanel) infoPanel).update();
-        }else if(currMode == ViewMode.VOISIN2SAUT){
-            System.out.println("fucke");
-            ((InfoAbstractPanel) voisin2Panel).update();
+        if (null != currMode) switch (currMode) {
+            case AFFICHAGE:
+                ((InfoAbstractPanel) infoPanel).update();
+                break;
+            case VOISIN2SAUT:
+                ((InfoAbstractPanel) voisin2Panel).update();
+                break;
+            case CHEMIN:
+                ((InfoAbstractPanel) cheminPanel).update();
+                break;
+            default:
+                break;
         }
-        
+
         System.out.println("update : " + currMode);
     }
 
@@ -433,6 +429,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             CardLayout crd = (CardLayout) leftPanel.getLayout();
             crd.show(leftPanel, this.currMode.toString());
             drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
+            update();
+            repaint();
         }
     }
 }
