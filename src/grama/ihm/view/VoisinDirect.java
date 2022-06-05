@@ -6,7 +6,10 @@ package grama.ihm.view;
 
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
+import grama.ihm.Drawable;
 import grama.ihm.MainInterface;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -76,11 +79,16 @@ public class VoisinDirect extends InfoAbstractPanel {
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             if (selected != null) {
-                nbVoisinLabel.setText(String.valueOf(selected.getVoisinsOfType(Noeud.Type.ALL).size()));
+                List<Noeud> nodes = selected.getVoisinsOfType(Noeud.Type.ALL);
+                nbVoisinLabel.setText(String.valueOf(nodes.size()));
                 listVoisinArea.setText("");
-                for (Noeud noeud : selected.getVoisinsOfType(Noeud.Type.ALL)) {
+
+                List<Drawable> drawables = new LinkedList<>();
+                for (Noeud noeud : nodes) {
                     listVoisinArea.setText(listVoisinArea.getText() + "\n" + noeud);
+                    drawables.add((Drawable) noeud);
                 }
+                graphPanel.setHighlited(drawables);
             }
         }
 
