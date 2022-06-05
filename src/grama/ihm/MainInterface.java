@@ -111,17 +111,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel = new javax.swing.JPanel();
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
         voisinDirectPanel = new VoisinDirect(this);
-        voisin2Panel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        comparaisonPanel = new Comparaison(this);
-
-        voisinDirectPanel = new javax.swing.JPanel();
         voisin2Panel = new Voisin2SautPanel(this);
-        comparaisonPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-
-        cheminPanel = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        comparaisonPanel = new Comparaison(this);
+        cheminPanel = new CheminGraphPanel(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -395,9 +387,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JPanel comparaisonPanel;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JRadioButtonMenuItem principalMenuItem;
@@ -413,26 +402,28 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         if (drawGraphPanel == null) {
             return;
         }
-        if (null != currMode) switch (currMode) {
-            case AFFICHAGE:
-                ((InfoAbstractPanel) infoPanel).update();
-                break;
-            case VOISIN2SAUT:
-                ((InfoAbstractPanel) voisin2Panel).update();
-                break;
-            case CHEMIN:
-                ((InfoAbstractPanel) cheminPanel).update();
-                break;
-            default:
-                break;
+        if (null != currMode) {
+            switch (currMode) {
+                case AFFICHAGE:
+                    ((InfoAbstractPanel) infoPanel).update();
+                    break;
+                case VOISIN2SAUT:
+                    ((InfoAbstractPanel) voisin2Panel).update();
+                    break;
+                case CHEMIN:
+                    ((InfoAbstractPanel) cheminPanel).update();
+                    break;
+                case VOISIN_DIRECT:
+                    ((InfoAbstractPanel) voisinDirectPanel).update();
+                    break;
+                case COMPARAISON:
+                    ((InfoAbstractPanel) comparaisonPanel).update();
+                    break;
+                default:
+                    break;
+            }
         }
-        else if(currMode == ViewMode.VOISIN_DIRECT){
-            ((InfoAbstractPanel) voisinDirectPanel).update();
-        }
-        else if(currMode == ViewMode.COMPARAISON){
-            ((InfoAbstractPanel) comparaisonPanel).update();
-        }
-        
+
         System.out.println("update : " + currMode);
     }
 

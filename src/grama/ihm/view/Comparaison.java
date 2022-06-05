@@ -68,8 +68,8 @@ public class Comparaison extends InfoAbstractPanel {
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
-        Noeud selected0 = graphPanel.getSelectedNodes()[0];
-        Noeud selected1 = graphPanel.getSelectedNodes()[1];
+        Noeud selected0 = graphPanel.getSelectedNodes().get(0);
+        Noeud selected1 = graphPanel.getSelectedNodes().get(1);
         if (selected0 != null && selected1 != null){
             if (getMostOpenNode(selected0,selected1,graphPanel.getGraph(),FloydWarshall.getInstanceSaut(),Noeud.Type.ALL)){
                 ouverteLabel.setText(selected0.getNom() +" est plus ouverte que "+selected1.getNom());
