@@ -16,6 +16,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import grama.ihm.view.VoisinDirect;
+import grama.ihm.view.Comparaison;
 import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 
@@ -108,11 +110,18 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         splitPanel = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
+        voisinDirectPanel = new VoisinDirect(this);
+        voisin2Panel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        comparaisonPanel = new Comparaison(this);
+
         voisinDirectPanel = new javax.swing.JPanel();
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        cheminPanel = new CheminGraphPanel(this);
+
+        cheminPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -140,10 +149,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel.add(infoPanel, "affichage");
         leftPanel.add(voisinDirectPanel, "voisin_direct");
         leftPanel.add(voisin2Panel, "voisin2saut");
-
-        jLabel3.setText("comparaison");
-        comparaisonPanel.add(jLabel3);
-
         leftPanel.add(comparaisonPanel, "comparaison");
         leftPanel.add(cheminPanel, "chemin");
 
@@ -390,6 +395,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JPanel comparaisonPanel;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel leftPanel;
@@ -419,7 +426,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             default:
                 break;
         }
-
+        else if(currMode == ViewMode.VOISIN_DIRECT){
+            ((InfoAbstractPanel) voisinDirectPanel).update();
+        }
+        else if(currMode == ViewMode.COMPARAISON){
+            ((InfoAbstractPanel) comparaisonPanel).update();
+        }
+        
         System.out.println("update : " + currMode);
     }
 
