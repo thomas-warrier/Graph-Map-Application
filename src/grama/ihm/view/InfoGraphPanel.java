@@ -71,7 +71,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoPanel1.setLayout(new java.awt.BorderLayout());
 
-        titleGenralInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        titleGenralInfoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         titleGenralInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleGenralInfoLabel.setText("Général");
         infoPanel1.add(titleGenralInfoLabel, java.awt.BorderLayout.NORTH);
@@ -178,9 +178,9 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         nameSelectedPanel.setLayout(new java.awt.BorderLayout());
 
-        titleSelectedInfoLabel.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        titleSelectedInfoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         titleSelectedInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleSelectedInfoLabel.setText("Général");
+        titleSelectedInfoLabel.setText("Particulier");
         nameSelectedPanel.add(titleSelectedInfoLabel, java.awt.BorderLayout.NORTH);
 
         nameLabel.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N

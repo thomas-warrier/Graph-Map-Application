@@ -29,28 +29,29 @@ public class Acceuil extends InfoAbstractPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Bonjour bienvenue sur notre application de Graph-Map");
+        add(jLabel1);
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setText("Bonjour bienvenue sur notre application de Graph-Map,\n\nveuillez charger un fichier pour commencer.\n\nVous disposez du menu <vue> en haut dans la menue bar pour choisir l'option que vous souhaitez");
-        jScrollPane1.setViewportView(jTextPane1);
+        jLabel2.setText("Veuillez charez un fichier pour commencer.");
+        add(jLabel2);
 
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        add(jPanel1);
+        jLabel3.setText("Vous disposez du menu <Vue> en haut dans le menu bar pour choisir l'option que vous souhaitez");
+        add(jLabel3);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
     @Override
