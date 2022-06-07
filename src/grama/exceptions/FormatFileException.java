@@ -3,7 +3,7 @@ package grama.exceptions;
 public class FormatFileException extends RuntimeException {
 
     private String nonConforme;
-    private int lineNumber = -1;
+    protected int lineNumber = -1;
 
     public FormatFileException() {
         super("Le format du fichier n'est pas conforme");
@@ -26,6 +26,9 @@ public class FormatFileException extends RuntimeException {
 
     public int getLineNumber() {
         return lineNumber;
+    }
+    public void setLine(int line) {
+        lineNumber = line;
     }
 
 }

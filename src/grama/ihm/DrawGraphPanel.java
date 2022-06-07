@@ -12,9 +12,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
@@ -28,7 +25,7 @@ import javax.swing.JPanel;
  *
  * 
  */
-public class DrawGraphPanel extends JPanel implements MouseMotionListener, ComponentListener {
+public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     private final Graph graph;
     private Noeud.Type typeNoeud;
@@ -158,6 +155,11 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
 
     }
 
+    /**
+     * 
+     * @param pos l'emplacement où on veux chercher le noeud
+     * @return le Noeud à l'emplacement pos si existant, sinon null
+     */
     private Noeud getNoeudAtPos(Vector2D pos) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
             if (noeud.getLastLocation() == null) {
@@ -170,6 +172,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
         return null;
     }
 
+    /**
+     * 
+     * @return le décalager d'échelle par rapport à la dèrnière actualisation
+     */
     public Vector2D getScaleOffset() {
         return scaleOffset;
     }
@@ -179,10 +185,20 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     }
 
     /*##########POUR LA SCALE###########*/
+    /**
+     * met le scale offset à la taille désirer
+     * @param s l'échelle
+     */
     private void setScaleOffset(Vector2D s) {
         scaleOffset = s;
     }
 
+    /**
+     * 
+     * @param prev les précédente dimmension du panel
+     * @param nouveau les nouvelle dimension du panel
+     * @return une échelle calculer en fonction de la taille de la fenêtre 
+     */
     private Vector2D calculeScale(Dimension prev, Dimension nouveau) {
         double scaleX = nouveau.getWidth() / prev.getWidth();
         double scaleY = nouveau.getHeight() / prev.getHeight();
@@ -197,6 +213,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     }
 
     /*##########POUR L'AFFICHAGE###########*/
+    /**
+     * place les noeuds en cercle
+     */
     public void initNoeudsLocation() {
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
         Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
@@ -215,7 +234,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     /**
      * dessine le graphe au centre du panel (en cercle)
      *
-     * @param g
+     * @param g l'objet graphique
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -237,6 +256,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
 
     }
 
+    /**
+     * dessine les liens en fonction des liens qu'on demande d'afficher
+     * @param g l'objet graphique
+     */
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
 
@@ -248,6 +271,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
         }
     }
 
+    /**
+     * dessine les Noeuds en fonction des Noeuds qu'on demande d'afficher
+     * @param g l'objet graphique
+     */
     public void drawNoeuds(Graphics g) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
 
@@ -266,12 +293,19 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
             g.setColor(Color.BLACK);
         }
     }
-
+    /**
+     * Permet de surligner les élément présent dans la liste
+     * @param highlited la nouvelle liste des objet {@link Drawable} à surligné
+     */
     public void setHighlited(List<Drawable> highlited) {
         this.highlited = highlited;
     }
 
     /*##########POUR LA SELECTION###########*/
+    /**
+     * change le nombre maximal de noeuds séléctionner en même temps
+     * @param n nombre maximal de noeuds séléctionnable
+     */
     public void setNbrSelectableNode(int n) {
         this.selectedNodes = new ArrayList<>();
         this.nbrSelectabelNodes = n;
@@ -279,15 +313,21 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
             selectedNodes.add(null);
         }
         setHighlited(null);
-
-//        this.selectedNodes = new Noeud[n];
-//        this.currSelectedNode = 0;
     }
 
+    /**
+     * 
+     * @return La liste des Noeuds séléctionner
+     */
     public List<Noeud> getSelectedNodes() {
         return selectedNodes;
     }
 
+    /**
+     * 
+     * @param noeud le noeud dont on veux savoir s'il est séléctionné
+     * @return true ssi le noeud est séléctionné
+     */
     public boolean isSelected(Noeud noeud) {
         for (Noeud node : this.selectedNodes) {
             if (noeud == node) {
@@ -297,6 +337,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
         return false;
     }
 
+    /**
+     * permet de déplacer un neoud en par appuis, déplacer, relacher
+     * @param evt le MouseEvent
+     */
     @Override
     public void mouseDragged(MouseEvent evt) {
         Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
@@ -313,24 +357,4 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentResized(ComponentEvent e) {
-        Toolkit.getDefaultToolkit().sync();
-    }
-
 }
