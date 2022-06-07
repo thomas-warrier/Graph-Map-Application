@@ -2,12 +2,10 @@ package grama.formater;
 
 import grama.calcule.vector.Vector2D;
 import grama.exceptions.FormatFileException;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,6 +33,12 @@ public class StringFormater {
         return str.toString();
     }
 
+    /**
+     * 
+     * @param couple
+     * @return découpe la String couple en un char et un String
+     * @throws FormatFileException 
+     */
     public static String[] getCoupleFormatCharStr(String couple) throws FormatFileException {
         String[] splited = couple.trim().split(",");
         for (int i = 0; i < splited.length; i++) {
@@ -47,9 +51,14 @@ public class StringFormater {
         return splited;
     }
 
+    /**
+     * dessiner un text centrer à l'emplassement désireré
+     * @param g l'objet qui permet de dessiner
+     * @param text le texte à écrire/déssineré
+     * @param location le centre du text
+     * @param font la police d'écriture
+     */
     public static void drawCenteredString(Graphics g, String text, Vector2D location, Font font) {
-        
-        FontMetrics metrics = g.getFontMetrics(font);
         Graphics2D g2d = (Graphics2D) g.create();
         FontMetrics fm = g2d.getFontMetrics();
 

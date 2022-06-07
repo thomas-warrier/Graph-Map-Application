@@ -17,6 +17,10 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     private static FloydWarshall instanceKilometrage;
     private static FloydWarshall instanceSaut;
 
+    /**
+     * 
+     * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de kilométrage
+     */
     public static FloydWarshall getInstanceKilometrage() {
         if (instanceKilometrage == null) {
             instanceKilometrage = new FloydWarshall(0, new Couple(null, null));
@@ -24,6 +28,10 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return instanceKilometrage;
     }
 
+    /**
+     * 
+     * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de saut (nombre de lien traverser)
+     */
     public static FloydWarshall getInstanceSaut() {
         if (instanceSaut == null) {
             instanceSaut = new FloydWarshall(0, new Couple(null, null));
@@ -31,17 +39,28 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return instanceSaut;
     }
 
+    /**
+     * permet de stocker un valeur et le Noeud Précédant
+     */
     public static class Couple {
 
+        /**
+         * 
+         * @return la valeur, si null alors on considérera que la valeur est infinie
+         */
         public Integer getVal() {
             return val;
         }
 
+        /**
+         * 
+         * @return Le Noeud Précédant
+         */
         public Noeud getPrec() {
             return prec;
         }
 
-        private Integer val;//si val est null alors on considérera que la valeur est infinie.
+        private Integer val;//si val est null alors on considérera que la valeur est infinie
         private Noeud prec;
 
         public Couple(Integer val, Noeud prec) {
@@ -77,7 +96,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     /**
      * Résouse avec l'algorithme de FloyWarshall
      *
-     * @return this
+     * @return this (pour facilité la manipulation en une ligne)
      */
     public FloydWarshall resolve() {
         for (int currStep = 0; currStep < matrix.size(); currStep++) {
@@ -109,7 +128,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
      * Initialize comme re créé un objet FloyWarshall pour le kilométrage
      *
      * @param g le graph avec lequelle initialiser
-     * @return this
+     * @return this (pour facilité la manipulation en une ligne)
      */
     public FloydWarshall initKilometrage(Graph g) {
         super.init(g.getListNoeud().size(), new Couple(null, null));
@@ -131,8 +150,8 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
      * Initialize comme re créé un objet FloyWarshall pour le nombre de saut
      *
      * @param g le graph avec lequelle initialiser
-     * @return this
-     */
+     * @return this (pour facilité la manipulation en une ligne)
+     */ 
     public FloydWarshall initSaut(Graph g) {
         super.init(g.getListNoeud().size(), new Couple(null, null));
 
@@ -157,17 +176,30 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
      * Créé objet FloyWarshall et l'initialise
      *
      * @param g le graph avec lequelle initiliser
-     * @return this
+     * @return this (pour facilité la manipulation en une ligne)
      */
     public static FloydWarshall initFloydWarshall(Graph g) {
         FloydWarshall m = new FloydWarshall(g.getListNoeud().size(), new Couple(null, null));
         return m.initKilometrage(g);
     }
 
+    /**
+     * 
+     * @param indiceNoeudDep l'indice du neoud de départ
+     * @param indiceNoeudArr l'indice du neoud de d'arriver
+     * @return la distance entre les noeuds
+     */
     public Couple getDistByIndice(int indiceNoeudDep, int indiceNoeudArr) {
         return matrix.get(indiceNoeudDep).get(indiceNoeudArr);
     }
 
+    /**
+     * Permet de récuperer le Noeud le plus proche d'un certain neoud
+     * @param g le graphe dans le quelle son les neouds
+     * @param depart le neoud duquelle partire pour trouver le noeud le plus proche
+     * @param type le type du noeud qu'on cherche
+     * @return Le noeud le plus proche du noeud de départ
+     */
     public Noeud getPlusProcheType(Graph g, Noeud depart, Noeud.Type type) {
         Couple plusProche = null;
         Noeud arriver = null;

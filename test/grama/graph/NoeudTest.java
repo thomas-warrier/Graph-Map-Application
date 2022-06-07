@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package grama.graph;
 
 import grama.calcule.matrix.FloydWarshall;
@@ -19,16 +15,16 @@ public class NoeudTest {
     public void typeisTypeTest() {
         Noeud.Type t = Noeud.Type.LOISIR;
 
-        assertTrue(t.is(Noeud.Type.ALL));
-        assertFalse(t.is(Noeud.Type.NONE));
-        assertFalse(t.is(Noeud.Type.VILLE));
+        assertTrue(t.estDeType(Noeud.Type.ALL));
+        assertFalse(t.estDeType(Noeud.Type.NONE));
+        assertFalse(t.estDeType(Noeud.Type.VILLE));
 
-        assertTrue(Noeud.Type.NONE.is(Noeud.Type.NONE));
+        assertTrue(Noeud.Type.NONE.estDeType(Noeud.Type.NONE));
 
-        assertTrue(Noeud.Type.ALL.is(Noeud.Type.VILLE));
+        assertTrue(Noeud.Type.ALL.estDeType(Noeud.Type.VILLE));
 
     }
-@Test
+    @Test
     public void getVoisin2DistTest() {
         Graph graphmap = new Graph();
 

@@ -42,7 +42,7 @@ public class Noeud implements Drawable {
             return colorNode;
         }
 
-        public boolean is(Type t) {
+        public boolean estDeType(Type t) {
             return this == t || t == ALL || this == ALL;
         }
 
@@ -104,7 +104,7 @@ public class Noeud implements Drawable {
     public List<Noeud> getVoisinsOfType(Type typeVoisins) {
         List<Noeud> voisins = new ArrayList<>();
         for (Lien lien : getListLien()) {
-            if (lien.getDstADepartDe(this).getTypeLieu().is(typeVoisins)) {
+            if (lien.getDstADepartDe(this).getTypeLieu().estDeType(typeVoisins)) {
                 voisins.add(lien.getDstADepartDe(this));
             }
         }

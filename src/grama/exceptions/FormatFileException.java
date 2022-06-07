@@ -27,5 +27,8 @@ public class FormatFileException extends RuntimeException {
     public int getLineNumber() {
         return lineNumber;
     }
+    public void setLine(int line) {
+        lineNumber = line;
+    }
 
 }
