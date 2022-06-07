@@ -74,7 +74,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     private void loadNewGraph(Graph graph) {
-        drawGraphPanel = new DrawGraphPanel(this, graph, getFont(), Noeud.Type.LOISIR, Lien.Type.ALL);
+        drawGraphPanel = new DrawGraphPanel(this, graph, getFont(), Noeud.Type.ALL, Lien.Type.ALL);
         splitPanel.setRightComponent(drawGraphPanel);
         FloydWarshall.getInstanceKilometrage().initKilometrage(graph).resolve();
         FloydWarshall.getInstanceSaut().initSaut(graph).resolve();

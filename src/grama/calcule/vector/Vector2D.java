@@ -2,10 +2,7 @@ package grama.calcule.vector;
 
 import java.awt.Graphics;
 
-/**
- *
- * @author wwwazz
- */
+
 public class Vector2D {
 
     public double x;
@@ -88,18 +85,37 @@ public class Vector2D {
         return this.div(this.norm());
     }
 
-    public Vector2D setOrientation(double r) {
+    /**
+     * l'angle de rotation 0 est un vecteur vers la "droite"
+     *
+     * @param r l'angle de rotation (en radian)
+     * @return un nouveau vecteur qui à pour angle de rotation r
+     */
+    public Vector2D getVecWithOrientation(double r) {
         return new Vector2D(this.norm() * Math.cos(r), this.norm() * Math.sin(r));
     }
 
+    /**
+     *
+     * @return l'orientation (en radian) par rapport au vecteur orienter vers la "droite"
+     */
     public double getOrientation() {
         return Math.atan2(this.y, this.x);
     }
 
+    /**
+     * 
+     * @param r l'angle duquelle tourner(en radian)
+     * @return un vecteur tourné de l'ange r
+     */
     public Vector2D rotateOf(double r) {
-        return this.setOrientation(r + this.getOrientation());
+        return this.getVecWithOrientation(r + this.getOrientation());
     }
 
+    /**
+     * déssiner un point à l'emplacement par rapport au point en Haut à Gauche du Panel
+     * @param g 
+     */
     public void draw(Graphics g) {
         g.fillOval((int) x - 5, (int) y - 5, 10, 10);
     }

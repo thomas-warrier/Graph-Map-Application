@@ -27,7 +27,7 @@ public class Graph {
     }
 
     /**
-     * possibilité de récuperer certain noeuds à la demande, la liste n'est créé qu'une fois
+     * possibilité de récuperer certain en fonction de leur type, la liste n'est créé qu'une fois
      *
      * @param t le type des noeuds à récuperer
      * @return la liste de noeuds de type t
