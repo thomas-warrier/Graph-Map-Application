@@ -4,6 +4,10 @@ import grama.graph.Lien;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
+import java.awt.CheckboxGroup;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -17,6 +21,19 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public InfoGraphPanel(MainInterface parent) {
         super(parent);
         initComponents();
+        
+        setToggleCheckBox(checkBoxVille);
+        setToggleCheckBox(checkBoxResto);
+        setToggleCheckBox(CheckBoxLoisir);
+    }
+    
+    private void setToggleCheckBox(JCheckBox checkbox){
+        checkbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkbox.setSelected(!checkbox.isSelected());
+            }
+        });
     }
 
     /**
@@ -53,6 +70,12 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         infoPanel8 = new javax.swing.JPanel();
         nbrLabel8 = new javax.swing.JLabel();
         nbrAutorouteLabel = new javax.swing.JLabel();
+        infoPanel9 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        checkBoxVille = new javax.swing.JCheckBox();
+        checkBoxResto = new javax.swing.JCheckBox();
+        CheckBoxLoisir = new javax.swing.JCheckBox();
         infoSelectedPanel = new javax.swing.JPanel();
         nameSelectedPanel = new javax.swing.JPanel();
         titleSelectedInfoLabel = new javax.swing.JLabel();
@@ -172,6 +195,41 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoGenralPanel.add(infoPanel8);
 
+        infoPanel9.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setText("affichage lieux");
+        infoPanel9.add(jLabel1, java.awt.BorderLayout.WEST);
+
+        jPanel1.setOpaque(false);
+
+        checkBoxVille.setSelected(true);
+        checkBoxVille.setText("V");
+        jPanel1.add(checkBoxVille);
+
+        checkBoxResto.setSelected(true);
+        checkBoxResto.setText("R");
+        checkBoxResto.setToolTipText("Réstaurant");
+        checkBoxResto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRestoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkBoxResto);
+
+        CheckBoxLoisir.setSelected(true);
+        CheckBoxLoisir.setText("L");
+        CheckBoxLoisir.setToolTipText("Loisir");
+        CheckBoxLoisir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxLoisirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CheckBoxLoisir);
+
+        infoPanel9.add(jPanel1, java.awt.BorderLayout.EAST);
+
+        infoGenralPanel.add(infoPanel9);
+
         add(infoGenralPanel);
 
         infoSelectedPanel.setLayout(new javax.swing.BoxLayout(infoSelectedPanel, javax.swing.BoxLayout.Y_AXIS));
@@ -221,8 +279,19 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         add(infoSelectedPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CheckBoxLoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxLoisirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxLoisirActionPerformed
+
+    private void checkBoxRestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxRestoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBoxLoisir;
+    private javax.swing.JCheckBox checkBoxResto;
+    private javax.swing.JCheckBox checkBoxVille;
     private javax.swing.JPanel infoGenralPanel;
     private javax.swing.JPanel infoPanel1;
     private javax.swing.JPanel infoPanel2;
@@ -232,7 +301,10 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel infoPanel6;
     private javax.swing.JPanel infoPanel7;
     private javax.swing.JPanel infoPanel8;
+    private javax.swing.JPanel infoPanel9;
     private javax.swing.JPanel infoSelectedPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameSelectedLabel;
     private javax.swing.JPanel nameSelectedPanel;
