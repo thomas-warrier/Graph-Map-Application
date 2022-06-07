@@ -1,6 +1,7 @@
 package grama.graph;
 
 import grama.exceptions.FormatFileException;
+import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class Graph {
         } else {
             List<Noeud> listNoeudOfSpecifiedType = new ArrayList<>();
             for (Noeud noeud : getListNoeud()) {
-                if (noeud.getTypeLieu().is(t)) {
+                if (noeud.getTypeLieu().estDeType(t)) {
                     listNoeudOfSpecifiedType.add(noeud);
                 }
             }
@@ -49,6 +50,7 @@ public class Graph {
 
     /**
      * crée au besoin et retourne tous les liens de type t, la liste n'est créé qu'une fois
+     *
      * @param t le type des liens à récuperer
      * @return la liste de liens
      */
@@ -74,6 +76,7 @@ public class Graph {
 
     /**
      * ajoute un noeud s'il n'est pas déjà présent
+     *
      * @param noeud le neoud à ajouté
      */
     public void addNoeud(Noeud noeud) {
@@ -84,6 +87,7 @@ public class Graph {
 
     /**
      * récuper l'instance du lien s'il existe déjà et le crée sinon
+     *
      * @param lien le lien à récuperer
      * @return Une instance d'un lien égale à "lien" ou le "lien" lui même
      */
@@ -101,6 +105,7 @@ public class Graph {
 
     /**
      * récuper l'instance du "noeud" s'il existe déjà et le crée sinon
+     *
      * @param noeud le neoud à récuperer
      * @return Une instance d'un Noeud égale à "noeud" ou le "noeud" lui même
      */
@@ -127,6 +132,7 @@ public class Graph {
 
     /**
      * charger un graph à partire d'une String, si il y a des erreurs de formats alors elles seront propagé.
+     *
      * @param str La String au format csv qui représente le graph.
      * @throws FormatFileException si il y a des erreur de fromat
      */
@@ -142,51 +148,59 @@ public class Graph {
 
         int lineNumber = 0;
         for (String line : eachNode) {
-            Matcher mainNodeMatch = namePattern.matcher(line);
-            if (mainNodeMatch.find()) {
-                String mainNode = mainNodeMatch.group();
-                String[] formatNode = StringFormater.getCoupleFormatCharStr(mainNode);
+            try {
+                Matcher mainNodeMatch = namePattern.matcher(line);
+                if (mainNodeMatch.find()) {
+                    String mainNode = mainNodeMatch.group();
+                    String[] formatNode = StringFormater.getCoupleFormatCharStr(mainNode);
 
-                char typeNode = formatNode[0].charAt(0);
-                String nameNode = formatNode[1];
+                    char typeNode = formatNode[0].charAt(0);
 
-                noeudPrincipal = new Noeud(Noeud.Type.getType(typeNode), nameNode);
+                    String nameNode = formatNode[1];
 
-                noeudPrincipal = getOrCreate(noeudPrincipal);
+                    noeudPrincipal = new Noeud(Noeud.Type.getType(typeNode), nameNode);
 
-                line = line.substring(mainNodeMatch.group().length() + 1); // remove the name from the reste of the String
-            } else {
-                throw new FormatFileException(line, lineNumber);
-            }
-            String[] coupleLienNeoud = line.split(";");
-            if (coupleLienNeoud.length != 1 || !coupleLienNeoud[0].isBlank()) {//si il y a un lien (pcq quand pas de lien la taille est de 1 avec élément vide)
-                for (String couple : coupleLienNeoud) {
-                    String[] both = couple.split("::");
-                    if (both.length != 2) {
-                        throw new FormatFileException("[size " + both.length + "] " + couple, lineNumber);
-                    }
-                    String lienStr = both[0];
-                    String neoudStr = both[1];
+                    noeudPrincipal = getOrCreate(noeudPrincipal);
 
-                    String[] splitLienStr = StringFormater.getCoupleFormatCharStr(lienStr);
-                    char type = splitLienStr[0].charAt(0);
-                    int distance = Integer.parseInt(splitLienStr[1]);
-
-                    String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
-                    char typeDst = splitNeoudStr[0].charAt(0);
-                    String nameDst = splitNeoudStr[1];
-
-                    Noeud node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
-                    Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
-
-                    lien = getOrCreate(lien);
-
-                    noeudPrincipal.addLien(lien);
+                    line = line.substring(mainNodeMatch.group().length() + 1); // remove the name from the reste of the String
+                } else {
+                    throw new FormatFileException(line, lineNumber);
                 }
+                String[] coupleLienNeoud = line.split(";");
+                if (coupleLienNeoud.length != 1 || !coupleLienNeoud[0].isBlank()) {//si il y a un lien (pcq quand pas de lien la taille est de 1 avec élément vide)
+                    for (String couple : coupleLienNeoud) {
+                        String[] both = couple.split("::");
+                        if (both.length != 2) {
+                            throw new FormatFileException("[size " + both.length + "] " + couple, lineNumber);
+                        }
+                        String lienStr = both[0];
+                        String neoudStr = both[1];
+
+                        String[] splitLienStr = StringFormater.getCoupleFormatCharStr(lienStr);
+                        char type = splitLienStr[0].charAt(0);
+                        int distance = Integer.parseInt(splitLienStr[1]);
+
+                        String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
+                        char typeDst = splitNeoudStr[0].charAt(0);
+                        String nameDst = splitNeoudStr[1];
+                        Noeud node;
+                        node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
+
+                        Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
+
+                        lien = getOrCreate(lien);
+
+                        noeudPrincipal.addLien(lien);
+                    }
+                }
+                addNoeud(noeudPrincipal);
+                lineNumber++;
+            } catch (FormatFileException e) {
+                e.setLine(lineNumber);
+                throw e;
             }
-            addNoeud(noeudPrincipal);
-            lineNumber++;
         }
+
     }
 
     @Override
@@ -201,6 +215,7 @@ public class Graph {
 
     /**
      * récuper l'indice du neoud
+     *
      * @param noeud le noeud dont on veux l'indice
      * @return l'indice du neoud
      */
@@ -213,5 +228,5 @@ public class Graph {
         }
         return -1; // si il n'existe pas
     }
-   
+
 }

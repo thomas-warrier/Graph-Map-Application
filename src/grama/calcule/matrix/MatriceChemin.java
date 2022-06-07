@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package grama.calcule.matrix;
 
 /**
@@ -17,6 +13,7 @@ public class MatriceChemin extends Matrix<Chemin> {
 
     private Graph graph;
 
+    
     public MatriceChemin(Graph graph) {
         this.graph = graph;
         init(graph.getListNoeud().size(), null);
@@ -28,9 +25,9 @@ public class MatriceChemin extends Matrix<Chemin> {
     }
 
     /**
-     * @prec FloydWarshall.getInstanceKilometrage() doit être initialiser & resolved
-     * @param length
-     * @param defaut
+     * requière : FloydWarshall.getInstanceKilometrage() doit être initialiser et resolved
+     * @param length le taille de la matrice 4
+     * @param defaut la valeur par défaut d'un élément
      */
     @Override
     public void init(int length, Chemin defaut) {
@@ -63,12 +60,26 @@ public class MatriceChemin extends Matrix<Chemin> {
         }
     }
 
+    /**
+     * récuper le chemin pour aller d'un neoud à l'autre
+     * @param depart le Noeud de départ
+     * @param arriver le Noeud de départ
+     * @return le chemin entre le noeud de départ et d'arriver
+     */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver) {
         int de = graph.getIndiceNoeud(depart);
         int ar = graph.getIndiceNoeud(arriver);
         return getMatrix().get(de).get(ar);
     }
 
+    /**
+     * 
+     * @param depart Noeud de départ
+     * @param arriver Noeud d'arriver
+     * @param types la List des type de Lieux dans lesquelles on veut passer (dans l'ordre)
+     * @param floydWarshall la matrice dans laquelle chercher les distances (saut ou kilométrage)
+     * @return le chemin entre le neoud de départ et d'arriver passant par les Type de Noeud dans l'ordre
+     */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) {
         Chemin chemin = new Chemin();
         Noeud prec = depart;
