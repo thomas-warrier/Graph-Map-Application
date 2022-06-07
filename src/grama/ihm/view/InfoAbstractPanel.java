@@ -7,10 +7,7 @@ package grama.ihm.view;
 import grama.ihm.MainInterface;
 import grama.ihm.Updatable;
 
-/**
- *
- * @author wwwazz
- */
+
 public abstract class InfoAbstractPanel  extends javax.swing.JPanel implements Updatable {
     private MainInterface parent;
 

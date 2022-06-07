@@ -4,10 +4,7 @@
  */
 package grama.ihm;
 
-/**
- *
- * @author wwwazz
- */
+
 public interface Updatable {
     public void update();
 }

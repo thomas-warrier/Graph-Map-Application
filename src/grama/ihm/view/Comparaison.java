@@ -10,10 +10,7 @@ import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 import static grama.graph.Noeud.compareOpeningTo;
 
-/**
- *
- * @author twarr
- */
+
 public class Comparaison extends InfoAbstractPanel {
 
     /**

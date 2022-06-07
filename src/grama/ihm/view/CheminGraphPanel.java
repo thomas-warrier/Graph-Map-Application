@@ -15,10 +15,7 @@ import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author wwwazz
- */
+
 public class CheminGraphPanel extends InfoAbstractPanel {
 
     private MatriceChemin matrice;

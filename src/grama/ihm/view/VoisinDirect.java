@@ -11,10 +11,7 @@ import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author twarr
- */
+
 public class VoisinDirect extends InfoAbstractPanel {
 
     /**

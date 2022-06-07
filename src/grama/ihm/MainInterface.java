@@ -22,10 +22,7 @@ import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 import grama.ihm.view.Acceuil;
 
-/**
- *
- * @author wwwazz
- */
+
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     enum ViewMode {

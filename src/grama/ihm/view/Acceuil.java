@@ -6,10 +6,7 @@ package grama.ihm.view;
 
 import grama.ihm.MainInterface;
 
-/**
- *
- * @author twarr
- */
+
 public class Acceuil extends InfoAbstractPanel{
 
     /**
