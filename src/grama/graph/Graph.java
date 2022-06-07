@@ -27,10 +27,10 @@ public class Graph {
     }
 
     /**
-     * possibilité de récuperer certain noeuds à la demande
+     * possibilité de récuperer certain en fonction de leur type, la liste n'est créé qu'une fois
      *
-     * @param t
-     * @return
+     * @param t le type des noeuds à récuperer
+     * @return la liste de noeuds de type t
      */
     public List<Noeud> getListNoeudOfType(Noeud.Type t) {
         if (listNoeudOfType.containsKey(t)) {
@@ -47,6 +47,11 @@ public class Graph {
         }
     }
 
+    /**
+     * crée au besoin et retourne tous les liens de type t, la liste n'est créé qu'une fois
+     * @param t le type des liens à récuperer
+     * @return la liste de liens
+     */
     public List<Lien> getListLienOfType(Lien.Type t) {
         if (listLienOfType.containsKey(t)) {
             return listLienOfType.get(t);
@@ -67,12 +72,21 @@ public class Graph {
 
     }
 
+    /**
+     * ajoute un noeud s'il n'est pas déjà présent
+     * @param noeud le neoud à ajouté
+     */
     public void addNoeud(Noeud noeud) {
         if (!noeudExist(noeud)) {
             listNoeud.add(noeud);
         }
     }
 
+    /**
+     * récuper l'instance du lien s'il existe déjà et le crée sinon
+     * @param lien le lien à récuperer
+     * @return Une instance d'un lien égale à "lien" ou le "lien" lui même
+     */
     public Lien getOrCreate(Lien lien) {
 
         for (Noeud node : listNoeud) {
@@ -85,6 +99,11 @@ public class Graph {
         return lien;
     }
 
+    /**
+     * récuper l'instance du "noeud" s'il existe déjà et le crée sinon
+     * @param noeud le neoud à récuperer
+     * @return Une instance d'un Noeud égale à "noeud" ou le "noeud" lui même
+     */
     public Noeud getOrCreate(Noeud noeud) {
         for (Noeud node : listNoeud) {
             if (noeud.equals(node)) {
@@ -97,16 +116,23 @@ public class Graph {
         return noeud;
     }
 
-    public void clear() {
-        listNoeud.clear();
-    }
-
+    /**
+     *
+     * @param noeud
+     * @return true ssi noeud est dans la liste de noeud
+     */
     public boolean noeudExist(Noeud noeud) {
         return listNoeud.contains(noeud);
     }
 
+    /**
+     * charger un graph à partire d'une String, si il y a des erreurs de formats alors elles seront propagé.
+     * @param str La String au format csv qui représente le graph.
+     * @throws FormatFileException si il y a des erreur de fromat
+     */
     public void loadFromString(String str) throws FormatFileException { // compren throw notfilefound
-        String fileContent = str.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
+        String fileContent = str.replaceAll("[\n\t\r ]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
+        System.out.println(fileContent);
 
         String[] eachNode = fileContent.split(";;");
 
@@ -173,6 +199,11 @@ public class Graph {
         return str;
     }
 
+    /**
+     * récuper l'indice du neoud
+     * @param noeud le noeud dont on veux l'indice
+     * @return l'indice du neoud
+     */
     public int getIndiceNoeud(Noeud noeud) {
         int i = 0;
         for (; i < getListNoeud().size(); i++) {

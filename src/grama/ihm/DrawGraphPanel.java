@@ -200,8 +200,11 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener, Compo
     public void initNoeudsLocation() {
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
         Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
-        double angleRot = (2 * Math.PI) / graph.getListNoeud().size();//anlge de rotation pour dessiner les neouds en cercle
+        double angleRot = (2 * Math.PI) / graph.getListNoeudOfType(typeNoeud).size();//anlge de rotation pour dessiner les neouds en cercle
+        
+        System.out.println("r : " + new Vector2D(1, 0).getVecWithOrientation(Math.PI/2));
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
+//            System.out.println("rotation : " + rayon.getOrientation());
             //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
             noeud.setLastLocation(center.add(rayon).add(offsetForLocation));
 

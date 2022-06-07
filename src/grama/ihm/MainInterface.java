@@ -5,6 +5,8 @@ import grama.calcule.matrix.MatriceChemin;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
+import grama.graph.Lien;
+import grama.graph.Noeud;
 import grama.ihm.view.InfoAbstractPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -69,7 +71,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     private void loadNewGraph(Graph graph) {
-        drawGraphPanel = new DrawGraphPanel(this, graph, getFont());
+        drawGraphPanel = new DrawGraphPanel(this, graph, getFont(), Noeud.Type.ALL, Lien.Type.ALL);
         splitPanel.setRightComponent(drawGraphPanel);
         FloydWarshall.getInstanceKilometrage().initKilometrage(graph).resolve();
         FloydWarshall.getInstanceSaut().initSaut(graph).resolve();
@@ -184,6 +186,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         ViewMenu.add(principalMenuItem);
 
         affichageMenuItem.setText("affichage");
+        affichageMenuItem.setEnabled(false);
         affichageMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 affichageMenuItemActionPerformed(evt);
@@ -193,6 +196,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         voisinDirectMenuItem.setSelected(true);
         voisinDirectMenuItem.setText("voisins direct");
+        voisinDirectMenuItem.setEnabled(false);
         voisinDirectMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voisinDirectMenuItemActionPerformed(evt);
@@ -202,6 +206,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         voisin2ndMenuItem.setSelected(true);
         voisin2ndMenuItem.setText("voisins 2 sauts");
+        voisin2ndMenuItem.setEnabled(false);
         voisin2ndMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voisin2ndMenuItemActionPerformed(evt);
@@ -211,6 +216,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         comparaisonMenuItem.setSelected(true);
         comparaisonMenuItem.setText("comparaison");
+        comparaisonMenuItem.setEnabled(false);
         comparaisonMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comparaisonMenuItemActionPerformed(evt);
@@ -220,6 +226,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         cheminMenuItem.setSelected(true);
         cheminMenuItem.setText("chemin");
+        cheminMenuItem.setEnabled(false);
         cheminMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cheminMenuItemActionPerformed(evt);
@@ -430,7 +437,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
                     break;
             }
         }
-
         System.out.println("update : " + currMode);
     }
 
@@ -442,6 +448,13 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             crd.show(leftPanel, this.currMode.toString());
             if (mode != ViewMode.PRINCIPAL) {
                 drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
+                principalMenuItem.setEnabled(false);
+
+                affichageMenuItem.setEnabled(true);
+                cheminMenuItem.setEnabled(true);
+                voisin2ndMenuItem.setEnabled(true);
+                voisinDirectMenuItem.setEnabled(true);
+                comparaisonMenuItem.setEnabled(true);
             }
 
             update();
@@ -450,6 +463,11 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             principalMenuItem.setSelected(true);
             switchToMode(ViewMode.PRINCIPAL);
 
+            affichageMenuItem.setEnabled(false);
+            cheminMenuItem.setEnabled(false);
+            voisin2ndMenuItem.setEnabled(false);
+            voisinDirectMenuItem.setEnabled(false);
+            comparaisonMenuItem.setEnabled(false);
         }
         splitPanel.setDividerLocation(0.25);
     }

@@ -12,6 +12,7 @@ import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.Drawable;
 import grama.ihm.MainInterface;
+import java.awt.CheckboxGroup;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class CheminGraphPanel extends InfoAbstractPanel {
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        nbrSaut.setText("0");
+        nbrKilometre.setText("0");
         if (graphPanel != null && graphPanel.getGraph() != null) {
             matrice = new MatriceChemin(graphPanel.getGraph());
             matrice.init(graphPanel.getGraph().getListNoeud().size(), null);

@@ -32,15 +32,15 @@ public class MatriceCheminTest {
         MatriceChemin matrice = new MatriceChemin(graphmap);
         matrice.init(graphmap.getListNoeud().size(), null);
 
-        int i = 0;
-        for (List<Chemin> arrayChemin : matrice.getMatrix()) {
-            int j = 0;
-            for (Chemin chemin : arrayChemin) {
-                System.out.println(graphmap.getListNoeud().get(i) + " vers " + graphmap.getListNoeud().get(j) + " : " + chemin.toString());
-                j++;
-            }
-            i++;
-        }
+//        int i = 0;
+//        for (List<Chemin> arrayChemin : matrice.getMatrix()) {
+//            int j = 0;
+//            for (Chemin chemin : arrayChemin) {
+//                System.out.println(graphmap.getListNoeud().get(i) + " vers " + graphmap.getListNoeud().get(j) + " : " + chemin.toString());
+//                j++;
+//            }
+//            i++;
+//        }
     }
 
     @Test
@@ -57,7 +57,7 @@ public class MatriceCheminTest {
         List<Noeud.Type> ts = new LinkedList<>();
         ts.add(Noeud.Type.LOISIR);
         
-        System.out.println("----------------------------------------");
-        System.out.println(matrice.getCheminBetween(graphmap.getListNoeud().get(1), graphmap.getListNoeud().get(2), ts, FloydWarshall.getInstanceKilometrage()));
+//        System.out.println("----------------------------------------");
+//        System.out.println(matrice.getCheminBetween(graphmap.getListNoeud().get(1), graphmap.getListNoeud().get(2), ts, FloydWarshall.getInstanceKilometrage()));
     }
 }
