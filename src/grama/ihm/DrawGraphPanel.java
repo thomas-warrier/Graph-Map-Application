@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 /**
  * Panel pour dessiner un Graph
  *
- * @author virgile
+ * 
  */
 public class DrawGraphPanel extends JPanel implements MouseMotionListener, ComponentListener {
 

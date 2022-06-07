@@ -9,10 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-/**
- *
- * @author wwwazz
- */
+
 public interface Drawable {
 
     public void draw(Graphics g, Vector2D center, Font font, Color highlight);

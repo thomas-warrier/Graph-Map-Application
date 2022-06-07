@@ -7,10 +7,7 @@ package grama.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author twarr
- */
+
 public class Chemin {
 
     private List<Lien> chemin;
@@ -26,11 +23,17 @@ public class Chemin {
     public Chemin() {
         chemin = new ArrayList();
     }
-
+    /**
+     * prend en paramétre un lien et l'ajoute a la liste de lien qui est un attribut de Chemin 
+     * @param lien 
+     */
     public void addLienToChemin(Lien lien) {
         chemin.add(lien);
     }
-
+/**
+ * on additione tout les kilométrage des lien pour avoir le kilométrage total d'un chemin (un Chemin est une liste de lien)
+ * @return un int qui est le kilométrage total du chemin
+ */
     public int getKilometrageChemin() {
         int kilometrageChemin = 0;
         for (Lien lien : getChemin()) {

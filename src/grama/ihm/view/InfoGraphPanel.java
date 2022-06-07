@@ -5,10 +5,7 @@ import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 
-/**
- *
- * @author wwwazz
- */
+
 public class InfoGraphPanel extends InfoAbstractPanel {
 
     /**

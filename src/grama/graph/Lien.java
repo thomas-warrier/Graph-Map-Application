@@ -13,10 +13,12 @@ import java.util.Objects;
 /**
  * Classe representant un lien d'un graph
  *
- * @author virgile
+ * 
  */
 public class Lien implements Drawable {
-
+/**
+ * cette énumération contient les différents type,contient leur noms ainsi que la couleur qui leur est associée
+ */
     public enum Type {
         AUTOROUTE('A', new Color(0, 140, 100)),
         NATIONALE('N', new Color(23, 42, 58)),
@@ -39,8 +41,12 @@ public class Lien implements Drawable {
         public Color getColorLien() {
             return colorLien;
         }
-
-        public boolean is(Type type) {
+        /**
+         * cette méthode permet de vérifier si un lien est du type passé en paramétre
+         * @param type
+         * @return boolean,true si il est du type souhaité,false sinon
+         */
+        public boolean estDeType(Type type) {
             return this == type || type == ALL || this == ALL;
         }
 
@@ -72,7 +78,7 @@ public class Lien implements Drawable {
     }
 
     /**
-     *
+     * 
      * @return le type du lien
      */
     public Type getTypeLien() {
@@ -80,7 +86,7 @@ public class Lien implements Drawable {
     }
 
     /**
-     *
+     * pour changer le type d'un lien
      * @param typeLien le nouveau type de lien
      */
     public void setTypeLien(Type typeLien) {
@@ -94,7 +100,7 @@ public class Lien implements Drawable {
 
     /**
      *
-     * @return la distance un km du lien
+     * @return la distance en km du lien
      */
     public int getKilometrage() {
         return kilometrage;
@@ -111,7 +117,10 @@ public class Lien implements Drawable {
             return destination;
         }
     }
-
+/**
+ * 
+ * @return un tableau de noeuds contenant le noeud de depart et d'arriver 
+ */
     public Noeud[] getDstAndDepart() {
         Noeud[] both = {depart, destination};
         return both;

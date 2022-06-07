@@ -55,7 +55,7 @@ public class Graph {
 
             for (Noeud noeud : getListNoeud()) {
                 for (Lien lien : noeud.getListLien()) {
-                    if (lien.getTypeLien().is(t) && !listLienOfSpecifiedType.contains(lien)) {
+                    if (lien.getTypeLien().estDeType(t) && !listLienOfSpecifiedType.contains(lien)) {
                         listLienOfSpecifiedType.add(lien);
                     }
                 }

@@ -8,10 +8,7 @@ import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 
-/**
- *
- * @author twarr
- */
+
 public class VoisinDirect extends InfoAbstractPanel {
 
     /**
