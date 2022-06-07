@@ -10,7 +10,7 @@ public class FormatFileException extends RuntimeException {
     }
 /**
  * ce constructeur permets d'indiquer quelle chaine de caractére n'est pas conforme
- * @param nonConforme 
+ * @param nonConforme la partie non confrome qui à créé l'erreur
  */
     public FormatFileException(String nonConforme) {
         super("Le format du fichier n'est pas conforme. partie non conforme : " + nonConforme);
@@ -19,8 +19,8 @@ public class FormatFileException extends RuntimeException {
 /**
  * ce constructeur nous permets d'indiquer a l'utilisateur a quelle ligne se trouve précisément l'érreur dans le csv
  * ainsi que la chaine ou il y a une erreur.   
- * @param nonConforme
- * @param lineNumber 
+ * @param nonConforme la partie non confrome qui à créé l'erreur
+ * @param lineNumber la ligne où l'erreur est apparue
  */
     public FormatFileException(String nonConforme, int lineNumber) {
         super("Le format du fichier n'est pas conforme. à la ligne " + lineNumber + " partie non conforme : " + nonConforme);

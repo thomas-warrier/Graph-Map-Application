@@ -123,7 +123,7 @@ public class Graph {
 
     /**
      *
-     * @param noeud
+     * @param noeud le neoud dont on veux vérifier l'éxistance
      * @return true ssi noeud est dans la liste de noeud
      */
     public boolean noeudExist(Noeud noeud) {

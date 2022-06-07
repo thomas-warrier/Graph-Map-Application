@@ -164,9 +164,9 @@ public class Noeud implements Drawable {
     /**
      *
      * @param g un objet graphic
-     * @param center
-     * @param font
-     * @param highlight
+     * @param center l'emplacement où centrer le noeud
+     * @param font la police décriture
+     * @param highlight la couleur de surlignage s'il y'en à pas alors mettre null
      */
     @Override
     public void draw(Graphics g, Vector2D center, Font font, Color highlight) {
@@ -205,7 +205,7 @@ public class Noeud implements Drawable {
     /**
      * cette méthode retourne une liste de noeuds contenant tout les voisins a deux distance
      *
-     * @param graph
+     * @param graph 
      * @param floydMatrice
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
      * @return une liste de noeud contenant tout les voisins a deux distance

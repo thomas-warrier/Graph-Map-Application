@@ -14,9 +14,9 @@ import java.io.IOException;
 public class StringFormater {
     /**
      * cette méthode permet de lire un fichier (méthode trés similaire a celle du cour)
-     * @param file
+     * @param file le fichier à lire
      * @return String
-     * @throws IOException 
+     * @throws IOException propage une erreur de lecture de fichier
      */
     //use bufer reader
     public static String readFile(File file) throws IOException {
@@ -37,9 +37,9 @@ public class StringFormater {
 
     /**
      * 
-     * @param couple
+     * @param couple la String qui contient le couple à découpé
      * @return découpe la String couple en un char et un String
-     * @throws FormatFileException 
+     * @throws FormatFileException propage une erreur de format de fichier
      */
     public static String[] getCoupleFormatCharStr(String couple) throws FormatFileException {
         String[] splited = couple.trim().split(",");

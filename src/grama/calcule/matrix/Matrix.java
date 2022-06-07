@@ -7,8 +7,7 @@ import java.util.Objects;
 
 /**
  * Classe représentant une Matrice Carré dont les valeur sont de type T
- * @author virgile
- * @param <T>
+ * @param <T> le type générique
  */
 public class Matrix<T> {
 

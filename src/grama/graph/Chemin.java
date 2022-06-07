@@ -20,8 +20,8 @@ public class Chemin {
         this.chemin = chemin;
     }
  /**
-  * pour ajouter un Chemin
-  * @param other 
+  * pour ajouter un Chemin entier
+  * @param other le chemin à ajouté au chemin courant
   */
     public void append(Chemin other) {
         getChemin().addAll(other.getChemin());
@@ -43,7 +43,7 @@ public class Chemin {
     }
     /**
      * prend en paramétre un lien et l'ajoute a la liste de lien qui est un attribut de Chemin 
-     * @param lien 
+     * @param lien le lien à ajouté au chemin
      */
     public void addLienToChemin(Lien lien) {
         chemin.add(lien);

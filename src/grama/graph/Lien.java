@@ -43,7 +43,7 @@ public class Lien implements Drawable {
         }
         /**
          * cette méthode permet de vérifier si un lien est du type passé en paramétre
-         * @param type
+         * @param type le type qui doit angloper le type du noeud courrant
          * @return boolean,true si il est du type souhaité,false sinon
          */
         public boolean estDeType(Type type) {
