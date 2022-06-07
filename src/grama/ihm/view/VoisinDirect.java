@@ -69,7 +69,9 @@ public class VoisinDirect extends InfoAbstractPanel {
 
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * permet d'afficher la liste des voisins directes
+     */
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
