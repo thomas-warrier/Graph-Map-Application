@@ -17,6 +17,7 @@ public class MatriceChemin extends Matrix<Chemin> {
 
     private Graph graph;
 
+    
     public MatriceChemin(Graph graph) {
         this.graph = graph;
         init(graph.getListNoeud().size(), null);
@@ -63,6 +64,12 @@ public class MatriceChemin extends Matrix<Chemin> {
         }
     }
 
+    /**
+     * récuper le chemin pour aller d'un neoud à l'autre
+     * @param depart le Noeud de départ
+     * @param arriver le Noeud de départ
+     * @return 
+     */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver) {
         int de = graph.getIndiceNoeud(depart);
         int ar = graph.getIndiceNoeud(arriver);

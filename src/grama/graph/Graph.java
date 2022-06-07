@@ -1,6 +1,7 @@
 package grama.graph;
 
 import grama.exceptions.FormatFileException;
+import grama.exceptions.MauvaisTypeException;
 import grama.formater.StringFormater;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public class Graph {
 
     /**
      * crée au besoin et retourne tous les liens de type t, la liste n'est créé qu'une fois
+     *
      * @param t le type des liens à récuperer
      * @return la liste de liens
      */
@@ -74,6 +76,7 @@ public class Graph {
 
     /**
      * ajoute un noeud s'il n'est pas déjà présent
+     *
      * @param noeud le neoud à ajouté
      */
     public void addNoeud(Noeud noeud) {
@@ -84,6 +87,7 @@ public class Graph {
 
     /**
      * récuper l'instance du lien s'il existe déjà et le crée sinon
+     *
      * @param lien le lien à récuperer
      * @return Une instance d'un lien égale à "lien" ou le "lien" lui même
      */
@@ -101,6 +105,7 @@ public class Graph {
 
     /**
      * récuper l'instance du "noeud" s'il existe déjà et le crée sinon
+     *
      * @param noeud le neoud à récuperer
      * @return Une instance d'un Noeud égale à "noeud" ou le "noeud" lui même
      */
@@ -127,6 +132,7 @@ public class Graph {
 
     /**
      * charger un graph à partire d'une String, si il y a des erreurs de formats alors elles seront propagé.
+     *
      * @param str La String au format csv qui représente le graph.
      * @throws FormatFileException si il y a des erreur de fromat
      */
@@ -148,9 +154,14 @@ public class Graph {
                 String[] formatNode = StringFormater.getCoupleFormatCharStr(mainNode);
 
                 char typeNode = formatNode[0].charAt(0);
+                
                 String nameNode = formatNode[1];
-
-                noeudPrincipal = new Noeud(Noeud.Type.getType(typeNode), nameNode);
+                try {
+                    noeudPrincipal = new Noeud(Noeud.Type.getType(typeNode), nameNode);
+                } catch (MauvaisTypeException e) {
+                    e.setLine(lineNumber);
+                    throw e;
+                }
 
                 noeudPrincipal = getOrCreate(noeudPrincipal);
 
@@ -175,8 +186,13 @@ public class Graph {
                     String[] splitNeoudStr = StringFormater.getCoupleFormatCharStr(neoudStr);
                     char typeDst = splitNeoudStr[0].charAt(0);
                     String nameDst = splitNeoudStr[1];
-
-                    Noeud node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
+                    Noeud node;
+                    try {
+                        node = new Noeud(Noeud.Type.getType(typeDst), nameDst);
+                    } catch (MauvaisTypeException e) {
+                        e.setLine(lineNumber);
+                        throw e;
+                    }
                     Lien lien = new Lien(Lien.Type.getType(type), distance, noeudPrincipal, getOrCreate(node));
 
                     lien = getOrCreate(lien);
@@ -201,6 +217,7 @@ public class Graph {
 
     /**
      * récuper l'indice du neoud
+     *
      * @param noeud le noeud dont on veux l'indice
      * @return l'indice du neoud
      */
@@ -213,5 +230,5 @@ public class Graph {
         }
         return -1; // si il n'existe pas
     }
-   
+
 }

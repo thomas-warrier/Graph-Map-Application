@@ -71,7 +71,7 @@ public class Noeud implements Drawable {
 
     public Noeud(Type newTypeLieu, String newNom) {
         listLien = new LinkedList<>();
-        this.typeLieu = newTypeLieu;
+        this.setTypeLieu(newTypeLieu);
         this.nom = newNom;
     }
 
@@ -110,11 +110,12 @@ public class Noeud implements Drawable {
         }
         return voisins;
     }
+
     /**
      * méthode qui permet d'ajouter un lien a notre liste de lien
-     * 
+     *
      * @param lien le lien que l'ont souhaite ajouter
-     * 
+     *
      */
     public void addLien(Lien lien) {
         if (!listLien.contains(lien)) {
@@ -125,6 +126,7 @@ public class Noeud implements Drawable {
 
     /**
      * cette méthode sert a vérifier si il s'agit d'un voisin directe et si c'est le cas d'obtenir sa distance en kilométre
+     *
      * @param node doit être un voisin directe
      * @return un kiométrage ou null si ce n'est pas un voisin directe
      */
@@ -160,11 +162,11 @@ public class Noeud implements Drawable {
     }
 
     /**
-     * 
+     *
      * @param g un objet graphic
-     * @param center 
+     * @param center
      * @param font
-     * @param highlight 
+     * @param highlight
      */
     @Override
     public void draw(Graphics g, Vector2D center, Font font, Color highlight) {
@@ -192,7 +194,6 @@ public class Noeud implements Drawable {
         g.setColor(Color.black);
     }
 
-    
     public Vector2D getLastLocation() {
         return lastLocation;
     }
@@ -200,8 +201,10 @@ public class Noeud implements Drawable {
     public void setLastLocation(Vector2D lastLocation) {
         this.lastLocation = lastLocation;
     }
+
     /**
      * cette méthode retourne une liste de noeuds contenant tout les voisins a deux distance
+     *
      * @param graph
      * @param floydMatrice
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
@@ -235,6 +238,7 @@ public class Noeud implements Drawable {
 
     /**
      * on compare deux noeuds et on regarde lequel a le plus de voisins a deux distances d'un certains type.
+     *
      * @param noeudA
      * @param noeudB
      * @param graph
@@ -251,6 +255,7 @@ public class Noeud implements Drawable {
 
     /**
      * cette méthode recupére un lien entre l'objet courant et noeudArr
+     *
      * @param noeudArr
      * @return un lien
      */
