@@ -14,7 +14,7 @@ import static grama.graph.Noeud.compareOpeningTo;
 public class Comparaison extends InfoAbstractPanel {
 
     /**
-     * Creates new form Comparaison
+     * Crée une nouvelle JPanel form 
      */
     public Comparaison(MainInterface parent) {
         super(parent);
@@ -60,7 +60,12 @@ public class Comparaison extends InfoAbstractPanel {
 
         add(jPanel3);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    /**
+     * notre méthode update permet d'actualiser l'affichage dans notre ihm pour la classe comparaison en fonction en fonction
+     * des noeuds séléctionés.
+     */
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();

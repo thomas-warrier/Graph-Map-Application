@@ -19,11 +19,17 @@ public class Chemin {
     public void setChemin(List<Lien> chemin) {
         this.chemin = chemin;
     }
-
+ /**
+  * pour ajouter un Chemin
+  * @param other 
+  */
     public void append(Chemin other) {
         getChemin().addAll(other.getChemin());
     }
-
+    /**
+     * sert a retourner le Chemin inverse
+     * @return Chemin
+     */
     public Chemin reversed() {
         Chemin rev = new Chemin();
         for (int i = chemin.size() - 1; i >= 0; i--) {

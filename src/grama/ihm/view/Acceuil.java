@@ -6,7 +6,10 @@ package grama.ihm.view;
 
 import grama.ihm.MainInterface;
 
-
+/**
+ * cette classe permet d'avoir un panel d'accueil pour l'utilisateur lorsqu'il lance notre application
+ * @author twarr
+ */
 public class Acceuil extends InfoAbstractPanel{
 
     /**

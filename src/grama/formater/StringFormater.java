@@ -10,12 +10,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/**
- *
- * @author wwwazz
- */
-public class StringFormater {
 
+public class StringFormater {
+    /**
+     * cette méthode permet de lire un fichier (méthode trés similaire a celle du cour)
+     * @param file
+     * @return String
+     * @throws IOException 
+     */
     //use bufer reader
     public static String readFile(File file) throws IOException {
         if (file == null) {

@@ -247,8 +247,8 @@ public class Noeud implements Drawable {
      * @return un int,si le int est positif c'est le noeud A qui est le plus ouvert et si le int est négatif,c'est le noeudB qui est le plus ouvert.
      */
     public static int compareOpeningTo(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
-        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size();
-        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size();
+        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudA.getVoisinsOfType(typeNoeud).size();
+        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudB.getVoisinsOfType(typeNoeud).size();
 
         return nb2DistA - nb2DistB;
     }

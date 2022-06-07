@@ -331,7 +331,13 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel typeSelectedPanel;
     // End of variables declaration//GEN-END:variables
 
+    
+    
     @Override
+    /**
+     * permet d'avoir le nombre de chaque type de route,de lien.
+     * cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son type,son ouverture)
+     */
     public void update() {
 
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();

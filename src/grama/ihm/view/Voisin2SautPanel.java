@@ -69,7 +69,10 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * permet d'update notre pannel et d'afficher la liste des voisins en fonction des ainsi que le nombre de voisins
+ * 
+ */
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
