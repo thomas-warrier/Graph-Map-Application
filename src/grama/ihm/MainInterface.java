@@ -74,6 +74,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         FloydWarshall.getInstanceKilometrage().initKilometrage(graph).resolve();
         FloydWarshall.getInstanceSaut().initSaut(graph).resolve();
 
+        switchToMode(ViewMode.AFFICHAGE);
+        affichageMenuItem.setSelected(true);
+
     }
 
     /**
@@ -94,7 +97,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(voisin2ndMenuItem);
         groupView.add(comparaisonMenuItem);
         groupView.add(cheminMenuItem);
-        
+
         switchToMode(currMode);
 
         this.update();
@@ -448,5 +451,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             switchToMode(ViewMode.PRINCIPAL);
 
         }
+        splitPanel.setDividerLocation(0.25);
     }
 }

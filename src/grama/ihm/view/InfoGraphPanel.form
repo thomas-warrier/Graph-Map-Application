@@ -33,7 +33,7 @@
             <Component class="javax.swing.JLabel" name="titleGenralInfoLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="sansserif" size="13" style="1"/>
+                  <Font name="sansserif" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;ral"/>
@@ -285,10 +285,10 @@
             <Component class="javax.swing.JLabel" name="titleSelectedInfoLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="sansserif" size="13" style="1"/>
+                  <Font name="sansserif" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;ral"/>
+                <Property name="text" type="java.lang.String" value="Particulier"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

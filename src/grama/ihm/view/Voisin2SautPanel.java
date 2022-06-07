@@ -40,8 +40,9 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        titleView.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         titleView.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleView.setText("Voisin 2 sauts :");
+        titleView.setText("Voisin 2 sauts");
         jPanel1.add(titleView, java.awt.BorderLayout.NORTH);
 
         jLabel1.setText("Nombre voisins 2 sauts :");

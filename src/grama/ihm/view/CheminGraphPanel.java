@@ -46,6 +46,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Chemin");
         jPanel1.add(jLabel1, java.awt.BorderLayout.NORTH);

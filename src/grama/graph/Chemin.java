@@ -20,6 +20,18 @@ public class Chemin {
         this.chemin = chemin;
     }
 
+    public void append(Chemin other) {
+        getChemin().addAll(other.getChemin());
+    }
+
+    public Chemin reversed() {
+        Chemin rev = new Chemin();
+        for (int i = chemin.size() - 1; i >= 0; i--) {
+            rev.addLienToChemin(chemin.get(i));
+        }
+        return rev;
+    }
+
     public Chemin() {
         chemin = new ArrayList();
     }
@@ -44,9 +56,9 @@ public class Chemin {
 
     @Override
     public String toString() {
-        String str ="";
+        String str = "";
         for (Lien lien : chemin) {
-            str += "("+lien + "), ";
+            str += "(" + lien + "), ";
         }
         return str;
     }

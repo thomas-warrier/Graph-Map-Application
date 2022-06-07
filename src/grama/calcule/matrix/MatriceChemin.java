@@ -57,7 +57,7 @@ public class MatriceChemin extends Matrix<Chemin> {
                     nouveau.addLienToChemin(depart.getLinkBetween(curr));
                 }
 
-                matrix.get(i).set(j, nouveau);
+                matrix.get(i).set(j, nouveau.reversed());
 
             }
         }
@@ -67,6 +67,19 @@ public class MatriceChemin extends Matrix<Chemin> {
         int de = graph.getIndiceNoeud(depart);
         int ar = graph.getIndiceNoeud(arriver);
         return getMatrix().get(de).get(ar);
+    }
+
+    public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) {
+        Chemin chemin = new Chemin();
+        Noeud prec = depart;
+        for (Noeud.Type type : types) {
+            Noeud plusProche = floydWarshall.getPlusProcheType(graph, prec, type);
+            chemin.append(getCheminBetween(prec, plusProche));
+            prec = plusProche;
+            
+        }
+        chemin.append(getCheminBetween(prec, arriver));
+        return chemin;
     }
 
 }
