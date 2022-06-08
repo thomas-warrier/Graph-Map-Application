@@ -24,6 +24,9 @@ public class Noeud implements Drawable {
         LOISIR('L', new Color(8, 65, 92), 2),
         RESTAURANT('R', new Color(56, 134, 151), 1),
         ALL('*', Color.BLACK, 7),
+        VILLELOISIR('A', Color.BLACK, 6),
+        VILLERESTAURANT('B', Color.BLACK, 5),
+        LOISIRRESTAURANT('C', Color.BLACK, 3),
         NONE('\0', Color.white, 0);
 
         private final char representativeChar;
@@ -36,6 +39,15 @@ public class Noeud implements Drawable {
             this.representativeByte = representativeByte;
         }
 
+        public Type getOfType(int b) {
+            for (Type t : Type.values()) {
+                if (t.representativeByte == b) {
+                    return t;
+                }
+            }
+            return NONE;
+        }
+
         public char getRepresentativeChar() {
             return representativeChar;
         }
@@ -45,16 +57,11 @@ public class Noeud implements Drawable {
         }
 
         public boolean estDeType(Type t) {
-            return (representativeByte & t.representativeByte) != 0 || representativeByte == 0 && t.representativeByte == 0;
+            return t != null && ((representativeByte & t.representativeByte) != 0 || representativeByte == 0 && t.representativeByte == 0);
         }
 
-        public boolean estDeType(Type[] types) {
-            for (Type t : types) {
-                if (estDeType(t)) {
-                    return true;
-                }
-            }
-            return false;
+        public Type or(Type t) {
+            return getOfType(representativeByte | t.representativeByte);
         }
 
         public static Type getType(char c) {

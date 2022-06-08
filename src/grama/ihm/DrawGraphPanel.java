@@ -98,6 +98,14 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     }
 
+    public void setTypeNoeud(Noeud.Type typeNoeud) {
+        this.typeNoeud = typeNoeud;
+    }
+
+    public void setTypeLien(Lien.Type typeLien) {
+        this.typeLien = typeLien;
+    }
+
     /**
      *
      * @param pos l'emplacement où on veux chercher le noeud
@@ -207,12 +215,13 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      */
     public void drawLien(Graphics g) {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
-
-            Color color = null;
-            if (highlited != null && highlited.contains(lien)) {
-                color = Color.yellow;
+            if (graph.getListNoeudOfType(typeNoeud).contains(lien.getDstAndDepart()[0]) && graph.getListNoeudOfType(typeNoeud).contains(lien.getDstAndDepart()[1])) {
+                Color color = null;
+                if (highlited != null && highlited.contains(lien)) {
+                    color = Color.yellow;
+                }
+                lien.draw(g, null, getFont(), color);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
             }
-            lien.draw(g, null, getFont(), color);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
         }
     }
 

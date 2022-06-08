@@ -23,8 +23,6 @@ import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 import grama.ihm.view.Acceuil;
 
-
-
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     enum ViewMode {
@@ -447,12 +445,16 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     public void switchToMode(ViewMode mode) {
+
         this.currMode = mode;
         if (leftPanel.getLayout() instanceof CardLayout && ((drawGraphPanel != null && drawGraphPanel.getGraph() != null) || mode == ViewMode.PRINCIPAL)) {
 
             CardLayout crd = (CardLayout) leftPanel.getLayout();
             crd.show(leftPanel, this.currMode.toString());
             if (mode != ViewMode.PRINCIPAL) {
+                drawGraphPanel.setTypeLien(Lien.Type.ALL);
+                drawGraphPanel.setTypeNoeud(Noeud.Type.ALL);
+
                 drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
                 principalMenuItem.setEnabled(false);
 

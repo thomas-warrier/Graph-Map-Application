@@ -13,25 +13,31 @@ import java.util.Objects;
 /**
  * Classe representant un lien d'un graph
  *
- * 
+ *
  */
 public class Lien implements Drawable {
-/**
- * cette énumération contient les différents type,contient leur noms ainsi que la couleur qui leur est associée
- */
+
+    /**
+     * cette énumération contient les différents type,contient leur noms ainsi que la couleur qui leur est associée
+     */
     public enum Type {
-        AUTOROUTE('A', new Color(0, 140, 100)),
-        NATIONALE('N', new Color(23, 42, 58)),
-        DEPARTEMENTALE('D', new Color(78, 133, 141)),
-        ALL('*', Color.BLACK),
-        NONE('\0', Color.black);
+        AUTOROUTE('A', new Color(0, 140, 100), 4),
+        NATIONALE('N', new Color(23, 42, 58), 2),
+        DEPARTEMENTALE('D', new Color(78, 133, 141), 1),
+        AUTOROUTENATIONALE('B', Color.BLACK, 6),
+        AUTOROUTEDEPARTEMENTALE('C', Color.BLACK, 5),
+        DEPARTEMENTALENATIONALE('D', Color.BLACK, 3),
+        ALL('*', Color.BLACK, 7),
+        NONE('\0', Color.black, 0);
 
         private final char representativeChar;
         private final Color colorLien;
+        private final int representativeByte;
 
-        Type(char c, Color color) {
-            this.representativeChar = c;
-            this.colorLien = color;
+        private Type(char representativeChar, Color colorLien, int representativeByte) {
+            this.representativeChar = representativeChar;
+            this.colorLien = colorLien;
+            this.representativeByte = representativeByte;
         }
 
         public char getRepresentativeChar() {
@@ -41,13 +47,28 @@ public class Lien implements Drawable {
         public Color getColorLien() {
             return colorLien;
         }
+
         /**
          * cette méthode permet de vérifier si un lien est du type passé en paramétre
-         * @param type le type qui doit angloper le type du noeud courrant
+         *
+         * @param t le type qui doit angloper le type du noeud courrant
          * @return boolean,true si il est du type souhaité,false sinon
          */
-        public boolean estDeType(Type type) {
-            return this == type || type == ALL || this == ALL;
+        public boolean estDeType(Type t) {
+            return t != null && ((representativeByte & t.representativeByte) != 0 || representativeByte == 0 && t.representativeByte == 0);
+        }
+
+        public Type or(Type t) {
+            return getOfType(representativeByte | t.representativeByte);
+        }
+
+        public Type getOfType(int b) {
+            for (Type t : Type.values()) {
+                if (t.representativeByte == b) {
+                    return t;
+                }
+            }
+            return NONE;
         }
 
         public static Type getType(char c) {
@@ -78,7 +99,7 @@ public class Lien implements Drawable {
     }
 
     /**
-     * 
+     *
      * @return le type du lien
      */
     public Type getTypeLien() {
@@ -87,6 +108,7 @@ public class Lien implements Drawable {
 
     /**
      * pour changer le type d'un lien
+     *
      * @param typeLien le nouveau type de lien
      */
     public void setTypeLien(Type typeLien) {
@@ -117,10 +139,11 @@ public class Lien implements Drawable {
             return destination;
         }
     }
-/**
- * 
- * @return un tableau de noeuds contenant le noeud de depart et d'arriver 
- */
+
+    /**
+     *
+     * @return un tableau de noeuds contenant le noeud de depart et d'arriver
+     */
     public Noeud[] getDstAndDepart() {
         Noeud[] both = {depart, destination};
         return both;

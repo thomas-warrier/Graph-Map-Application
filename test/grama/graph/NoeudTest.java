@@ -19,8 +19,8 @@ public class NoeudTest {
         assertFalse(t.estDeType(Noeud.Type.NONE));
         assertFalse(t.estDeType(Noeud.Type.VILLE));
 
-        assertTrue(t.estDeType(new Noeud.Type[]{Noeud.Type.LOISIR, Noeud.Type.VILLE}));
-        assertFalse(t.estDeType(new Noeud.Type[]{Noeud.Type.RESTAURANT, Noeud.Type.VILLE}));
+        assertTrue(t.estDeType(Noeud.Type.LOISIR.or(Noeud.Type.VILLE)));
+        assertFalse(t.estDeType(Noeud.Type.RESTAURANT.or(Noeud.Type.VILLE)));
 
         assertTrue(Noeud.Type.NONE.estDeType(Noeud.Type.NONE));
 
