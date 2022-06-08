@@ -37,10 +37,5 @@
         <Property name="text" type="java.lang.String" value="Vous disposez du menu &lt;Vue&gt; en haut dans le menu bar pour choisir l&apos;option que vous souhaitez"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jCheckBox1"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

@@ -73,7 +73,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
 
     @Override
     public void update() {
-        DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         nbrSaut.setText("0");
         nbrKilometre.setText("0");
         if (graphPanel != null && graphPanel.getGraph() != null) {

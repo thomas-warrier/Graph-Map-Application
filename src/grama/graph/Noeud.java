@@ -20,18 +20,20 @@ public class Noeud implements Drawable {
     public static int DIAMETRE = 50;
 
     public enum Type {
-        VILLE('V', new Color(204, 41, 54)),
-        LOISIR('L', new Color(8, 65, 92)),
-        RESTAURANT('R', new Color(56, 134, 151)),
-        ALL('*', Color.BLACK),
-        NONE('\0', Color.white);
+        VILLE('V', new Color(204, 41, 54), 4),
+        LOISIR('L', new Color(8, 65, 92), 2),
+        RESTAURANT('R', new Color(56, 134, 151), 1),
+        ALL('*', Color.BLACK, 7),
+        NONE('\0', Color.white, 0);
 
         private final char representativeChar;
         private final Color colorNode;
+        private int representativeByte;
 
-        Type(char c, Color color) {
+        Type(char c, Color color, int representativeByte) {
             this.representativeChar = c;
             this.colorNode = color;
+            this.representativeByte = representativeByte;
         }
 
         public char getRepresentativeChar() {
@@ -43,7 +45,16 @@ public class Noeud implements Drawable {
         }
 
         public boolean estDeType(Type t) {
-            return this == t || t == ALL || this == ALL;
+            return (representativeByte & t.representativeByte) != 0 || representativeByte == 0 && t.representativeByte == 0;
+        }
+
+        public boolean estDeType(Type[] types) {
+            for (Type t : types) {
+                if (estDeType(t)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static Type getType(char c) {
@@ -205,7 +216,7 @@ public class Noeud implements Drawable {
     /**
      * cette méthode retourne une liste de noeuds contenant tout les voisins a deux distance
      *
-     * @param graph 
+     * @param graph
      * @param floydMatrice
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
      * @return une liste de noeud contenant tout les voisins a deux distance

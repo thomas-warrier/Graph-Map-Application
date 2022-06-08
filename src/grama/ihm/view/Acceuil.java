@@ -32,7 +32,6 @@ public class Acceuil extends InfoAbstractPanel{
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
@@ -46,14 +45,10 @@ public class Acceuil extends InfoAbstractPanel{
 
         jLabel3.setText("Vous disposez du menu <Vue> en haut dans le menu bar pour choisir l'option que vous souhaitez");
         add(jLabel3);
-
-        jCheckBox1.setText("jCheckBox1");
-        add(jCheckBox1);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

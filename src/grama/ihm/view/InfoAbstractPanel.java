@@ -8,14 +8,14 @@ import grama.ihm.Updatable;
  * @author twarr
  */
 public abstract class InfoAbstractPanel extends javax.swing.JPanel implements Updatable {
-    private final MainInterface parent;
+    private final MainInterface mainInterface;
 
     public InfoAbstractPanel(MainInterface parent) {
-        this.parent = parent;
+        this.mainInterface = parent;
     }
 
-    @Override
-    public MainInterface getParent() {
-        return parent;
+    
+    public MainInterface getMainInterface() {
+        return mainInterface;
     }
 }
