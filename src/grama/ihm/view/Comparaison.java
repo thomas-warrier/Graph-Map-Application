@@ -37,6 +37,7 @@ public class Comparaison extends InfoAbstractPanel {
         jPanel3 = new javax.swing.JPanel();
         culturelleLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
         setLayout(new java.awt.GridLayout(4, 0));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

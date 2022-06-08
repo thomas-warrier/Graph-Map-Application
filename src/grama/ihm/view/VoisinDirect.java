@@ -45,6 +45,7 @@ public class VoisinDirect extends InfoAbstractPanel {
         jLabel2.setText("Voisins Directe");
         add(jLabel2);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setText("Nombre de voisin direct :");
@@ -55,13 +56,16 @@ public class VoisinDirect extends InfoAbstractPanel {
 
         add(jPanel1);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jLabel4.setText("Liste des voisins directs :");
         jPanel2.add(jLabel4, java.awt.BorderLayout.WEST);
 
         listVoisinArea.setEditable(false);
+        listVoisinArea.setBackground(new java.awt.Color(204, 204, 204));
         listVoisinArea.setColumns(20);
+        listVoisinArea.setForeground(new java.awt.Color(0, 0, 0));
         listVoisinArea.setRows(5);
         jScrollPane1.setViewportView(listVoisinArea);
 

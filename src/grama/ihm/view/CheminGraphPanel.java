@@ -43,6 +43,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
         jLabel2 = new javax.swing.JLabel();
         nbrKilometre = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 40));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
