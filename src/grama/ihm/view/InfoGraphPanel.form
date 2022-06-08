@@ -284,7 +284,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="checkBoxPanel">
               <Properties>
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
@@ -294,32 +294,26 @@
                 </Constraint>
               </Constraints>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                <Property name="axis" type="int" value="0"/>
+              </Layout>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="checkBoxVille">
+                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="V"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="checkBoxResto">
+                <Component class="javax.swing.JCheckBox" name="jCheckBox2">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="R"/>
-                    <Property name="toolTipText" type="java.lang.String" value="R&#xe9;staurant"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxRestoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="CheckBoxLoisir">
-                  <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="L"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Loisir"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="jCheckBox3">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="R"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBoxLoisirActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

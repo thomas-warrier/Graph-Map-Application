@@ -4,13 +4,11 @@ import grama.graph.Lien;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
-import java.awt.CheckboxGroup;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 
-
 public class InfoGraphPanel extends InfoAbstractPanel {
+
+    JCheckBox vi, loi, resto;
 
     /**
      * Creates new form infoGraphPanel
@@ -18,20 +16,12 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public InfoGraphPanel(MainInterface parent) {
         super(parent);
         initComponents();
-        
-        setToggleCheckBox(checkBoxVille);
-        setToggleCheckBox(checkBoxResto);
-        setToggleCheckBox(CheckBoxLoisir);
+
+        vi = new JCheckBox("V");
+        loi = new JCheckBox("L");
+        resto = new JCheckBox("R");
     }
-    
-    private void setToggleCheckBox(JCheckBox checkbox){
-        checkbox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkbox.setSelected(!checkbox.isSelected());
-            }
-        });
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is
@@ -69,10 +59,10 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         nbrAutorouteLabel = new javax.swing.JLabel();
         infoPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        checkBoxVille = new javax.swing.JCheckBox();
-        checkBoxResto = new javax.swing.JCheckBox();
-        CheckBoxLoisir = new javax.swing.JCheckBox();
+        checkBoxPanel = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
         infoSelectedPanel = new javax.swing.JPanel();
         nameSelectedPanel = new javax.swing.JPanel();
         titleSelectedInfoLabel = new javax.swing.JLabel();
@@ -197,33 +187,24 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         jLabel1.setText("affichage lieux");
         infoPanel9.add(jLabel1, java.awt.BorderLayout.WEST);
 
-        jPanel1.setOpaque(false);
+        checkBoxPanel.setOpaque(false);
+        checkBoxPanel.setLayout(new javax.swing.BoxLayout(checkBoxPanel, javax.swing.BoxLayout.X_AXIS));
 
-        checkBoxVille.setSelected(true);
-        checkBoxVille.setText("V");
-        jPanel1.add(checkBoxVille);
+        jCheckBox1.setText("V");
+        checkBoxPanel.add(jCheckBox1);
 
-        checkBoxResto.setSelected(true);
-        checkBoxResto.setText("R");
-        checkBoxResto.setToolTipText("Réstaurant");
-        checkBoxResto.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox2.setText("L");
+        checkBoxPanel.add(jCheckBox2);
+
+        jCheckBox3.setText("R");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxRestoActionPerformed(evt);
+                jCheckBox3ActionPerformed(evt);
             }
         });
-        jPanel1.add(checkBoxResto);
+        checkBoxPanel.add(jCheckBox3);
 
-        CheckBoxLoisir.setSelected(true);
-        CheckBoxLoisir.setText("L");
-        CheckBoxLoisir.setToolTipText("Loisir");
-        CheckBoxLoisir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBoxLoisirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CheckBoxLoisir);
-
-        infoPanel9.add(jPanel1, java.awt.BorderLayout.EAST);
+        infoPanel9.add(checkBoxPanel, java.awt.BorderLayout.EAST);
 
         infoGenralPanel.add(infoPanel9);
 
@@ -276,19 +257,13 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         add(infoSelectedPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CheckBoxLoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxLoisirActionPerformed
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CheckBoxLoisirActionPerformed
-
-    private void checkBoxRestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRestoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxRestoActionPerformed
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox CheckBoxLoisir;
-    private javax.swing.JCheckBox checkBoxResto;
-    private javax.swing.JCheckBox checkBoxVille;
+    private javax.swing.JPanel checkBoxPanel;
     private javax.swing.JPanel infoGenralPanel;
     private javax.swing.JPanel infoPanel1;
     private javax.swing.JPanel infoPanel2;
@@ -300,8 +275,10 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel infoPanel8;
     private javax.swing.JPanel infoPanel9;
     private javax.swing.JPanel infoSelectedPanel;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameSelectedLabel;
     private javax.swing.JPanel nameSelectedPanel;
@@ -331,12 +308,10 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel typeSelectedPanel;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     @Override
     /**
-     * permet d'avoir le nombre de chaque type de route,de lien.
-     * cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son type,son ouverture)
+     * permet d'avoir le nombre de chaque type de route,de lien. cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son
+     * type,son ouverture)
      */
     public void update() {
 
