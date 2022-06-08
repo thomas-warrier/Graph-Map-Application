@@ -79,6 +79,9 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             listVoisin.enableInputMethods(false);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
+            
 
             listVoisin.setText("");
             if (selected != null) {

@@ -56,6 +56,6 @@ public class Acceuil extends InfoAbstractPanel{
 
     @Override
     public void update() {
-        
+          
     }
 }

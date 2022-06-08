@@ -82,6 +82,8 @@ public class CheminGraphPanel extends InfoAbstractPanel {
 
             Noeud depart = graphPanel.getSelectedNodes().get(0);
             Noeud arriver = graphPanel.getSelectedNodes().get(1);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
+            graphPanel.getPanelLegende().cheminVisible(true);
 
             if (depart != null && arriver != null) {
                 Chemin chemins = matrice.getCheminBetween(depart, arriver);

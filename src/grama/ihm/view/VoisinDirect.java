@@ -77,6 +77,9 @@ public class VoisinDirect extends InfoAbstractPanel {
         DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
+            
             if (selected != null) {
                 List<Noeud> nodes = selected.getVoisinsOfType(Noeud.Type.ALL);
                 nbVoisinLabel.setText(String.valueOf(nodes.size()));

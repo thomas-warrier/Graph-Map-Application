@@ -72,6 +72,9 @@ public class Comparaison extends InfoAbstractPanel {
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected0 = graphPanel.getSelectedNodes().get(0);
             Noeud selected1 = graphPanel.getSelectedNodes().get(1);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            
             if (selected0 != null && selected1 != null) {
                 int ouvertureGeneral = compareOpeningTo(selected0, selected1, graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
                 if (ouvertureGeneral > 0) {
