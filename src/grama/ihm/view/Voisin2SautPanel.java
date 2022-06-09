@@ -38,6 +38,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         titleView.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -53,13 +54,16 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
         add(jPanel1);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setText("voisins :");
         jPanel2.add(jLabel2, java.awt.BorderLayout.WEST);
 
         listVoisin.setEditable(false);
+        listVoisin.setBackground(new java.awt.Color(204, 204, 204));
         listVoisin.setColumns(20);
+        listVoisin.setForeground(new java.awt.Color(0, 0, 0));
         listVoisin.setRows(5);
         listVoisin.setTabSize(4);
         listVoisin.setText("null");
@@ -79,6 +83,9 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             listVoisin.enableInputMethods(false);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
+            
 
             listVoisin.setText("");
             if (selected != null) {

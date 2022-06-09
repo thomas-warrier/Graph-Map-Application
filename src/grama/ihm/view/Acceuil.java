@@ -33,6 +33,7 @@ public class Acceuil extends InfoAbstractPanel{
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 10));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
@@ -56,6 +57,6 @@ public class Acceuil extends InfoAbstractPanel{
 
     @Override
     public void update() {
-        
+          
     }
 }

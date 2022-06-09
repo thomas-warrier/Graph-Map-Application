@@ -37,6 +37,7 @@ public class Comparaison extends InfoAbstractPanel {
         jPanel3 = new javax.swing.JPanel();
         culturelleLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
         setLayout(new java.awt.GridLayout(4, 0));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -72,6 +73,9 @@ public class Comparaison extends InfoAbstractPanel {
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected0 = graphPanel.getSelectedNodes().get(0);
             Noeud selected1 = graphPanel.getSelectedNodes().get(1);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            
             if (selected0 != null && selected1 != null) {
                 int ouvertureGeneral = compareOpeningTo(selected0, selected1, graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
                 if (ouvertureGeneral > 0) {

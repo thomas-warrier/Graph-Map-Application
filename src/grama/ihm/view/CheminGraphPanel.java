@@ -43,6 +43,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
         jLabel2 = new javax.swing.JLabel();
         nbrKilometre = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 40));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -82,6 +83,8 @@ public class CheminGraphPanel extends InfoAbstractPanel {
 
             Noeud depart = graphPanel.getSelectedNodes().get(0);
             Noeud arriver = graphPanel.getSelectedNodes().get(1);
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
+            graphPanel.getPanelLegende().cheminVisible(true);
 
             if (depart != null && arriver != null) {
                 Chemin chemins = matrice.getCheminBetween(depart, arriver);

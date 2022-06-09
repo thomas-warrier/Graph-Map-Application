@@ -85,6 +85,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         ouvertureLabel = new javax.swing.JLabel();
         ouvertureSelectedLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
         setLayout(new java.awt.GridLayout(2, 1, 0, 1));
 
         infoGenralPanel.setLayout(new javax.swing.BoxLayout(infoGenralPanel, javax.swing.BoxLayout.Y_AXIS));

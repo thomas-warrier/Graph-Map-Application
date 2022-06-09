@@ -41,6 +41,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Dimension prevSizePanel;
     private Vector2D scaleOffset, offsetForLocation, lastMouseLocation;
     private int nbrSelectabelNodes;
+    
+    private Legende panelLegende;
 
     /**
      * instansie un panel pour dessiner un graph
@@ -63,8 +65,20 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         setPreferredSize(dimenstion);
 
         this.init(parentFrame, font);
+        
+        panelLegende = new Legende();
+        add(panelLegende,BorderLayout.SOUTH);
+        
+        panelLegende.revalidate();
+        
     }
 
+    public Legende getPanelLegende() {
+        return panelLegende;
+    }
+
+    
+    
     /**
      * instansie un panel pour dessiner un graph
      *
