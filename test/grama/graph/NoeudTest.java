@@ -19,11 +19,19 @@ public class NoeudTest {
         assertFalse(t.estDeType(Noeud.Type.NONE));
         assertFalse(t.estDeType(Noeud.Type.VILLE));
 
+        assertTrue(t.estDeType(Noeud.Type.LOISIR.or(Noeud.Type.VILLE)));
+        assertFalse(t.estDeType(Noeud.Type.RESTAURANT.or(Noeud.Type.VILLE)));
+
         assertTrue(Noeud.Type.NONE.estDeType(Noeud.Type.NONE));
 
         assertTrue(Noeud.Type.ALL.estDeType(Noeud.Type.VILLE));
 
+        assertTrue(Noeud.Type.VILLE.estDeType(Noeud.Type.VILLE));
+
+        assertFalse(Noeud.Type.LOISIR.estDeType(Noeud.Type.VILLE));
+
     }
+
     @Test
     public void getVoisin2DistTest() {
         Graph graphmap = new Graph();

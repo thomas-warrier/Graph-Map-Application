@@ -172,16 +172,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return this;
     }
 
-    /**
-     * Créé objet FloyWarshall et l'initialise
-     *
-     * @param g le graph avec lequelle initiliser
-     * @return this (pour facilité la manipulation en une ligne)
-     */
-    public static FloydWarshall initFloydWarshall(Graph g) {
-        FloydWarshall m = new FloydWarshall(g.getListNoeud().size(), new Couple(null, null));
-        return m.initKilometrage(g);
-    }
+    
 
     /**
      * 

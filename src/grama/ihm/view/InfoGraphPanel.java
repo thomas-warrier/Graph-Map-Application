@@ -4,11 +4,7 @@ import grama.graph.Lien;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
-import java.awt.CheckboxGroup;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JCheckBox;
-
+import java.awt.Color;
 
 public class InfoGraphPanel extends InfoAbstractPanel {
 
@@ -18,19 +14,6 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public InfoGraphPanel(MainInterface parent) {
         super(parent);
         initComponents();
-        
-        setToggleCheckBox(checkBoxVille);
-        setToggleCheckBox(checkBoxResto);
-        setToggleCheckBox(CheckBoxLoisir);
-    }
-    
-    private void setToggleCheckBox(JCheckBox checkbox){
-        checkbox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkbox.setSelected(!checkbox.isSelected());
-            }
-        });
     }
 
     /**
@@ -55,6 +38,12 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         infoPanel4 = new javax.swing.JPanel();
         nbrLoisirLabel = new javax.swing.JLabel();
         nbrLabel4 = new javax.swing.JLabel();
+        affichageLieux = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        checkBoxPanel = new javax.swing.JPanel();
+        checkBoxVille = new javax.swing.JCheckBox();
+        checkBoxLoisir = new javax.swing.JCheckBox();
+        checkBoxResto = new javax.swing.JCheckBox();
         infoPanel5 = new javax.swing.JPanel();
         nbrLabel3 = new javax.swing.JLabel();
         nbrRouteLabel = new javax.swing.JLabel();
@@ -67,12 +56,12 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         infoPanel8 = new javax.swing.JPanel();
         nbrLabel8 = new javax.swing.JLabel();
         nbrAutorouteLabel = new javax.swing.JLabel();
-        infoPanel9 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        checkBoxVille = new javax.swing.JCheckBox();
-        checkBoxResto = new javax.swing.JCheckBox();
-        CheckBoxLoisir = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        checkBoxDepartemental = new javax.swing.JCheckBox();
+        checkBoxNational = new javax.swing.JCheckBox();
+        checkBoxAutoroute = new javax.swing.JCheckBox();
         infoSelectedPanel = new javax.swing.JPanel();
         nameSelectedPanel = new javax.swing.JPanel();
         titleSelectedInfoLabel = new javax.swing.JLabel();
@@ -144,6 +133,49 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoGenralPanel.add(infoPanel4);
 
+        affichageLieux.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 2, 13)); // NOI18N
+        jLabel1.setText("affichage lieux");
+        affichageLieux.add(jLabel1, java.awt.BorderLayout.WEST);
+
+        checkBoxPanel.setOpaque(false);
+        checkBoxPanel.setLayout(new javax.swing.BoxLayout(checkBoxPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        checkBoxVille.setSelected(true);
+        checkBoxVille.setText("V");
+        checkBoxVille.setToolTipText("Ville");
+        checkBoxVille.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxVilleActionPerformed(evt);
+            }
+        });
+        checkBoxPanel.add(checkBoxVille);
+
+        checkBoxLoisir.setSelected(true);
+        checkBoxLoisir.setText("L");
+        checkBoxLoisir.setToolTipText("Loisir");
+        checkBoxLoisir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxLoisirActionPerformed(evt);
+            }
+        });
+        checkBoxPanel.add(checkBoxLoisir);
+
+        checkBoxResto.setSelected(true);
+        checkBoxResto.setText("R");
+        checkBoxResto.setToolTipText("Restaurant");
+        checkBoxResto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRestoActionPerformed(evt);
+            }
+        });
+        checkBoxPanel.add(checkBoxResto);
+
+        affichageLieux.add(checkBoxPanel, java.awt.BorderLayout.EAST);
+
+        infoGenralPanel.add(affichageLieux);
+
         infoPanel5.setLayout(new java.awt.BorderLayout());
 
         nbrLabel3.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
@@ -172,7 +204,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         infoPanel7.setLayout(new java.awt.BorderLayout());
 
         nbrLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nbrLabel5.setText("nombre national : ");
+        nbrLabel5.setText("nombre nationale : ");
         infoPanel7.add(nbrLabel5, java.awt.BorderLayout.WEST);
 
         nbrNationalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -193,40 +225,47 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoGenralPanel.add(infoPanel8);
 
-        infoPanel9.setLayout(new java.awt.BorderLayout());
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("affichage lieux");
-        infoPanel9.add(jLabel1, java.awt.BorderLayout.WEST);
+        jLabel2.setFont(new java.awt.Font("sansserif", 2, 13)); // NOI18N
+        jLabel2.setText("affichage routes");
+        jPanel1.add(jLabel2, java.awt.BorderLayout.WEST);
 
-        jPanel1.setOpaque(false);
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        checkBoxVille.setSelected(true);
-        checkBoxVille.setText("V");
-        jPanel1.add(checkBoxVille);
-
-        checkBoxResto.setSelected(true);
-        checkBoxResto.setText("R");
-        checkBoxResto.setToolTipText("Réstaurant");
-        checkBoxResto.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxDepartemental.setSelected(true);
+        checkBoxDepartemental.setText("D");
+        checkBoxDepartemental.setToolTipText("Départemental");
+        checkBoxDepartemental.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxRestoActionPerformed(evt);
+                checkBoxDepartementalActionPerformed(evt);
             }
         });
-        jPanel1.add(checkBoxResto);
+        jPanel2.add(checkBoxDepartemental);
 
-        CheckBoxLoisir.setSelected(true);
-        CheckBoxLoisir.setText("L");
-        CheckBoxLoisir.setToolTipText("Loisir");
-        CheckBoxLoisir.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxNational.setSelected(true);
+        checkBoxNational.setText("N");
+        checkBoxNational.setToolTipText("Nationale");
+        checkBoxNational.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBoxLoisirActionPerformed(evt);
+                checkBoxNationalActionPerformed(evt);
             }
         });
-        jPanel1.add(CheckBoxLoisir);
+        jPanel2.add(checkBoxNational);
 
-        infoPanel9.add(jPanel1, java.awt.BorderLayout.EAST);
+        checkBoxAutoroute.setSelected(true);
+        checkBoxAutoroute.setText("A");
+        checkBoxAutoroute.setToolTipText("Autoroute");
+        checkBoxAutoroute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAutorouteActionPerformed(evt);
+            }
+        });
+        jPanel2.add(checkBoxAutoroute);
 
-        infoGenralPanel.add(infoPanel9);
+        jPanel1.add(jPanel2, java.awt.BorderLayout.EAST);
+
+        infoGenralPanel.add(jPanel1);
 
         add(infoGenralPanel);
 
@@ -277,17 +316,38 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         add(infoSelectedPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CheckBoxLoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxLoisirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CheckBoxLoisirActionPerformed
-
     private void checkBoxRestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRestoActionPerformed
-        // TODO add your handling code here:
+        this.update();
     }//GEN-LAST:event_checkBoxRestoActionPerformed
+
+    private void checkBoxVilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxVilleActionPerformed
+        this.update();
+    }//GEN-LAST:event_checkBoxVilleActionPerformed
+
+    private void checkBoxLoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxLoisirActionPerformed
+        this.update();
+    }//GEN-LAST:event_checkBoxLoisirActionPerformed
+
+    private void checkBoxDepartementalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDepartementalActionPerformed
+        this.update();
+    }//GEN-LAST:event_checkBoxDepartementalActionPerformed
+
+    private void checkBoxNationalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxNationalActionPerformed
+        this.update();
+    }//GEN-LAST:event_checkBoxNationalActionPerformed
+
+    private void checkBoxAutorouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutorouteActionPerformed
+        this.update();
+    }//GEN-LAST:event_checkBoxAutorouteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox CheckBoxLoisir;
+    private javax.swing.JPanel affichageLieux;
+    private javax.swing.JCheckBox checkBoxAutoroute;
+    private javax.swing.JCheckBox checkBoxDepartemental;
+    private javax.swing.JCheckBox checkBoxLoisir;
+    private javax.swing.JCheckBox checkBoxNational;
+    private javax.swing.JPanel checkBoxPanel;
     private javax.swing.JCheckBox checkBoxResto;
     private javax.swing.JCheckBox checkBoxVille;
     private javax.swing.JPanel infoGenralPanel;
@@ -299,10 +359,11 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel infoPanel6;
     private javax.swing.JPanel infoPanel7;
     private javax.swing.JPanel infoPanel8;
-    private javax.swing.JPanel infoPanel9;
     private javax.swing.JPanel infoSelectedPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameSelectedLabel;
     private javax.swing.JPanel nameSelectedPanel;
@@ -332,17 +393,36 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JPanel typeSelectedPanel;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     @Override
     /**
-     * permet d'avoir le nombre de chaque type de route,de lien.
-     * cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son type,son ouverture)
+     * permet d'avoir le nombre de chaque type de route,de lien. cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son
+     * type,son ouverture)
      */
     public void update() {
-
-        DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
+            Noeud.Type typeNoeudAffichage = Noeud.Type.NONE;
+            if (checkBoxVille.isSelected()) {
+                typeNoeudAffichage = typeNoeudAffichage.or(Noeud.Type.VILLE);
+            }
+            if (checkBoxLoisir.isSelected()) {
+                typeNoeudAffichage = typeNoeudAffichage.or(Noeud.Type.LOISIR);
+            }
+            if (checkBoxResto.isSelected()) {
+                typeNoeudAffichage = typeNoeudAffichage.or(Noeud.Type.RESTAURANT);
+            }
+            graphPanel.setTypeNoeud(typeNoeudAffichage);
+            Lien.Type typeLienAffichage = Lien.Type.NONE;
+            if (checkBoxDepartemental.isSelected()) {
+                typeLienAffichage = typeLienAffichage.or(Lien.Type.DEPARTEMENTALE);
+            }
+            if (checkBoxNational.isSelected()) {
+                typeLienAffichage = typeLienAffichage.or(Lien.Type.NATIONALE);
+            }
+            if (checkBoxAutoroute.isSelected()) {
+                typeLienAffichage = typeLienAffichage.or(Lien.Type.AUTOROUTE);
+            }
+            graphPanel.setTypeLien(typeLienAffichage);
 
             nbrLieuLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.ALL).size()));
             nbrVilleLabel.setText(Integer.toString(graphPanel.getGraph().getListNoeudOfType(Noeud.Type.VILLE).size()));
@@ -365,6 +445,8 @@ public class InfoGraphPanel extends InfoAbstractPanel {
                 typeSelectedLabel.setText("null");
                 ouvertureSelectedLabel.setText("null");
             }
+
+            graphPanel.repaint();
         }
     }
 }

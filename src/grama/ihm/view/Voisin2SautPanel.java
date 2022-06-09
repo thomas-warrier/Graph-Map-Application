@@ -79,7 +79,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
  */
     @Override
     public void update() {
-        DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             listVoisin.enableInputMethods(false);

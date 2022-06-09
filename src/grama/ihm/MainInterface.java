@@ -1,7 +1,6 @@
 package grama.ihm;
 
 import grama.calcule.matrix.FloydWarshall;
-import grama.calcule.matrix.MatriceChemin;
 import grama.exceptions.FormatFileException;
 import grama.formater.StringFormater;
 import grama.graph.Graph;
@@ -23,7 +22,6 @@ import grama.ihm.view.Comparaison;
 import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 import grama.ihm.view.Acceuil;
-
 
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
@@ -137,15 +135,18 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         setMinimumSize(new java.awt.Dimension(144, 144));
         setSize(new java.awt.Dimension(720, 480));
 
-        splitPanel.setDividerLocation(200);
+        splitPanel.setDividerLocation(100);
         splitPanel.setResizeWeight(0.1);
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         leftPanel.setLayout(new java.awt.CardLayout());
-        leftPanel.add(acceuilPanel, "principal");
 
-        infoPanel.setBackground(new java.awt.Color(0, 0, 0));
-        infoPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
+        acceuilPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                acceuilPanelMouseClicked(evt);
+            }
+        });
+        leftPanel.add(acceuilPanel, "principal");
         leftPanel.add(infoPanel, "affichage");
         leftPanel.add(voisinDirectPanel, "voisin_direct");
         leftPanel.add(voisin2Panel, "voisin2saut");
@@ -272,6 +273,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private void principalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalMenuItemActionPerformed
         switchToMode(ViewMode.PRINCIPAL);
     }//GEN-LAST:event_principalMenuItemActionPerformed
+
+    private void acceuilPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceuilPanelMouseClicked
+    }//GEN-LAST:event_acceuilPanelMouseClicked
 
     /**
      * show a dialog window for a warning
@@ -441,12 +445,16 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     public void switchToMode(ViewMode mode) {
+
         this.currMode = mode;
         if (leftPanel.getLayout() instanceof CardLayout && ((drawGraphPanel != null && drawGraphPanel.getGraph() != null) || mode == ViewMode.PRINCIPAL)) {
 
             CardLayout crd = (CardLayout) leftPanel.getLayout();
             crd.show(leftPanel, this.currMode.toString());
             if (mode != ViewMode.PRINCIPAL) {
+                drawGraphPanel.setTypeLien(Lien.Type.ALL);
+                drawGraphPanel.setTypeNoeud(Noeud.Type.ALL);
+
                 drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
                 principalMenuItem.setEnabled(false);
 

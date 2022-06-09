@@ -69,7 +69,7 @@ public class Comparaison extends InfoAbstractPanel {
      */
     @Override
     public void update() {
-        DrawGraphPanel graphPanel = getParent().getDrawGraphPanel();
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
             Noeud selected0 = graphPanel.getSelectedNodes().get(0);
             Noeud selected1 = graphPanel.getSelectedNodes().get(1);

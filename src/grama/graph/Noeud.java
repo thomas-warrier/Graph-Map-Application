@@ -20,18 +20,32 @@ public class Noeud implements Drawable {
     public static int DIAMETRE = 50;
 
     public enum Type {
-        VILLE('V', new Color(204, 41, 54)),
-        LOISIR('L', new Color(8, 65, 92)),
-        RESTAURANT('R', new Color(56, 134, 151)),
-        ALL('*', Color.BLACK),
-        NONE('\0', Color.white);
+        VILLE('V', new Color(204, 41, 54), 4),
+        LOISIR('L', new Color(8, 65, 92), 2),
+        RESTAURANT('R', new Color(56, 134, 151), 1),
+        ALL('*', Color.BLACK, 7),
+        VILLELOISIR('A', Color.BLACK, 6),
+        VILLERESTAURANT('B', Color.BLACK, 5),
+        LOISIRRESTAURANT('C', Color.BLACK, 3),
+        NONE('\0', Color.white, 0);
 
         private final char representativeChar;
         private final Color colorNode;
+        private int representativeByte;
 
-        Type(char c, Color color) {
+        Type(char c, Color color, int representativeByte) {
             this.representativeChar = c;
             this.colorNode = color;
+            this.representativeByte = representativeByte;
+        }
+
+        public Type getOfType(int b) {
+            for (Type t : Type.values()) {
+                if (t.representativeByte == b) {
+                    return t;
+                }
+            }
+            return NONE;
         }
 
         public char getRepresentativeChar() {
@@ -43,7 +57,11 @@ public class Noeud implements Drawable {
         }
 
         public boolean estDeType(Type t) {
-            return this == t || t == ALL || this == ALL;
+            return t != null && ((representativeByte & t.representativeByte) != 0 || representativeByte == 0 && t.representativeByte == 0);
+        }
+
+        public Type or(Type t) {
+            return getOfType(representativeByte | t.representativeByte);
         }
 
         public static Type getType(char c) {
@@ -164,9 +182,9 @@ public class Noeud implements Drawable {
     /**
      *
      * @param g un objet graphic
-     * @param center
-     * @param font
-     * @param highlight
+     * @param center l'emplacement où centrer le noeud
+     * @param font la police décriture
+     * @param highlight la couleur de surlignage s'il y'en à pas alors mettre null
      */
     @Override
     public void draw(Graphics g, Vector2D center, Font font, Color highlight) {

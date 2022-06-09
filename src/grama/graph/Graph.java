@@ -123,7 +123,7 @@ public class Graph {
 
     /**
      *
-     * @param noeud
+     * @param noeud le neoud dont on veux vérifier l'éxistance
      * @return true ssi noeud est dans la liste de noeud
      */
     public boolean noeudExist(Noeud noeud) {
@@ -137,7 +137,7 @@ public class Graph {
      * @throws FormatFileException si il y a des erreur de fromat
      */
     public void loadFromString(String str) throws FormatFileException { // compren throw notfilefound
-        String fileContent = str.replaceAll("[\n\t\r ]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
+        String fileContent = str.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
         System.out.println(fileContent);
 
         String[] eachNode = fileContent.split(";;");
