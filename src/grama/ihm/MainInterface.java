@@ -22,6 +22,7 @@ import grama.ihm.view.Comparaison;
 import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 import grama.ihm.view.Acceuil;
+import javax.swing.UIManager;
 
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
@@ -86,6 +87,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/logo.png"));
         this.setSize(800, 600);
+        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
         this.setIconImage(icon);
 
         splitPanel.setRightComponent(null);
@@ -135,8 +137,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         setMinimumSize(new java.awt.Dimension(144, 144));
         setSize(new java.awt.Dimension(720, 480));
 
-        splitPanel.setDividerLocation(100);
-        splitPanel.setResizeWeight(0.1);
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         leftPanel.setLayout(new java.awt.CardLayout());
@@ -301,6 +301,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
      * launch a graphical way to open a file
      */
     private void openFile() {
+        UIManager.put("FileChooser.readOnly", Boolean.TRUE);
         JFileChooser fileOpen = new JFileChooser();
         fileOpen.setMultiSelectionEnabled(false);
         fileOpen.setFileFilter(new FileNameExtensionFilter("fichier en .csv", "csv"));

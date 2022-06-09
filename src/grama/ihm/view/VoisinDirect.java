@@ -11,7 +11,6 @@ import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class VoisinDirect extends InfoAbstractPanel {
 
     /**
@@ -83,11 +82,11 @@ public class VoisinDirect extends InfoAbstractPanel {
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             graphPanel.getPanelLegende().cheminVisible(false);
             graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
-            
+
+            listVoisinArea.setText("");
             if (selected != null) {
                 List<Noeud> nodes = selected.getVoisinsOfType(Noeud.Type.ALL);
                 nbVoisinLabel.setText(String.valueOf(nodes.size()));
-                listVoisinArea.setText("");
 
                 List<Drawable> drawables = new LinkedList<>();
                 for (Noeud noeud : nodes) {
@@ -95,6 +94,8 @@ public class VoisinDirect extends InfoAbstractPanel {
                     drawables.add((Drawable) noeud);
                 }
                 graphPanel.setHighlited(drawables);
+            } else {
+                nbVoisinLabel.setText("null");
             }
         }
 
