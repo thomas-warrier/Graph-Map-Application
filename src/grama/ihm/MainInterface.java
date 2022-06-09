@@ -60,6 +60,11 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     private ButtonGroup groupView = new ButtonGroup();
 
+    /**
+     * charge un fichier
+     * @param fileGraph le fichier à charger
+     * @throws IOException propage une erreur si besoin
+     */
     private void loadFile(File fileGraph) throws IOException {
         Graph graphmap = new Graph();
 
@@ -69,6 +74,10 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         update();
     }
 
+    /**
+     * charge un nouveau graphe
+     * @param graph le graph à charger dans l'affichage
+     */
     private void loadNewGraph(Graph graph) {
         drawGraphPanel = new DrawGraphPanel(this, graph, getFont(), Noeud.Type.ALL, Lien.Type.ALL);
         splitPanel.setRightComponent(drawGraphPanel);
@@ -98,7 +107,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(voisinDirectMenuItem);
         groupView.add(voisin2ndMenuItem);
         groupView.add(comparaisonMenuItem);
-        groupView.add(cheminMenuItem);
+        groupView.add(cheminMenuItem);  
 
         switchToMode(currMode);
 
@@ -416,6 +425,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JPanel voisinDirectPanel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * mais à jour le panel courrant
+     */
     @Override
     public void update() {
         if (drawGraphPanel == null) {
@@ -445,6 +457,10 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         System.out.println("update : " + currMode);
     }
 
+    /**
+     * change pour le mode de vue demander si possible
+     * @param mode 
+     */
     public void switchToMode(ViewMode mode) {
 
         this.currMode = mode;

@@ -21,8 +21,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 /**
- * Panel pour dessiner un Graph
- *
+ * Panel pour dessiner un Graph et le manipuler
  *
  */
 public class DrawGraphPanel extends JPanel implements MouseMotionListener {
@@ -112,10 +111,18 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     }
 
+    /**
+     * change le type des noeuds à affiché
+     * @param typeNoeud le type des noeuds à affiché
+     */
     public void setTypeNoeud(Noeud.Type typeNoeud) {
         this.typeNoeud = typeNoeud;
     }
 
+    /**
+     * change le type des liens à affiché
+     * @param typeLien le type des liens à affiché (si relier à des neouds qui sont eux même affiché)
+     */
     public void setTypeLien(Lien.Type typeLien) {
         this.typeLien = typeLien;
     }
@@ -331,6 +338,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
     }
 
+    /**
+     * ajoute les listeners pour la souris pour manipuler l'affichage du graph
+     * @param parentFrame le fenêtre parent aux panel
+     */
     public void addEventMouse(Updatable parentFrame) {
         this.addMouseMotionListener(this);
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds

@@ -9,8 +9,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-
+/**
+ * pour dessiner des composant graphique
+ */
 public interface Drawable {
 
+    /**
+     * Dessine l'objet
+     * @param g l'objet graphique
+     * @param center le centre où dessiner
+     * @param font la police
+     * @param highlight la couleur spécial si besoin sinon mettre null
+     */
     public void draw(Graphics g, Vector2D center, Font font, Color highlight);
 }

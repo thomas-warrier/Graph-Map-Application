@@ -2,7 +2,9 @@ package grama.calcule.vector;
 
 import java.awt.Graphics;
 
-
+/**
+ * Permet de représenter des points ou des distances sur un plan 2D
+ */
 public class Vector2D {
 
     public double x;
