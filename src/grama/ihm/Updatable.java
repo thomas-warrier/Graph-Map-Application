@@ -4,7 +4,12 @@
  */
 package grama.ihm;
 
-
+/**
+ * permet de mettre à jour des composant graphique
+ */
 public interface Updatable {
+    /**
+     * mettre à joure le composant
+     */
     public void update();
 }

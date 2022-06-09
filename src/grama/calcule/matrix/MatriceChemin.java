@@ -83,6 +83,8 @@ public class MatriceChemin extends Matrix<Chemin> {
     public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) {
         Chemin chemin = new Chemin();
         Noeud prec = depart;
+        
+        
         for (Noeud.Type type : types) {
             Noeud plusProche = floydWarshall.getPlusProcheType(graph, prec, type);
             chemin.append(getCheminBetween(prec, plusProche));

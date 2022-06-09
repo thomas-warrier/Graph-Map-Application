@@ -101,6 +101,8 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
                 graphPanel.setHighlited(nodeHighlite);
 
+            }else{
+                nbrVoinsin2Saut.setText("null");
             }
         }
 

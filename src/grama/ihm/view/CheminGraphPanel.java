@@ -16,10 +16,9 @@ import java.awt.CheckboxGroup;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class CheminGraphPanel extends InfoAbstractPanel {
 
-    private MatriceChemin matrice;
+    private MatriceChemin matriceChemin;
 
     public CheminGraphPanel(MainInterface parent) {
         super(parent);
@@ -78,8 +77,9 @@ public class CheminGraphPanel extends InfoAbstractPanel {
         nbrSaut.setText("0");
         nbrKilometre.setText("0");
         if (graphPanel != null && graphPanel.getGraph() != null) {
-            matrice = new MatriceChemin(graphPanel.getGraph());
-            matrice.init(graphPanel.getGraph().getListNoeud().size(), null);
+            if (matriceChemin == null) {
+                matriceChemin = new MatriceChemin(graphPanel.getGraph());
+            }
 
             Noeud depart = graphPanel.getSelectedNodes().get(0);
             Noeud arriver = graphPanel.getSelectedNodes().get(1);
@@ -87,7 +87,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
             graphPanel.getPanelLegende().cheminVisible(true);
 
             if (depart != null && arriver != null) {
-                Chemin chemins = matrice.getCheminBetween(depart, arriver);
+                Chemin chemins = matriceChemin.getCheminBetween(depart, arriver);
                 List<Drawable> liens = new LinkedList<>();
                 for (Lien lien : chemins.getChemin()) {
                     liens.add((Drawable) lien);
