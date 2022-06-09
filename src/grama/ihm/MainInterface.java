@@ -23,6 +23,7 @@ import grama.ihm.view.Voisin2SautPanel;
 import grama.ihm.view.CheminGraphPanel;
 import grama.ihm.view.Acceuil;
 import javax.swing.UIManager;
+import grama.ihm.view.PassantParPanel;
 
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
@@ -32,7 +33,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         VOISIN_DIRECT(1),
         VOISIN2SAUT(1),
         COMPARAISON(2),
-        CHEMIN(2);
+        CHEMIN(2),
+        PASSANTPAR(2);
 
         private final int nbrSelectableNode;
 
@@ -107,7 +109,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(voisinDirectMenuItem);
         groupView.add(voisin2ndMenuItem);
         groupView.add(comparaisonMenuItem);
-        groupView.add(cheminMenuItem);  
+        groupView.add(cheminMenuItem);
+        groupView.add(cheminPassantParMenuItem);
 
         switchToMode(currMode);
 
@@ -130,6 +133,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         voisin2Panel = new Voisin2SautPanel(this);
         comparaisonPanel = new Comparaison(this);
         cheminPanel = new CheminGraphPanel(this);
+        cheminPassantPanel = new PassantParPanel(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
@@ -140,11 +144,12 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         voisin2ndMenuItem = new javax.swing.JRadioButtonMenuItem();
         comparaisonMenuItem = new javax.swing.JRadioButtonMenuItem();
         cheminMenuItem = new javax.swing.JRadioButtonMenuItem();
+        cheminPassantParMenuItem = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grama");
         setMinimumSize(new java.awt.Dimension(144, 144));
-        setSize(new java.awt.Dimension(720, 480));
+        setSize(new java.awt.Dimension(1650, 600));
 
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -161,6 +166,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         leftPanel.add(voisin2Panel, "voisin2saut");
         leftPanel.add(comparaisonPanel, "comparaison");
         leftPanel.add(cheminPanel, "chemin");
+        leftPanel.add(cheminPassantPanel, "passantpar");
 
         splitPanel.setLeftComponent(leftPanel);
 
@@ -244,6 +250,15 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         });
         ViewMenu.add(cheminMenuItem);
 
+        cheminPassantParMenuItem.setText("Chemin passant par");
+        cheminPassantParMenuItem.setEnabled(false);
+        cheminPassantParMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cheminPassantParMenuItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(cheminPassantParMenuItem);
+
         jMenuBar1.add(ViewMenu);
 
         setJMenuBar(jMenuBar1);
@@ -256,7 +271,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }//GEN-LAST:event_OpenMenuItemActionPerformed
 
     private void ViewMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewMenuActionPerformed
-
+        
     }//GEN-LAST:event_ViewMenuActionPerformed
 
     private void voisinDirectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voisinDirectMenuItemActionPerformed
@@ -285,6 +300,11 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     private void acceuilPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceuilPanelMouseClicked
     }//GEN-LAST:event_acceuilPanelMouseClicked
+
+    private void cheminPassantParMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheminPassantParMenuItemActionPerformed
+
+        switchToMode(ViewMode.PASSANTPAR);
+    }//GEN-LAST:event_cheminPassantParMenuItemActionPerformed
 
     /**
      * show a dialog window for a warning
@@ -411,6 +431,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JRadioButtonMenuItem affichageMenuItem;
     private javax.swing.JRadioButtonMenuItem cheminMenuItem;
     private javax.swing.JPanel cheminPanel;
+    private javax.swing.JPanel cheminPassantPanel;
+    private javax.swing.JRadioButtonMenuItem cheminPassantParMenuItem;
     private javax.swing.JRadioButtonMenuItem comparaisonMenuItem;
     private javax.swing.JPanel comparaisonPanel;
     private javax.swing.JMenu fileMenu;
@@ -450,6 +472,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
                 case COMPARAISON:
                     ((InfoAbstractPanel) comparaisonPanel).update();
                     break;
+                case PASSANTPAR:
+                    ((InfoAbstractPanel) cheminPassantPanel).update();
                 default:
                     break;
             }
@@ -480,6 +504,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
                 voisin2ndMenuItem.setEnabled(true);
                 voisinDirectMenuItem.setEnabled(true);
                 comparaisonMenuItem.setEnabled(true);
+                cheminPassantParMenuItem.setEnabled(true);
             }
 
             update();
@@ -493,6 +518,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             voisin2ndMenuItem.setEnabled(false);
             voisinDirectMenuItem.setEnabled(false);
             comparaisonMenuItem.setEnabled(false);
+            cheminPassantParMenuItem.setEnabled(false);
         }
         splitPanel.setDividerLocation(0.25);
     }
