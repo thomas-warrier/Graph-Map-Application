@@ -445,6 +445,9 @@ public class InfoGraphPanel extends InfoAbstractPanel {
                 typeSelectedLabel.setText("null");
                 ouvertureSelectedLabel.setText("null");
             }
+            graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
+            graphPanel.getPanelLegende().cheminVisible(false);
+            
 
             graphPanel.repaint();
         }
