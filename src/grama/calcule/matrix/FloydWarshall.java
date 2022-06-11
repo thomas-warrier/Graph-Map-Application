@@ -2,6 +2,7 @@ package grama.calcule.matrix;
 
 import grama.graph.Graph;
 import grama.graph.Noeud;
+import java.util.List;
 
 /**
  * Une matrice qui permet de résoudres les plus cours chemins d'un graph
@@ -18,7 +19,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     private static FloydWarshall instanceSaut;
 
     /**
-     * 
+     *
      * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de kilométrage
      */
     public static FloydWarshall getInstanceKilometrage() {
@@ -29,7 +30,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * 
+     *
      * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de saut (nombre de lien traverser)
      */
     public static FloydWarshall getInstanceSaut() {
@@ -45,7 +46,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     public static class Couple {
 
         /**
-         * 
+         *
          * @return la valeur, si null alors on considérera que la valeur est infinie
          */
         public Integer getVal() {
@@ -53,7 +54,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         }
 
         /**
-         * 
+         *
          * @return Le Noeud Précédant
          */
         public Noeud getPrec() {
@@ -151,7 +152,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
      *
      * @param g le graph avec lequelle initialiser
      * @return this (pour facilité la manipulation en une ligne)
-     */ 
+     */
     public FloydWarshall initSaut(Graph g) {
         super.init(g.getListNoeud().size(), new Couple(null, null));
 
@@ -172,10 +173,8 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
         return this;
     }
 
-    
-
     /**
-     * 
+     *
      * @param indiceNoeudDep l'indice du neoud de départ
      * @param indiceNoeudArr l'indice du neoud de d'arriver
      * @return la distance entre les noeuds
@@ -186,20 +185,24 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     /**
      * Permet de récuperer le Noeud le plus proche d'un certain neoud
+     *
      * @param g le graphe dans le quelle son les neouds
      * @param depart le neoud duquelle partire pour trouver le noeud le plus proche
-     * @param type le type du noeud qu'on cherche
-     * @return Le noeud le plus proche du noeud de départ
+     * @param listeWhereLook la liste des noeuds où on veux chercher le plus proche
+     * @param withoutNoeuds la liste des noeuds où on ne veux pas chercher le noeud le plus proche
+     * @return Le noeud le plus proche du noeud de départ si il existe
      */
-    public Noeud getPlusProcheType(Graph g, Noeud depart, Noeud.Type type) {
+    public Noeud getPlusProcheIn(Graph g, Noeud depart, List<Noeud> listeWhereLook, List<Noeud> withoutNoeuds) {
         Couple plusProche = null;
         Noeud arriver = null;
         int indiceDepart = g.getIndiceNoeud(depart);
-        for (Noeud node : g.getListNoeudOfType(type)) {
-            Couple newCouple = getDistByIndice(indiceDepart, g.getIndiceNoeud(node));
-            if (plusProche == null || plusProche.val > newCouple.val) {
-                plusProche = newCouple;
-                arriver = node;
+        for (Noeud node : listeWhereLook) {
+            if (!withoutNoeuds.contains(node)) {
+                Couple newCouple = getDistByIndice(indiceDepart, g.getIndiceNoeud(node));
+                if (plusProche == null || plusProche.val > newCouple.val) {
+                    plusProche = newCouple;
+                    arriver = node;
+                }
             }
         }
         return arriver;

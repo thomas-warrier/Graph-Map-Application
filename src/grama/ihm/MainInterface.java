@@ -64,6 +64,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     /**
      * charge un fichier
+     *
      * @param fileGraph le fichier à charger
      * @throws IOException propage une erreur si besoin
      */
@@ -78,6 +79,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     /**
      * charge un nouveau graphe
+     *
      * @param graph le graph à charger dans l'affichage
      */
     private void loadNewGraph(Graph graph) {
@@ -271,7 +273,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }//GEN-LAST:event_OpenMenuItemActionPerformed
 
     private void ViewMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewMenuActionPerformed
-        
+
     }//GEN-LAST:event_ViewMenuActionPerformed
 
     private void voisinDirectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voisinDirectMenuItemActionPerformed
@@ -307,26 +309,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }//GEN-LAST:event_cheminPassantParMenuItemActionPerformed
 
     /**
-     * show a dialog window for a warning
-     *
-     * @param parent the parent Component of this new dialog window
-     * @param msg the message do display in this new dialog window
-     */
-    private void showWarningDialog(Component parent, String msg) {
-        JOptionPane.showMessageDialog(parent, msg, "Grama", JOptionPane.WARNING_MESSAGE);
-    }
-
-    /**
-     * show a dialog window for warn about the read right of a file
-     *
-     * @param file the file with wrong right.
-     */
-    private void showReadRightWarning(File file) {
-        showWarningDialog(this, file.getAbsolutePath() + "\nVous n'avez pas l'autorisation d'ouvrir ce fichier. Consultez le propriétaire du fichier ou un administrateur pour obtenir cette autorisation");
-
-    }
-
-    /**
      * launch a graphical way to open a file
      */
     private void openFile() {
@@ -338,7 +320,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         int res = fileOpen.showOpenDialog(this);
         File file = fileOpen.getSelectedFile();
         while (res == JFileChooser.APPROVE_OPTION && file != null && !file.canRead()) {
-            showReadRightWarning(file);
+            WarningDialog.showReadRightWarning(this, file);
             res = fileOpen.showOpenDialog(this);
             file = fileOpen.getSelectedFile();
         }
@@ -347,9 +329,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
             try {
                 loadFile(file);
             } catch (FormatFileException e) {
-                showWarningDialog(this, "Erreur à la ligne : " + e.getLineNumber() + "\n" + e.getNonConforme());
+                WarningDialog.showWarningDialog(this, "Erreur à la ligne : " + e.getLineNumber() + "\n" + e.getNonConforme());
             } catch (IOException ex) {
-                showReadRightWarning(file);
+                WarningDialog.showReadRightWarning(this, file);
             }
 
         }
@@ -483,7 +465,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
     /**
      * change pour le mode de vue demander si possible
-     * @param mode 
+     *
+     * @param mode
      */
     public void switchToMode(ViewMode mode) {
 
