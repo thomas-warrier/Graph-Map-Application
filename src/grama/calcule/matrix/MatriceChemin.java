@@ -4,16 +4,18 @@ package grama.calcule.matrix;
  *
  * @author twarr
  */
+import grama.exceptions.CheminImpossibleErreur;
 import grama.graph.Chemin;
 import grama.graph.Graph;
 import grama.graph.Noeud;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MatriceChemin extends Matrix<Chemin> {
 
     private Graph graph;
 
-    
     public MatriceChemin(Graph graph) {
         this.graph = graph;
         init(graph.getListNoeud().size(), null);
@@ -26,6 +28,7 @@ public class MatriceChemin extends Matrix<Chemin> {
 
     /**
      * requière : FloydWarshall.getInstanceKilometrage() doit être initialiser et resolved
+     *
      * @param length le taille de la matrice 4
      * @param defaut la valeur par défaut d'un élément
      */
@@ -62,6 +65,7 @@ public class MatriceChemin extends Matrix<Chemin> {
 
     /**
      * récuper le chemin pour aller d'un neoud à l'autre
+     *
      * @param depart le Noeud de départ
      * @param arriver le Noeud de départ
      * @return le chemin entre le noeud de départ et d'arriver
@@ -73,23 +77,32 @@ public class MatriceChemin extends Matrix<Chemin> {
     }
 
     /**
-     * 
+     *
      * @param depart Noeud de départ
      * @param arriver Noeud d'arriver
      * @param types la List des type de Lieux dans lesquelles on veut passer (dans l'ordre)
      * @param floydWarshall la matrice dans laquelle chercher les distances (saut ou kilométrage)
      * @return le chemin entre le neoud de départ et d'arriver passant par les Type de Noeud dans l'ordre
      */
-    public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) {
+    public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) throws CheminImpossibleErreur {
         Chemin chemin = new Chemin();
         Noeud prec = depart;
-        
-        
+
+        List<Noeud> nePasRePasser = new LinkedList<>();
+        nePasRePasser.add(depart);
+        nePasRePasser.add(arriver);
+
         for (Noeud.Type type : types) {
-            Noeud plusProche = floydWarshall.getPlusProcheType(graph, prec, type);
+            Noeud plusProche = floydWarshall.getPlusProcheIn(graph, prec, graph.getListNoeudOfType(type), nePasRePasser);
+
+            if (plusProche == null) {
+                throw new CheminImpossibleErreur(depart, arriver, type, Collections.frequency(types, type));
+            }
+            nePasRePasser.add(plusProche);
+
             chemin.append(getCheminBetween(prec, plusProche));
             prec = plusProche;
-            
+
         }
         chemin.append(getCheminBetween(prec, arriver));
         return chemin;
