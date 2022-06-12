@@ -265,8 +265,12 @@ public class Noeud implements Drawable {
      * @return un int,si le int est positif c'est le noeud A qui est le plus ouvert et si le int est négatif,c'est le noeudB qui est le plus ouvert.
      */
     public static int compareOpeningTo(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
-        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudA.getVoisinsOfType(typeNoeud).size();
-        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudB.getVoisinsOfType(typeNoeud).size();
+        //se qui nous parrais le plus logique
+//        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudA.getVoisinsOfType(typeNoeud).size();
+//        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudB.getVoisinsOfType(typeNoeud).size();
+        //se qu'on comprends de l'énoncé (on suppose qu'il est connexe)
+        int nb2DistA = graph.getListNoeudOfType(typeNoeud).size() - noeudA.getVoisinsOfType(typeNoeud).size() - (noeudA.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
+        int nb2DistB = graph.getListNoeudOfType(typeNoeud).size() - noeudB.getVoisinsOfType(typeNoeud).size() - (noeudB.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
 
         return nb2DistA - nb2DistB;
     }
