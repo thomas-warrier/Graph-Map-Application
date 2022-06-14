@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Graph {
 
-    private final List<Noeud> listNoeud;//pour simplifier on stocke la liste de tout les noeuds ici (poura être truové en double dans listNoeudOfType
+    private final List<Noeud> listNoeud;//pour simplifier on stocke la liste de tout les noeuds ici (pourra être trouvé en double dans listNoeudOfType
     private final HashMap<Noeud.Type, List<Noeud>> listNoeudOfType;
     private final HashMap<Lien.Type, List<Lien>> listLienOfType;
 
@@ -90,7 +90,7 @@ public class Graph {
     }
 
     /**
-     * récupère l'instance du lien s'il existe déjà et le crée sinon
+     * récupère l'instance du lien s'il existe déjà et le créer sinon
      *
      * @param lien le lien à récuperer
      * @return Une instance d'un lien égale à "lien" ou le "lien" lui même
@@ -120,14 +120,14 @@ public class Graph {
             }
         }
         //si pas trouvé c'est qu'il doit être créé
-        //donc ajouter à la liste de noeud
+        //donc ajouté à la liste de noeud
         addNoeud(noeud);
         return noeud;
     }
 
     /**
      *
-     * @param noeud le noeud dont on veux vérifier l'éxistance
+     * @param noeud le noeud dont on veux vérifier l'éxistence
      * @return true ssi noeud est dans la liste de noeud
      */
     public boolean noeudExist(Noeud noeud) {
@@ -135,12 +135,12 @@ public class Graph {
     }
 
     /**
-     * charger un graph à partire d'une String, si il y a des erreurs de formats alors elles seront propagé.
+     * charger un graph à partir d'une String, si il y a des erreurs de formats alors elles seront propagées.
      *
      * @param str La String au format csv qui représente le graph.
-     * @throws FormatFileException si il y a des erreur de fromat
+     * @throws FormatFileException si il y a des erreurs de fromat
      */
-    public void loadFromString(String str) throws FormatFileException { // compren throw notfilefound
+    public void loadFromString(String str) throws FormatFileException { // comprend throw notfilefound
         String fileContent = str.replaceAll("[\n\t\r]", "").trim(); // remove '\n' or '\t' or '\r' et useless space
         System.out.println(fileContent);
 
@@ -218,10 +218,10 @@ public class Graph {
     }
 
     /**
-     * récuper l'indice du neoud
+     * récuper l'indice du noeud
      *
      * @param noeud le noeud dont on veux l'indice
-     * @return l'indice du neoud
+     * @return l'indice du noeud
      */
     public int getIndiceNoeud(Noeud noeud) {
         int i = 0;

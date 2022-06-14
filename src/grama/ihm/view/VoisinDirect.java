@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Permet de visualiser tous les neouds qui sont voisin directe du Noeuds sélectionner
+ * Permet de visualiser tous les noeuds qui sont voisin directs du Noeuds sélectionné
  * @author thomas
  */
 public class VoisinDirect extends InfoAbstractPanel {
@@ -78,7 +78,7 @@ public class VoisinDirect extends InfoAbstractPanel {
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * permet d'afficher la liste des voisins directes
+     * permet d'afficher la liste des voisins directs
      */
     @Override
     public void update() {

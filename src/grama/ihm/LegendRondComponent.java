@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 /**
- * Permet d'ajouté une couleur en cercle à une légendre
+ * Permet d'ajouter une couleur en cercle à une légende
  * @author twarr
  */
 public class LegendRondComponent extends JLabel{

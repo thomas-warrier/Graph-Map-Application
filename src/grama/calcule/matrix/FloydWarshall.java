@@ -5,7 +5,7 @@ import grama.graph.Noeud;
 import java.util.List;
 
 /**
- * Une matrice qui permet de résoudres les plus cours chemins d'un graph
+ * Une matrice qui permet de résoudre les plus cours chemins d'un graph
  *
  * @author virgile
  */
@@ -13,14 +13,14 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     /**
      *
-     * @return L'instance static De la matrice FloydWarshall
+     * @return L'instance static de la matrice FloydWarshall
      */
     private static FloydWarshall instanceKilometrage;
     private static FloydWarshall instanceSaut;
 
     /**
      *
-     * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de kilométrage
+     * @return une instance static de FloydWarshall déstiné à trouver les plus cours chemin en terme de kilométrages.
      */
     public static FloydWarshall getInstanceKilometrage() {
         if (instanceKilometrage == null) {
@@ -31,7 +31,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     /**
      *
-     * @return une instance static de FloydWarshall déstiner à trouvé les plus crous chemin en terme de saut (nombre de lien traverser)
+     * @return une instance static de FloydWarshall déstiné à trouver les plus cours chemins en terme de saut (nombre de liens traversés)
      */
     public static FloydWarshall getInstanceSaut() {
         if (instanceSaut == null) {
@@ -41,7 +41,7 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * permet de stocker un valeur et le Noeud Précédant
+     * permet de stocker une valeur et le Noeud Précédant
      */
     public static class Couple {
 
@@ -95,9 +95,9 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * Résouse avec l'algorithme de FloyWarshall
+     * Résoud avec l'algorithme de FloyWarshall
      *
-     * @return this (pour facilité la manipulation en une ligne)
+     * @return this (pour faciliter la manipulation en une ligne)
      */
     public FloydWarshall resolve() {
         for (int currStep = 0; currStep < matrix.size(); currStep++) {
@@ -128,8 +128,8 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     /**
      * Initialize comme re créé un objet FloyWarshall pour le kilométrage
      *
-     * @param g le graph avec lequelle initialiser
-     * @return this (pour facilité la manipulation en une ligne)
+     * @param g le graph avec lequel initialiser
+     * @return this (pour faciliter la manipulation en une ligne)
      */
     public FloydWarshall initKilometrage(Graph g) {
         super.init(g.getListNoeud().size(), new Couple(null, null));
@@ -148,9 +148,9 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * Initialize comme re créé un objet FloyWarshall pour le nombre de saut
+     * Initialise comme re créé un objet FloyWarshall pour le nombre de saut
      *
-     * @param g le graph avec lequelle initialiser
+     * @param g le graph avec lequel initialiser
      * @return this (pour facilité la manipulation en une ligne)
      */
     public FloydWarshall initSaut(Graph g) {
@@ -175,8 +175,8 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
 
     /**
      *
-     * @param indiceNoeudDep l'indice du neoud de départ
-     * @param indiceNoeudArr l'indice du neoud de d'arriver
+     * @param indiceNoeudDep l'indice du noeud de départ
+     * @param indiceNoeudArr l'indice du noeud d'arriver
      * @return la distance entre les noeuds
      */
     public Couple getDistByIndice(int indiceNoeudDep, int indiceNoeudArr) {
@@ -184,10 +184,10 @@ public class FloydWarshall extends Matrix<FloydWarshall.Couple> {
     }
 
     /**
-     * Permet de récuperer le Noeud le plus proche d'un certain neoud
+     * Permet de récuperer le Noeud le plus proche d'un certain noeud
      *
-     * @param g le graphe dans le quelle son les neouds
-     * @param depart le neoud duquelle partire pour trouver le noeud le plus proche
+     * @param g le graphe dans lequel son les neouds
+     * @param depart le noeud du quel partir pour trouver le noeud le plus proche
      * @param listeWhereLook la liste des noeuds où on veux chercher le plus proche
      * @param withoutNoeuds la liste des noeuds où on ne veux pas chercher le noeud le plus proche
      * @return Le noeud le plus proche du noeud de départ si il existe

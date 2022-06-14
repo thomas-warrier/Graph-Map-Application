@@ -9,7 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 /**
- * Permet d'ajouté une légende pour le graph
+ * Permet d'ajouter une légende pour le graph
  *
  * @author twarr
  */
@@ -48,7 +48,7 @@ public class Legende extends javax.swing.JPanel {
     }
 
     /**
-     * masque ou affiche la légende pour les chemin
+     * masque ou affiche la légende pour les chemins
      *
      * @param bool true pour afficher et false pour masquer
      */
@@ -58,7 +58,7 @@ public class Legende extends javax.swing.JPanel {
     }
 
     /**
-     * masque ou affiche la légende pour les noeud correspondant
+     * masque ou affiche la légende pour les noeuds correspondant
      *
      * @param bool true pour afficher et false pour masquer
      */

@@ -69,7 +69,8 @@ public class Comparaison extends InfoAbstractPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * notre méthode update permet d'actualiser l'affichage dans notre ihm pour la classe comparaison en fonction en fonction des noeuds séléctionés.
+     * notre méthode update permet d'actualiser l'affichage dans notre ihm pour la classe comparaison en fonction
+     * des noeuds séléctionés.
      */
     @Override
     public void update() {

@@ -10,7 +10,7 @@ public class FormatFileException extends RuntimeException {
     }
 /**
  * ce constructeur permets d'indiquer quelle chaine de caractére n'est pas conforme
- * @param nonConforme la partie non confrome qui à créé l'erreur
+ * @param nonConforme la partie non confrome qui à créée l'erreur
  */
     public FormatFileException(String nonConforme) {
         super("Le format du fichier n'est pas conforme. partie non conforme : " + nonConforme);

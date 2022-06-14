@@ -7,8 +7,7 @@ import grama.ihm.MainInterface;
 import java.awt.Color;
 
 /**
- * Permet d'afficher les information à propos d'un noeuds
- *
+ * Permet d'afficher les information à propos d'un noeud
  * @author virgile
  */
 public class InfoGraphPanel extends InfoAbstractPanel {
