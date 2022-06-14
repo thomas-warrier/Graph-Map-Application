@@ -17,20 +17,16 @@ import grama.ihm.MainInterface;
 import grama.ihm.WarningDialog;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.text.html.HTMLDocument;
 
 /**
- * Permet de trouver le chemin le plus cours entre 2 neouds en passant par certain type de noeuds
+ * Permet de trouver le chemin le plus cours entre 2 noeuds en passant par certains type de noeuds
  * @author twarr
  */
 public class PassantParPanel extends InfoAbstractPanel {

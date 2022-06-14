@@ -44,9 +44,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Legende panelLegende;
 
     /**
-     * instansie un panel pour dessiner un graph
+     * instancie un panel pour dessiner un graph
      *
-     * @param parentFrame la fenêtre parente (pour mettre à jours les info)
+     * @param parentFrame la fenêtre parente (pour mettre à jours les infos)
      * @param graph le graph à dessiner
      * @param font la police d'écriture
      * @param typeNoeud le type des noeuds à afficher
@@ -77,7 +77,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * instansie un panel pour dessiner un graph
+     * instancie un panel pour dessiner un graph
      *
      * @param parentFrame la fenêtre parente (pour mettre à jours les infos)
      * @param graph le graph à dessiner
@@ -88,7 +88,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * Inisialise le panel
+     * Initialise le panel
      *
      * @param parentFrame la fenêtre parente (pour mettre à jours les infos)
      * @param font la police d'écriture
@@ -166,9 +166,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      *
-     * @param prev les précédente dimmension du panel
-     * @param nouveau les nouvelle dimension du panel
-     * @return une échelle calculer en fonction de la taille de la fenêtre
+     * @param prev les précédente dimension du panel
+     * @param nouveau les nouvelles dimension du panel
+     * @return une échelle calculé en fonction de la taille de la fenêtre
      */
     private Vector2D calculeScale(Dimension prev, Dimension nouveau) {
         double scaleX = nouveau.getWidth() / prev.getWidth();
@@ -270,7 +270,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     /**
      * Permet de surligner les éléments présent dans la liste
      *
-     * @param highlited la nouvelle liste des objet {@link Drawable} à surligné
+     * @param highlited la nouvelle liste des objets {@link Drawable} à surligner
      */
     public void setHighlited(List<Drawable> highlited) {
         this.highlited = highlited;
@@ -280,7 +280,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     /**
      * change le nombre maximal de noeuds séléctionner en même temps
      *
-     * @param n nombre maximal de noeuds séléctionnable
+     * @param n nombre maximal de noeuds séléctionnables
      */
     public void setNbrSelectableNode(int n) {
         this.selectedNodes = new ArrayList<>();
@@ -293,7 +293,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      *
-     * @return La liste des Noeuds séléctionner
+     * @return La liste des Noeuds séléctionnés
      */
     public List<Noeud> getSelectedNodes() {
         return selectedNodes;
@@ -341,7 +341,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      */
     public void addEventMouse(Updatable parentFrame) {
         this.addMouseMotionListener(this);
-        this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la selection des noeuds
+        this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la séléction des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 System.out.println("click");

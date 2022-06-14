@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Classe représentant une Matrice Carré dont les valeur sont de type T
+ * Classe représentant une Matrice Carré dont les valeurs sont de type T
  * @param <T> le type générique
  */
 public class Matrix<T> {
@@ -29,8 +29,8 @@ public class Matrix<T> {
     }
 
     /**
-     * créé une matrice à partire d'une liste de liste
-     * @param array le tableau de tableau qui represente la matrice
+     * créé une matrice à partir d'une liste de liste
+     * @param array le tableau de tableau qui représente la matrice
      */
     public Matrix(T[][] array) {
         matrix = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Matrix<T> {
 
     /**
      * copie une matrice
-     * @param other la matrice à copié
+     * @param other la matrice à copier
      */
     public Matrix(Matrix<T> other) {
         matrix = new ArrayList<>();

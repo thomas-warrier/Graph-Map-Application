@@ -4,7 +4,6 @@
  */
 package grama.ihm.view;
 
-import grama.calcule.matrix.FloydWarshall;
 import grama.calcule.matrix.MatriceChemin;
 import grama.graph.Chemin;
 import grama.graph.Lien;
@@ -12,7 +11,6 @@ import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.Drawable;
 import grama.ihm.MainInterface;
-import java.awt.CheckboxGroup;
 import java.util.LinkedList;
 import java.util.List;
 

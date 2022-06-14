@@ -28,7 +28,7 @@ public class MatriceChemin extends Matrix<Chemin> {
     }
 
     /**
-     * requière : FloydWarshall.getInstanceKilometrage() doit être initialiser et resolved
+     * requière : FloydWarshall.getInstanceKilometrage() doit être initialiser et resolu
      *
      * @param length le taille de la matrice 4
      * @param defaut la valeur par défaut d'un élément
@@ -65,10 +65,10 @@ public class MatriceChemin extends Matrix<Chemin> {
     }
 
     /**
-     * récuper le chemin pour aller d'un neoud à l'autre
+     * récuper le chemin pour aller d'un noeud à l'autre
      *
      * @param depart le Noeud de départ
-     * @param arriver le Noeud de départ
+     * @param arriver le Noeud de d'arriver
      * @return le chemin entre le noeud de départ et d'arriver
      */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver) {
@@ -81,9 +81,9 @@ public class MatriceChemin extends Matrix<Chemin> {
      *
      * @param depart Noeud de départ
      * @param arriver Noeud d'arriver
-     * @param types la List des type de Lieux dans lesquelles on veut passer (dans l'ordre)
+     * @param types la liste des types de lieux dans lesquels on veut passer (dans l'ordre)
      * @param floydWarshall la matrice dans laquelle chercher les distances (saut ou kilométrage)
-     * @return le chemin entre le neoud de départ et d'arriver passant par les Type de Noeud dans l'ordre
+     * @return le chemin entre le noeud de départ et d'arriver passant par les Types de Noeud dans l'ordre
      * @throws CheminImpossibleErreur propage une exception si le chemin demander est impossible
      */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) throws CheminImpossibleErreur {
