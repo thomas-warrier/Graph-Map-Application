@@ -8,12 +8,14 @@ import java.awt.Color;
 
 /**
  * Permet d'afficher les information à propos d'un noeuds
+ *
  * @author virgile
  */
 public class InfoGraphPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form infoGraphPanel
+     *
      * @param parent la fenetre parente
      */
     public InfoGraphPanel(MainInterface parent) {
@@ -418,6 +420,8 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     public void update() {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
+
             Noeud.Type typeNoeudAffichage = Noeud.Type.NONE;
             if (checkBoxVille.isSelected()) {
                 typeNoeudAffichage = typeNoeudAffichage.or(Noeud.Type.VILLE);
@@ -464,7 +468,6 @@ public class InfoGraphPanel extends InfoAbstractPanel {
             }
             graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
             graphPanel.getPanelLegende().cheminVisible(false);
-            
 
             graphPanel.repaint();
         }

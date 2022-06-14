@@ -31,6 +31,7 @@ import javax.swing.text.html.HTMLDocument;
 
 /**
  * Permet de trouver le chemin le plus cours entre 2 neouds en passant par certain type de noeuds
+ *
  * @author twarr
  */
 public class PassantParPanel extends InfoAbstractPanel {
@@ -41,6 +42,7 @@ public class PassantParPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form PassantParPanel
+     *
      * @param parent la fenetre parente
      */
     public PassantParPanel(MainInterface parent) {
@@ -107,7 +109,7 @@ public class PassantParPanel extends InfoAbstractPanel {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
             graphPanel.setHighlited(null);
-            
+
             if (cheminMatrice == null) {
                 cheminMatrice = new MatriceChemin(graphPanel.getGraph());
             }
@@ -187,6 +189,9 @@ public class PassantParPanel extends InfoAbstractPanel {
 
     @Override
     public void update() {
-
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
+        if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
+        }
     }
 }

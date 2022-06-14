@@ -5,6 +5,7 @@
 package grama.ihm.view;
 
 import grama.calcule.matrix.FloydWarshall;
+import grama.graph.Lien;
 import grama.graph.Noeud;
 import grama.ihm.DrawGraphPanel;
 import grama.ihm.Drawable;
@@ -14,6 +15,7 @@ import java.util.List;
 
 /**
  * Peremt de visualiser tous les neouds à 2 distance d'un noeud (sélectionner)
+ *
  * @author virgile
  */
 public class Voisin2SautPanel extends InfoAbstractPanel {
@@ -61,7 +63,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setText("Liste des voisins à 2 sauts :");
+        jLabel2.setText("Liste des voisins :");
         jPanel2.add(jLabel2, java.awt.BorderLayout.WEST);
 
         listVoisin.setEditable(false);
@@ -78,23 +80,27 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 /**
- * permet d'update notre pannel et d'afficher la liste des voisins en fonction des ainsi que le nombre de voisins
- * 
- */
+     * permet d'update notre pannel et d'afficher la liste des voisins en fonction des ainsi que le nombre de voisins
+     *
+     */
     @Override
     public void update() {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
-            Noeud selected = graphPanel.getSelectedNodes().get(0);
+            graphPanel.setLinkSelectable(true);
+            Noeud selectedNoeuds = null;
+            if (!graphPanel.getSelectedNodes().isEmpty()) {
+                selectedNoeuds = graphPanel.getSelectedNodes().get(0);
+            }
+            Lien slectedLien = graphPanel.getSelectedLink();
             listVoisin.enableInputMethods(false);
             graphPanel.getPanelLegende().cheminVisible(false);
             graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
-            
 
             listVoisin.setText("");
-            if (selected != null) {
-                List<Noeud> nodes = selected.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
-                List<Drawable> nodeHighlite = new LinkedList<>();
+            List<Drawable> nodeHighlite = new LinkedList<>();
+            if (selectedNoeuds != null) {
+                List<Noeud> nodes = selectedNoeuds.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
 
                 nbrVoinsin2Saut.setText(String.valueOf(nodes.size()));
                 for (Noeud node : nodes) {
@@ -103,11 +109,15 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
 
                 }
 
-                graphPanel.setHighlited(nodeHighlite);
-
-            }else{
+            } else {
                 nbrVoinsin2Saut.setText("null");
             }
+            if (slectedLien != null) {
+                listVoisin.setText(slectedLien.getDstAndDepart()[0] + "\n" + slectedLien.getDstAndDepart()[1]);
+                nodeHighlite.add((Drawable) slectedLien.getDstAndDepart()[0]);
+                nodeHighlite.add((Drawable) slectedLien.getDstAndDepart()[1]);
+            }
+            graphPanel.setHighlited(nodeHighlite);
         }
 
     }

@@ -90,6 +90,7 @@ public class Lien implements Drawable {
     private final Noeud destination;
     private final Noeud depart;
     private Type typeLien; //A : autoroute ; N : national ; D : départemental
+    private Vector2D dimensionAffichageNomLien, locationAffichageNomLien;
 
     public Lien(Type typeLien, int kilometrage, Noeud depart, Noeud destination) {
         this.typeLien = typeLien;
@@ -192,9 +193,20 @@ public class Lien implements Drawable {
         }
         g.drawLine((int) debut.x, (int) debut.y, (int) arriver.x, (int) arriver.y);
 
-        centre = debut.add(line.div(4));
+        locationAffichageNomLien = debut.add(line.div(4));
+        dimensionAffichageNomLien = StringFormater.getRectDimensionForString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage());
         g.setColor(Color.BLACK);
-        StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), centre, font);
+        StringFormater.drawCenteredString(g, this.typeLien.getRepresentativeChar() + ", " + this.getKilometrage(), locationAffichageNomLien, font);
         g.setColor(Color.BLACK);
     }
+
+    public Vector2D getDimensionAffichageNomLien() {
+        return dimensionAffichageNomLien;
+    }
+
+    public Vector2D getLocationAffichageNomLien() {
+        return locationAffichageNomLien;
+    }
+    
+
 }
