@@ -16,10 +16,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 /**
  * Panel pour dessiner un Graph et le manipuler
@@ -47,6 +48,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     private Legende panelLegende;
 
+    private MainInterface mainFrame;
+
     /**
      * instancie un panel pour dessiner un graph
      *
@@ -56,9 +59,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      * @param typeNoeud le type des noeuds à afficher
      * @param typeLien le type des liens à afficher (entre les noeuds affiché)
      */
-    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
+    public DrawGraphPanel(MainInterface parentFrame, Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
         this.linkSelectable = false;
 
+        this.mainFrame = parentFrame;
         this.graph = graph;
         this.typeNoeud = typeNoeud;
         this.typeLien = typeLien;
@@ -105,7 +109,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      * @param graph le graph à dessiner
      * @param font la police d'écriture
      */
-    public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
+    public DrawGraphPanel(MainInterface parentFrame, Graph graph, Font font) {
         this(parentFrame, graph, font, Noeud.Type.ALL, Lien.Type.ALL);
     }
 
@@ -378,16 +382,17 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      */
     public void addEventMouse(Updatable parentFrame) {
         this.addMouseMotionListener(this);
+
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la séléction des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getButton() == MouseEvent.BUTTON1) {
-                    Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
-                    Noeud NoeudClicked = getNoeudAtPos(mousePos);
-                    Lien lienClicked = getLienAtPos(mousePos);
+                Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
+                Noeud noeudClicked = getNoeudAtPos(mousePos);
+                Lien lienClicked = getLienAtPos(mousePos);
 
-                    if (NoeudClicked != null) {
-                        selectedNodes.set(currSelectedNode++ % nbrSelectabelNodes, NoeudClicked);
+                if (evt.getButton() == MouseEvent.BUTTON1) {
+                    if (noeudClicked != null) {
+                        selectedNodes.set(currSelectedNode++ % nbrSelectabelNodes, noeudClicked);
                         selectedLink = null;
                     } else if (lienClicked != null) {
                         selectedLink = lienClicked;
@@ -402,6 +407,22 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
                         parentFrame.update();
                     }
                     repaint();
+                } else if (evt.getButton() == MouseEvent.BUTTON3) {
+                    final JPopupMenu popupmenu = new JPopupMenu("Info");
+
+                    if (noeudClicked != null) {
+                        popupmenu.add(noeudClicked.getTypeLieu().toString());
+                        popupmenu.add(noeudClicked.getNom());
+                    } else if (lienClicked != null) {
+                        popupmenu.add(lienClicked.getTypeLien().toString());
+                        popupmenu.add(String.valueOf(lienClicked.getKilometrage()));
+                    } else {
+                        popupmenu.add("Aucun");
+                    }
+
+                    popupmenu.show(mainFrame, (int) (mousePos.x + getLocation().getX()),
+                            (int) (mousePos.y + getLocation().getY()));
+
                 }
 
             }
