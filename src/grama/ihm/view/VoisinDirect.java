@@ -10,15 +10,19 @@ import grama.ihm.Drawable;
 import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  * Permet de visualiser tous les noeuds qui sont voisin directs du Noeuds sélectionné
+ *
  * @author thomas
  */
 public class VoisinDirect extends InfoAbstractPanel {
 
     /**
      * Creates new form VoisinDirect
+     *
      * @param parent la fenetre parente
      */
     public VoisinDirect(MainInterface parent) {
@@ -36,46 +40,61 @@ public class VoisinDirect extends InfoAbstractPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 32767));
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nbVoisinLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 32767));
+        jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listVoisinArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListNoeud = new javax.swing.JList<>();
 
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+        setLayout(new java.awt.BorderLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Voisin Direct");
-        add(jLabel2);
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jLabel2, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+        jPanel1.add(filler1);
 
-        jLabel1.setText("Nombre de voisin direct :");
-        jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel1.setText("Nombre de voisin direct :  ");
+        jPanel2.add(jLabel1);
 
         nbVoisinLabel.setText("null");
-        jPanel1.add(nbVoisinLabel, java.awt.BorderLayout.LINE_END);
+        jPanel2.add(nbVoisinLabel);
 
-        add(jPanel1);
+        jPanel1.add(jPanel2);
+        jPanel1.add(filler2);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setText("Liste des voisins directs :");
-        jPanel2.add(jLabel4, java.awt.BorderLayout.WEST);
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Liste des voisins directs");
+        jLabel4.setVerifyInputWhenFocusTarget(false);
+        jPanel3.add(jLabel4, java.awt.BorderLayout.NORTH);
 
-        listVoisinArea.setEditable(false);
-        listVoisinArea.setBackground(new java.awt.Color(204, 204, 204));
-        listVoisinArea.setColumns(20);
-        listVoisinArea.setForeground(new java.awt.Color(0, 0, 0));
-        listVoisinArea.setRows(5);
-        jScrollPane1.setViewportView(listVoisinArea);
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jPanel2.add(jScrollPane1, java.awt.BorderLayout.LINE_END);
+        jListNoeud.setBackground(new java.awt.Color(214, 217, 223));
+        jListNoeud.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jListNoeud.setModel(new DefaultListModel<>());
+        jListNoeud.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListNoeud.setSelectionBackground(new java.awt.Color(214, 217, 223));
+        jListNoeud.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jListNoeud.setVisibleRowCount(30);
+        jScrollPane2.setViewportView(jListNoeud);
 
-        add(jPanel2);
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel3);
+
+        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     /**
      * permet d'afficher la liste des voisins directs
@@ -89,33 +108,38 @@ public class VoisinDirect extends InfoAbstractPanel {
             graphPanel.getPanelLegende().cheminVisible(false);
             graphPanel.getPanelLegende().NoeudCorrespondVisible(true);
 
-            listVoisinArea.setText("");
+            List<Drawable> drawables = new LinkedList<>();
+            DefaultListModel<Noeud> listModel = new DefaultListModel<>();
             if (selected != null) {
                 List<Noeud> nodes = selected.getVoisinsOfType(Noeud.Type.ALL);
                 nbVoisinLabel.setText(String.valueOf(nodes.size()));
 
-                List<Drawable> drawables = new LinkedList<>();
                 for (Noeud noeud : nodes) {
-                    listVoisinArea.setText(listVoisinArea.getText() + "\n" + noeud);
+                    listModel.addElement(noeud);
                     drawables.add((Drawable) noeud);
                 }
-                graphPanel.setHighlited(drawables);
+
             } else {
                 nbVoisinLabel.setText("null");
             }
+            graphPanel.setHighlited(drawables);
+            jListNoeud.setModel(listModel);
         }
 
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JList<Noeud> jListNoeud;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea listVoisinArea;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nbVoisinLabel;
     // End of variables declaration//GEN-END:variables
 }
