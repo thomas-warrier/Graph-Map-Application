@@ -46,7 +46,7 @@ public class VoisinDirect extends InfoAbstractPanel {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Voisins Directe");
+        jLabel2.setText("Voisin Direct");
         add(jLabel2);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));

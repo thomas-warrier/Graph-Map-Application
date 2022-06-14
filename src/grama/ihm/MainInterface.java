@@ -440,7 +440,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * mais à jour le panel courrant
+     * met à jour le panel courrant
      */
     @Override
     public void update() {
@@ -474,7 +474,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     /**
-     * change pour le mode de vue demander si possible
+     * change pour le mode de vue demandé si possible
      *
      * @param mode le mode de vue demander
      */

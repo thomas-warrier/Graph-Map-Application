@@ -24,7 +24,7 @@ public class Chemin {
     }
  /**
   * pour ajouter un Chemin entier
-  * @param other le chemin à ajouté au chemin courant
+  * @param other le chemin à ajouter au chemin courant
   */
     public void append(Chemin other) {
         getChemin().addAll(other.getChemin());
@@ -52,7 +52,7 @@ public class Chemin {
         chemin.add(lien);
     }
 /**
- * on additione tout les kilométrage des lien pour avoir le kilométrage total d'un chemin (un Chemin est une liste de lien)
+ * on additione tout les kilométrages des liens pour avoir le kilométrage total d'un chemin (un Chemin est une liste de lien)
  * @return un int qui est le kilométrage total du chemin
  */
     public int getKilometrageChemin() {

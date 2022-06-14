@@ -147,7 +147,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         affichageLieux.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("sansserif", 2, 13)); // NOI18N
-        jLabel1.setText("affichage lieux");
+        jLabel1.setText("affichage lieu");
         affichageLieux.add(jLabel1, java.awt.BorderLayout.WEST);
 
         checkBoxPanel.setOpaque(false);
@@ -191,7 +191,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         nbrLabel3.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         nbrLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nbrLabel3.setText("nombre routes : ");
+        nbrLabel3.setText("nombre route : ");
         infoPanel5.add(nbrLabel3, java.awt.BorderLayout.WEST);
 
         nbrRouteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -239,7 +239,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setFont(new java.awt.Font("sansserif", 2, 13)); // NOI18N
-        jLabel2.setText("affichage routes");
+        jLabel2.setText("affichage route");
         jPanel1.add(jLabel2, java.awt.BorderLayout.WEST);
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
@@ -412,7 +412,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
     @Override
     /**
-     * permet d'avoir le nombre de chaque type de route,de lien. cela permet aussi d'afficher des informations sur le noeud séléctionner (son nom,son
+     * permet d'avoir le nombre de chaque type de route,de liens. cela permet aussi d'afficher des informations sur le noeud séléctionné (son nom,son
      * type,son ouverture)
      */
     public void update() {

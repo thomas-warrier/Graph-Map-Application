@@ -48,9 +48,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      *
      * @param parentFrame la fenêtre parente (pour mettre à jours les info)
      * @param graph le graph à dessiner
-     * @param font la policer d'écriture
-     * @param typeNoeud le type des noeud à afficher
-     * @param typeLien le type des lien à afficher (entre les noeuds affiché)
+     * @param font la police d'écriture
+     * @param typeNoeud le type des noeuds à afficher
+     * @param typeLien le type des liens à afficher (entre les noeuds affiché)
      */
     public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
         this.graph = graph;
@@ -79,9 +79,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     /**
      * instansie un panel pour dessiner un graph
      *
-     * @param parentFrame la fenêtre parente (pour mettre à jours les info)
+     * @param parentFrame la fenêtre parente (pour mettre à jours les infos)
      * @param graph le graph à dessiner
-     * @param font la policer d'écriture
+     * @param font la police d'écriture
      */
     public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font) {
         this(parentFrame, graph, font, Noeud.Type.ALL, Lien.Type.ALL);
@@ -90,8 +90,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     /**
      * Inisialise le panel
      *
-     * @param parentFrame la fenêtre parente (pour mettre à jours les info)
-     * @param font la policer d'écriture
+     * @param parentFrame la fenêtre parente (pour mettre à jours les infos)
+     * @param font la police d'écriture
      */
     private void init(Updatable parentFrame, Font font) {
         setLayout(new BorderLayout());
@@ -110,18 +110,16 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * change le type des noeuds à affiché
-     *
-     * @param typeNoeud le type des noeuds à affiché
+     * change le type des noeuds à afficher
+     * @param typeNoeud le type des noeuds à afficher
      */
     public void setTypeNoeud(Noeud.Type typeNoeud) {
         this.typeNoeud = typeNoeud;
     }
 
     /**
-     * change le type des liens à affiché
-     *
-     * @param typeLien le type des liens à affiché (si relier à des neouds qui sont eux même affiché)
+     * change le type des liens à afficher
+     * @param typeLien le type des liens à afficher (si relié à des noeuds qui sont eux même affichés)
      */
     public void setTypeLien(Lien.Type typeLien) {
         this.typeLien = typeLien;
@@ -146,7 +144,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      *
-     * @return le décalager d'échelle par rapport à la dèrnière actualisation
+     * @return le décalage d'échelle par rapport à la dernière actualisation
      */
     public Vector2D getScaleOffset() {
         return scaleOffset;
@@ -158,7 +156,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /*##########POUR LA SCALE###########*/
     /**
-     * met le scale offset à la taille désirer
+     * met le scale offset à la taille désirée
      *
      * @param s l'échelle
      */
@@ -192,11 +190,10 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     public void initNoeudsLocation() {
         Vector2D center = new Vector2D(getWidth() / 2, getHeight() / 2);
         Vector2D rayon = new Vector2D(0, -1.0 * (Math.min(getWidth() / 2, getHeight() / 2) - Noeud.DIAMETRE / 2));//oriente vers le haut pour placer le 1er noeud
-        double angleRot = (2 * Math.PI) / graph.getListNoeudOfType(typeNoeud).size();//anlge de rotation pour dessiner les neouds en cercle
+        double angleRot = (2 * Math.PI) / graph.getListNoeudOfType(typeNoeud).size();//anlge de rotation pour dessiner les noeuds en cercle
 
         System.out.println("r : " + new Vector2D(1, 0).getVecWithOrientation(Math.PI / 2));
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-//            System.out.println("rotation : " + rayon.getOrientation());
             //position du Noeud est au centre + le vec rayon (qui à la bonne direction en fonction de l'angle)
             noeud.setLastLocation(center.add(rayon).add(offsetForLocation));
 
@@ -241,7 +238,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
                 if (highlited != null && highlited.contains(lien)) {
                     color = Color.yellow;
                 }
-                lien.draw(g, null, getFont(), color);//affiche en fonction des position des neouds qu'il relie s'il on été affiché
+                lien.draw(g, null, getFont(), color);//affiche en fonction des position des noeuds qu'il relie s'il on été affichés
             }
         }
     }
@@ -271,7 +268,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * Permet de surligner les élément présent dans la liste
+     * Permet de surligner les éléments présent dans la liste
      *
      * @param highlited la nouvelle liste des objet {@link Drawable} à surligné
      */
@@ -317,7 +314,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * permet de déplacer un neoud en par appuis, déplacer, relacher
+     * permet de déplacer un noeud  par un appuis, déplacer, relacher
      *
      * @param evt le MouseEvent
      */
@@ -340,8 +337,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * ajoute les listeners pour la souris pour manipuler l'affichage du graph
-     *
-     * @param parentFrame le fenêtre parent aux panel
+     * @param parentFrame la fenêtre parent aux panel
      */
     public void addEventMouse(Updatable parentFrame) {
         this.addMouseMotionListener(this);

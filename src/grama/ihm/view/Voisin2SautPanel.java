@@ -50,7 +50,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         titleView.setText("Voisin 2 sauts");
         jPanel1.add(titleView, java.awt.BorderLayout.NORTH);
 
-        jLabel1.setText("Nombre voisins 2 sauts :");
+        jLabel1.setText("Nombre voisin 2 sauts :");
         jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
 
         nbrVoinsin2Saut.setText("null");
@@ -61,7 +61,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setText("voisins :");
+        jLabel2.setText("Liste des voisins à 2 sauts :");
         jPanel2.add(jLabel2, java.awt.BorderLayout.WEST);
 
         listVoisin.setEditable(false);
