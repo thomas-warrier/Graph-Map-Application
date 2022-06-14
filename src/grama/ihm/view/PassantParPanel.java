@@ -30,7 +30,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.text.html.HTMLDocument;
 
 /**
- *
+ * Permet de trouver le chemin le plus cours entre 2 neouds en passant par certain type de noeuds
  * @author twarr
  */
 public class PassantParPanel extends InfoAbstractPanel {
@@ -41,6 +41,7 @@ public class PassantParPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form PassantParPanel
+     * @param parent la fenetre parente
      */
     public PassantParPanel(MainInterface parent) {
         super(parent);

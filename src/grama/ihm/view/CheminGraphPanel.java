@@ -16,6 +16,10 @@ import java.awt.CheckboxGroup;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Panel qui permet d'afficher le chemin le plus cours entre 2 noeuds
+ * @author virgile
+ */
 public class CheminGraphPanel extends InfoAbstractPanel {
 
     private MatriceChemin matriceChemin;

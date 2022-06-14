@@ -6,10 +6,15 @@ import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 import java.awt.Color;
 
+/**
+ * Permet d'afficher les information à propos d'un noeuds
+ * @author virgile
+ */
 public class InfoGraphPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form infoGraphPanel
+     * @param parent la fenetre parente
      */
     public InfoGraphPanel(MainInterface parent) {
         super(parent);

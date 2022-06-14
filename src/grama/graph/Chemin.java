@@ -7,7 +7,10 @@ package grama.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * classe representant un chemin sur le graph
+ * @author thomas
+ */
 public class Chemin {
 
     private List<Lien> chemin;

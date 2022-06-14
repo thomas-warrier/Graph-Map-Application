@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 /**
- *
+ * Permet d'ajouté une couleur rectangulaire à une légendre
  * @author twarr
  */
 public class LegendLigneComponent extends JLabel{

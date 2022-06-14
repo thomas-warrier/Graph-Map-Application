@@ -25,8 +25,15 @@ import grama.ihm.view.Acceuil;
 import javax.swing.UIManager;
 import grama.ihm.view.PassantParPanel;
 
+/**
+ * Permet de faire tous la gestion de l'ihm, crée la fenetre et les panel qui vont dedans afin de pouvoir analyser un graph
+ * @author wwwazz
+ */
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
+    /**
+     * les différent type d'affichage
+     */
     enum ViewMode {
         PRINCIPAL(0),
         AFFICHAGE(1),
@@ -466,7 +473,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     /**
      * change pour le mode de vue demander si possible
      *
-     * @param mode
+     * @param mode le mode de vue demander
      */
     public void switchToMode(ViewMode mode) {
 

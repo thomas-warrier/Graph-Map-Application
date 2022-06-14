@@ -13,8 +13,8 @@ public class Vector2D {
     /**
      * créé un {@link Vector2D} avec x et y
      *
-     * @param x
-     * @param y
+     * @param x la valeur de x
+     * @param y la valeur de y
      */
     public Vector2D(double x, double y) {
         this.x = x;
@@ -116,7 +116,7 @@ public class Vector2D {
 
     /**
      * déssiner un point à l'emplacement par rapport au point en Haut à Gauche du Panel
-     * @param g 
+     * @param g l'object graphique qui permet de dessiner
      */
     public void draw(Graphics g) {
         g.fillOval((int) x - 5, (int) y - 5, 10, 10);

@@ -15,6 +15,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe representant un sommet (Noeud) du graphe
+ * @author virgile
+ */
 public class Noeud implements Drawable {
 
     public static int DIAMETRE = 50;
@@ -223,8 +227,8 @@ public class Noeud implements Drawable {
     /**
      * cette méthode retourne une liste de noeuds contenant tout les voisins a deux distance
      *
-     * @param graph
-     * @param floydMatrice
+     * @param graph le graph dans lequelle est le noeud courrant
+     * @param floydMatrice la matrice floydWarsahll qui contien les distance en saut
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
      * @return une liste de noeud contenant tout les voisins a deux distance
      */
@@ -257,11 +261,11 @@ public class Noeud implements Drawable {
     /**
      * on compare deux noeuds et on regarde lequel a le plus de voisins a deux distances d'un certains type.
      *
-     * @param noeudA
-     * @param noeudB
-     * @param graph
-     * @param floydMatrice
-     * @param typeNoeud
+     * @param noeudA le premier noeud à comparé
+     * @param noeudB le second noeud à comparé
+     * @param graph le graph de le quelle ils sont tous les 2
+     * @param floydMatrice la matrice flodyWarshall des saut
+     * @param typeNoeud les type de noeud que l'on veux comparé (gastronomique, etc...)
      * @return un int,si le int est positif c'est le noeud A qui est le plus ouvert et si le int est négatif,c'est le noeudB qui est le plus ouvert.
      */
     public static int compareOpeningTo(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
@@ -278,8 +282,8 @@ public class Noeud implements Drawable {
     /**
      * cette méthode recupére un lien entre l'objet courant et noeudArr
      *
-     * @param noeudArr
-     * @return un lien
+     * @param noeudArr le neoud d'arriver du lien cherché
+     * @return le lien entre le noeud courrant et le noeudArr
      */
     public Lien getLinkBetween(Noeud noeudArr) {
         for (Lien lien : this.getListLien()) {

@@ -1,9 +1,6 @@
 package grama.calcule.matrix;
 
-/**
- *
- * @author twarr
- */
+
 import grama.exceptions.CheminImpossibleErreur;
 import grama.graph.Chemin;
 import grama.graph.Graph;
@@ -12,6 +9,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Matrice qui permet de stocker tous les plus cours chemin entre tous les neouds
+ * @author twarr
+ */
 public class MatriceChemin extends Matrix<Chemin> {
 
     private Graph graph;
@@ -83,6 +84,7 @@ public class MatriceChemin extends Matrix<Chemin> {
      * @param types la List des type de Lieux dans lesquelles on veut passer (dans l'ordre)
      * @param floydWarshall la matrice dans laquelle chercher les distances (saut ou kilométrage)
      * @return le chemin entre le neoud de départ et d'arriver passant par les Type de Noeud dans l'ordre
+     * @throws CheminImpossibleErreur propage une exception si le chemin demander est impossible
      */
     public Chemin getCheminBetween(Noeud depart, Noeud arriver, List<Noeud.Type> types, FloydWarshall floydWarshall) throws CheminImpossibleErreur {
         Chemin chemin = new Chemin();
