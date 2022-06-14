@@ -30,13 +30,10 @@ import grama.ihm.view.PassantParPanel;
  */
 public class MainInterface extends javax.swing.JFrame implements Updatable {
 
-    
-
     /**
      * les différents types d'affichage
      */
     enum ViewMode {
-        PRINCIPAL(0),
         AFFICHAGE(1),
         VOISIN_DIRECT(1),
         VOISIN2SAUT(1),
@@ -66,7 +63,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     }
 
     private DrawGraphPanel drawGraphPanel;
-    private ViewMode currMode = ViewMode.PRINCIPAL;
+    private ViewMode currMode = ViewMode.AFFICHAGE;
 
     private ButtonGroup groupView = new ButtonGroup();
 
@@ -98,7 +95,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         switchToMode(ViewMode.AFFICHAGE);
         affichageMenuItem.setSelected(true);
-
+        ((CardLayout) getContentPane().getLayout()).show(getContentPane(), "graph");
     }
 
     /**
@@ -114,7 +111,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         splitPanel.setRightComponent(null);
         splitPanel.setDividerLocation(0.25);
 
-        groupView.add(principalMenuItem);
         groupView.add(affichageMenuItem);
         groupView.add(voisinDirectMenuItem);
         groupView.add(voisin2ndMenuItem);
@@ -122,6 +118,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         groupView.add(cheminMenuItem);
         groupView.add(cheminPassantParMenuItem);
 
+        ((CardLayout) getContentPane().getLayout()).show(getContentPane(), "acceuil");
         switchToMode(currMode);
 
         this.update();
@@ -135,9 +132,9 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new Acceuil(this);
         splitPanel = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
-        acceuilPanel = new Acceuil(this);
         infoPanel = new grama.ihm.view.InfoGraphPanel(this);
         voisinDirectPanel = new VoisinDirect(this);
         voisin2Panel = new Voisin2SautPanel(this);
@@ -148,7 +145,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         fileMenu = new javax.swing.JMenu();
         OpenMenuItem = new javax.swing.JMenuItem();
         ViewMenu = new javax.swing.JMenu();
-        principalMenuItem = new javax.swing.JRadioButtonMenuItem();
         affichageMenuItem = new javax.swing.JRadioButtonMenuItem();
         voisinDirectMenuItem = new javax.swing.JRadioButtonMenuItem();
         voisin2ndMenuItem = new javax.swing.JRadioButtonMenuItem();
@@ -156,23 +152,18 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         cheminMenuItem = new javax.swing.JRadioButtonMenuItem();
         cheminPassantParMenuItem = new javax.swing.JRadioButtonMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Grama");
         setMinimumSize(new java.awt.Dimension(144, 144));
         setSize(new java.awt.Dimension(1650, 600));
+        getContentPane().setLayout(new java.awt.CardLayout());
+        getContentPane().add(jPanel1, "acceuil");
 
         splitPanel.setResizeWeight(0.1);
         splitPanel.setToolTipText("");
         splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         leftPanel.setLayout(new java.awt.CardLayout());
-
-        acceuilPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                acceuilPanelMouseClicked(evt);
-            }
-        });
-        leftPanel.add(acceuilPanel, "principal");
         leftPanel.add(infoPanel, "affichage");
         leftPanel.add(voisinDirectPanel, "voisin_direct");
         leftPanel.add(voisin2Panel, "voisin2saut");
@@ -182,7 +173,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
 
         splitPanel.setLeftComponent(leftPanel);
 
-        getContentPane().add(splitPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(splitPanel, "graph");
 
         fileMenu.setText("Fichier");
 
@@ -203,15 +194,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
                 ViewMenuActionPerformed(evt);
             }
         });
-
-        principalMenuItem.setSelected(true);
-        principalMenuItem.setText("principal");
-        principalMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                principalMenuItemActionPerformed(evt);
-            }
-        });
-        ViewMenu.add(principalMenuItem);
 
         affichageMenuItem.setText("affichage");
         affichageMenuItem.setEnabled(false);
@@ -306,13 +288,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         switchToMode(ViewMode.COMPARAISON);
     }//GEN-LAST:event_comparaisonMenuItemActionPerformed
 
-    private void principalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalMenuItemActionPerformed
-        switchToMode(ViewMode.PRINCIPAL);
-    }//GEN-LAST:event_principalMenuItemActionPerformed
-
-    private void acceuilPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceuilPanelMouseClicked
-    }//GEN-LAST:event_acceuilPanelMouseClicked
-
     private void cheminPassantParMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheminPassantParMenuItemActionPerformed
 
         switchToMode(ViewMode.PASSANTPAR);
@@ -321,7 +296,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     /**
      * launch a graphical way to open a file
      */
-    private void openFile() {
+    public void openFile() {
         UIManager.put("FileChooser.readOnly", Boolean.TRUE);
         JFileChooser fileOpen = new JFileChooser();
         fileOpen.setMultiSelectionEnabled(false);
@@ -419,7 +394,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem OpenMenuItem;
     private javax.swing.JMenu ViewMenu;
-    private javax.swing.JPanel acceuilPanel;
     private javax.swing.JRadioButtonMenuItem affichageMenuItem;
     private javax.swing.JRadioButtonMenuItem cheminMenuItem;
     private javax.swing.JPanel cheminPanel;
@@ -430,8 +404,8 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel leftPanel;
-    private javax.swing.JRadioButtonMenuItem principalMenuItem;
     private javax.swing.JSplitPane splitPanel;
     private javax.swing.JPanel voisin2Panel;
     private javax.swing.JRadioButtonMenuItem voisin2ndMenuItem;
@@ -481,30 +455,26 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     public void switchToMode(ViewMode mode) {
 
         this.currMode = mode;
-        if (leftPanel.getLayout() instanceof CardLayout && ((drawGraphPanel != null && drawGraphPanel.getGraph() != null) || mode == ViewMode.PRINCIPAL)) {
-
+        if (leftPanel.getLayout() instanceof CardLayout && ((drawGraphPanel != null && drawGraphPanel.getGraph() != null))) {
+            ((CardLayout) getContentPane().getLayout()).show(getContentPane(), "graph");
             CardLayout crd = (CardLayout) leftPanel.getLayout();
             crd.show(leftPanel, this.currMode.toString());
-            if (mode != ViewMode.PRINCIPAL) {
-                drawGraphPanel.setTypeLien(Lien.Type.ALL);
-                drawGraphPanel.setTypeNoeud(Noeud.Type.ALL);
+            drawGraphPanel.setTypeLien(Lien.Type.ALL);
+            drawGraphPanel.setTypeNoeud(Noeud.Type.ALL);
 
-                drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
-                principalMenuItem.setEnabled(false);
+            drawGraphPanel.setNbrSelectableNode(currMode.getNbrSelectableNode());
 
-                affichageMenuItem.setEnabled(true);
-                cheminMenuItem.setEnabled(true);
-                voisin2ndMenuItem.setEnabled(true);
-                voisinDirectMenuItem.setEnabled(true);
-                comparaisonMenuItem.setEnabled(true);
-                cheminPassantParMenuItem.setEnabled(true);
-            }
+            affichageMenuItem.setEnabled(true);
+            cheminMenuItem.setEnabled(true);
+            voisin2ndMenuItem.setEnabled(true);
+            voisinDirectMenuItem.setEnabled(true);
+            comparaisonMenuItem.setEnabled(true);
+            cheminPassantParMenuItem.setEnabled(true);
 
             update();
             repaint();
         } else {
-            principalMenuItem.setSelected(true);
-            switchToMode(ViewMode.PRINCIPAL);
+            ((CardLayout) getContentPane().getLayout()).show(getContentPane(), "acceuil");
 
             affichageMenuItem.setEnabled(false);
             cheminMenuItem.setEnabled(false);
@@ -515,7 +485,6 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
         }
         replaceDividerBar();
     }
-    
 
     private void replaceDividerBar() {
         splitPanel.setDividerLocation(0.25);
