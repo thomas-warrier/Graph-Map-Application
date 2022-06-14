@@ -6,10 +6,15 @@ import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 import java.awt.Color;
 
+/**
+ * Permet d'afficher les information à propos d'un noeuds
+ * @author virgile
+ */
 public class InfoGraphPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form infoGraphPanel
+     * @param parent la fenetre parente
      */
     public InfoGraphPanel(MainInterface parent) {
         super(parent);
@@ -24,6 +29,8 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
         infoGenralPanel = new javax.swing.JPanel();
         infoPanel1 = new javax.swing.JPanel();
         titleGenralInfoLabel = new javax.swing.JLabel();
@@ -75,7 +82,11 @@ public class InfoGraphPanel extends InfoAbstractPanel {
         ouvertureSelectedLabel = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 40));
-        setLayout(new java.awt.GridLayout(2, 1, 0, 1));
+        setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jPanel3.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
 
         infoGenralPanel.setLayout(new javax.swing.BoxLayout(infoGenralPanel, javax.swing.BoxLayout.Y_AXIS));
 
@@ -267,7 +278,7 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoGenralPanel.add(jPanel1);
 
-        add(infoGenralPanel);
+        jPanel3.add(infoGenralPanel);
 
         infoSelectedPanel.setLayout(new javax.swing.BoxLayout(infoSelectedPanel, javax.swing.BoxLayout.Y_AXIS));
 
@@ -313,7 +324,11 @@ public class InfoGraphPanel extends InfoAbstractPanel {
 
         infoSelectedPanel.add(ouvetureSelectedPanel);
 
-        add(infoSelectedPanel);
+        jPanel3.add(infoSelectedPanel);
+
+        jScrollPane1.setViewportView(jPanel3);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkBoxRestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRestoActionPerformed
@@ -364,6 +379,8 @@ public class InfoGraphPanel extends InfoAbstractPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameSelectedLabel;
     private javax.swing.JPanel nameSelectedPanel;

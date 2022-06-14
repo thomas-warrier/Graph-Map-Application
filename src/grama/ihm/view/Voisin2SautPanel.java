@@ -12,6 +12,10 @@ import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Peremt de visualiser tous les neouds à 2 distance d'un noeud (sélectionner)
+ * @author virgile
+ */
 public class Voisin2SautPanel extends InfoAbstractPanel {
 
     public Voisin2SautPanel(MainInterface parent) {

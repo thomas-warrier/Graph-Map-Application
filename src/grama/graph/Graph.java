@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * classe representant le graphe lui même
+ * @author virgile
+ */
 public class Graph {
 
     private final List<Noeud> listNoeud;//pour simplifier on stocke la liste de tout les noeuds ici (poura être truové en double dans listNoeudOfType

@@ -11,10 +11,15 @@ import grama.ihm.MainInterface;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Permet de visualiser tous les neouds qui sont voisin directe du Noeuds sélectionner
+ * @author thomas
+ */
 public class VoisinDirect extends InfoAbstractPanel {
 
     /**
      * Creates new form VoisinDirect
+     * @param parent la fenetre parente
      */
     public VoisinDirect(MainInterface parent) {
         super(parent);

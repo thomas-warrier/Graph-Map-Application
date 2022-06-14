@@ -11,10 +11,15 @@ import grama.ihm.MainInterface;
 import static grama.graph.Noeud.compareOpeningTo;
 
 
+/**
+ * Panel qui permet de comparer l'ouverture de 2 noeuds
+ * @author thomas
+ */
 public class Comparaison extends InfoAbstractPanel {
 
     /**
      * Crée une nouvelle JPanel form 
+     * @param parent la fenetre parente
      */
     public Comparaison(MainInterface parent) {
         super(parent);

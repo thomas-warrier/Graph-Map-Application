@@ -9,8 +9,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author wwwazz
+ * Permet d'afficher des message d'erreur ou des avertissement à l'écran
+ * @author virgile
  */
 public class WarningDialog {
     /**
@@ -26,6 +26,7 @@ public class WarningDialog {
     /**
      * show a dialog window for warn about the read right of a file
      *
+     * @param parent la fenetre parent sur laquelle afficher la dialog
      * @param file the file with wrong right.
      */
     public static void showReadRightWarning(Component parent, File file) {

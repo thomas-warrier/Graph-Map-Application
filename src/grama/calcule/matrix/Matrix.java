@@ -30,7 +30,7 @@ public class Matrix<T> {
 
     /**
      * créé une matrice à partire d'une liste de liste
-     * @param array 
+     * @param array le tableau de tableau qui represente la matrice
      */
     public Matrix(T[][] array) {
         matrix = new ArrayList<>();

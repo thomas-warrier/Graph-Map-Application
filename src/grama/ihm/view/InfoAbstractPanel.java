@@ -14,7 +14,10 @@ public abstract class InfoAbstractPanel extends javax.swing.JPanel implements Up
         this.mainInterface = parent;
     }
 
-    
+    /**
+     * 
+     * @return la mainInterface window qui contien le graphPanel
+     */
     public MainInterface getMainInterface() {
         return mainInterface;
     }
