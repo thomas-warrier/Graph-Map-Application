@@ -171,7 +171,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="sansserif" size="13" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="affichage lieux"/>
+                <Property name="text" type="java.lang.String" value="affichage lieu"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -235,7 +235,7 @@
                   <Font name="sansserif" size="13" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="nombre routes : "/>
+                <Property name="text" type="java.lang.String" value="nombre route : "/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -349,7 +349,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="sansserif" size="13" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="affichage routes"/>
+                <Property name="text" type="java.lang.String" value="affichage route"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
