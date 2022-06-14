@@ -40,7 +40,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     private Dimension prevSizePanel;
     private Vector2D scaleOffset, offsetForLocation, lastMouseLocation;
     private int nbrSelectabelNodes;
-    
+
     private Legende panelLegende;
 
     /**
@@ -64,20 +64,18 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         setPreferredSize(dimenstion);
 
         this.init(parentFrame, font);
-        
+
         panelLegende = new Legende();
-        add(panelLegende,BorderLayout.SOUTH);
-        
+        add(panelLegende, BorderLayout.SOUTH);
+
         panelLegende.revalidate();
-        
+
     }
 
     public Legende getPanelLegende() {
         return panelLegende;
     }
 
-    
-    
     /**
      * instansie un panel pour dessiner un graph
      *
@@ -113,6 +111,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * change le type des noeuds à affiché
+     *
      * @param typeNoeud le type des noeuds à affiché
      */
     public void setTypeNoeud(Noeud.Type typeNoeud) {
@@ -121,6 +120,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * change le type des liens à affiché
+     *
      * @param typeLien le type des liens à affiché (si relier à des neouds qui sont eux même affiché)
      */
     public void setTypeLien(Lien.Type typeLien) {
@@ -340,6 +340,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * ajoute les listeners pour la souris pour manipuler l'affichage du graph
+     *
      * @param parentFrame le fenêtre parent aux panel
      */
     public void addEventMouse(Updatable parentFrame) {
@@ -359,7 +360,12 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
                     if (parentFrame != null) {
                         parentFrame.update();
                     }
+                } else {
+                    Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
+                    offsetForLocation = mousePos.mul(-1);
+                    repaint();
                 }
+
             }
 
             @Override
@@ -398,9 +404,8 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-
-                setScaleOffset(getScaleOffset().add(new Vector2D(0.05, 0.05).mul(e.getWheelRotation()).mul(-1)));
-                System.out.println(getScaleOffset());
+                Vector2D zoom = new Vector2D(0.05, 0.05).mul(e.getWheelRotation()).mul(-1);
+                setScaleOffset(getScaleOffset().add(zoom));
                 repaint();
             }
         });
