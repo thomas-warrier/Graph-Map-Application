@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Panel qui permet d'afficher le chemin le plus cours entre 2 noeuds
+ *
  * @author virgile
  */
 public class CheminGraphPanel extends InfoAbstractPanel {
@@ -79,6 +80,8 @@ public class CheminGraphPanel extends InfoAbstractPanel {
         nbrSaut.setText("0");
         nbrKilometre.setText("0");
         if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
+
             if (matriceChemin == null) {
                 matriceChemin = new MatriceChemin(graphPanel.getGraph());
             }

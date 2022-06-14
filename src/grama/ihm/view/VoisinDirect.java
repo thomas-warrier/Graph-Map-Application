@@ -84,6 +84,7 @@ public class VoisinDirect extends InfoAbstractPanel {
     public void update() {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
             Noeud selected = graphPanel.getSelectedNodes().get(0);
             graphPanel.getPanelLegende().cheminVisible(false);
             graphPanel.getPanelLegende().NoeudCorrespondVisible(true);

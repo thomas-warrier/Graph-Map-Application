@@ -10,15 +10,16 @@ import grama.ihm.DrawGraphPanel;
 import grama.ihm.MainInterface;
 import static grama.graph.Noeud.compareOpeningTo;
 
-
 /**
  * Panel qui permet de comparer l'ouverture de 2 noeuds
+ *
  * @author thomas
  */
 public class Comparaison extends InfoAbstractPanel {
 
     /**
-     * Crée une nouvelle JPanel form 
+     * Crée une nouvelle JPanel form
+     *
      * @param parent la fenetre parente
      */
     public Comparaison(MainInterface parent) {
@@ -66,8 +67,7 @@ public class Comparaison extends InfoAbstractPanel {
 
         add(jPanel3);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
     /**
      * notre méthode update permet d'actualiser l'affichage dans notre ihm pour la classe comparaison en fonction
      * des noeuds séléctionés.
@@ -76,11 +76,13 @@ public class Comparaison extends InfoAbstractPanel {
     public void update() {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
+
             Noeud selected0 = graphPanel.getSelectedNodes().get(0);
             Noeud selected1 = graphPanel.getSelectedNodes().get(1);
             graphPanel.getPanelLegende().NoeudCorrespondVisible(false);
             graphPanel.getPanelLegende().cheminVisible(false);
-            
+
             if (selected0 != null && selected1 != null) {
                 int ouvertureGeneral = compareOpeningTo(selected0, selected1, graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
                 if (ouvertureGeneral > 0) {

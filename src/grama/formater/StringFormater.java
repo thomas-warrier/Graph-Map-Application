@@ -10,10 +10,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-
 public class StringFormater {
+
     /**
      * cette méthode permet de lire un fichier (méthode trés similaire a celle du cour)
+     *
      * @param file le fichier à lire
      * @return String
      * @throws IOException propage une erreure de lecture de fichier
@@ -68,6 +69,12 @@ public class StringFormater {
         int y = (int) (location.y - fm.getHeight() / 2.0) + fm.getAscent();
         g.setFont(font);
         g.drawString(text, x, y);
-        
+    }
+
+    public static Vector2D getRectDimensionForString(Graphics g, String text) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        FontMetrics fm = g2d.getFontMetrics();
+
+        return new Vector2D(fm.stringWidth(text), fm.getHeight());
     }
 }

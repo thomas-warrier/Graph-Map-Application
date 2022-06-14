@@ -17,6 +17,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -34,6 +35,9 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     private List<Noeud> selectedNodes;
     private int currSelectedNode;
+
+    private Lien selectedLink;
+    private boolean linkSelectable;
 
     private List<Drawable> highlited;
 
@@ -53,9 +57,12 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      * @param typeLien le type des liens à afficher (entre les noeuds affiché)
      */
     public DrawGraphPanel(Updatable parentFrame, Graph graph, Font font, Noeud.Type typeNoeud, Lien.Type typeLien) {
+        this.linkSelectable = false;
+
         this.graph = graph;
         this.typeNoeud = typeNoeud;
         this.typeLien = typeLien;
+
         offsetForLocation = new Vector2D(0, 0);
 
         Dimension dimenstion = new Dimension(300, 300);
@@ -70,6 +77,21 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
         panelLegende.revalidate();
 
+    }
+
+    public void setLinkSelectable(boolean linkSelectable) {
+        this.linkSelectable = linkSelectable;
+        if (!linkSelectable) {
+            selectedLink = null;
+        }
+    }
+
+    public void setSelectedLink(Lien selectedLink) {
+        this.selectedLink = selectedLink;
+    }
+
+    public Lien getSelectedLink() {
+        return selectedLink;
     }
 
     public Legende getPanelLegende() {
@@ -111,6 +133,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * change le type des noeuds à afficher
+     *
      * @param typeNoeud le type des noeuds à afficher
      */
     public void setTypeNoeud(Noeud.Type typeNoeud) {
@@ -119,6 +142,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * change le type des liens à afficher
+     *
      * @param typeLien le type des liens à afficher (si relié à des noeuds qui sont eux même affichés)
      */
     public void setTypeLien(Lien.Type typeLien) {
@@ -132,11 +156,23 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      */
     private Noeud getNoeudAtPos(Vector2D pos) {
         for (Noeud noeud : graph.getListNoeudOfType(typeNoeud)) {
-            if (noeud.getLastLocation() == null) {
-                continue;
-            }
-            if (noeud.getLastLocation().sub(pos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
+            if (noeud.getLastLocation() != null && noeud.getLastLocation().sub(pos).norm() <= Noeud.DIAMETRE / 2) {//on click Noeud
                 return noeud;
+            }
+        }
+        return null;
+    }
+
+    private Lien getLienAtPos(Vector2D pos) {
+        if (linkSelectable) {
+            for (Lien lien : graph.getListLienOfType(typeLien)) {
+                if (lien.getDimensionAffichageNomLien() != null && lien.getLocationAffichageNomLien() != null
+                        && pos.x >= lien.getLocationAffichageNomLien().x - lien.getDimensionAffichageNomLien().x / 2.0
+                        && pos.x <= lien.getLocationAffichageNomLien().x + lien.getDimensionAffichageNomLien().x / 2.0
+                        && pos.y >= lien.getLocationAffichageNomLien().y - lien.getDimensionAffichageNomLien().y / 2.0
+                        && pos.y <= lien.getLocationAffichageNomLien().y + lien.getDimensionAffichageNomLien().y / 2.0) {
+                    return lien;
+                }
             }
         }
         return null;
@@ -235,7 +271,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         for (Lien lien : graph.getListLienOfType(typeLien)) {
             if (graph.getListNoeudOfType(typeNoeud).contains(lien.getDstAndDepart()[0]) && graph.getListNoeudOfType(typeNoeud).contains(lien.getDstAndDepart()[1])) {
                 Color color = null;
-                if (highlited != null && highlited.contains(lien)) {
+                if (highlited != null && highlited.contains(lien) || lien.equals(selectedLink)) {
                     color = Color.yellow;
                 }
                 lien.draw(g, null, getFont(), color);//affiche en fonction des position des noeuds qu'il relie s'il on été affichés
@@ -283,7 +319,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
      * @param n nombre maximal de noeuds séléctionnables
      */
     public void setNbrSelectableNode(int n) {
-        this.selectedNodes = new ArrayList<>();
+        this.selectedNodes = new LinkedList<>();
         this.nbrSelectabelNodes = n;
         for (int i = 0; i < nbrSelectabelNodes; i++) {
             selectedNodes.add(null);
@@ -314,7 +350,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
     }
 
     /**
-     * permet de déplacer un noeud  par un appuis, déplacer, relacher
+     * permet de déplacer un noeud par un appuis, déplacer, relacher
      *
      * @param evt le MouseEvent
      */
@@ -337,6 +373,7 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
 
     /**
      * ajoute les listeners pour la souris pour manipuler l'affichage du graph
+     *
      * @param parentFrame la fenêtre parent aux panel
      */
     public void addEventMouse(Updatable parentFrame) {
@@ -344,21 +381,26 @@ public class DrawGraphPanel extends JPanel implements MouseMotionListener {
         this.addMouseListener(new java.awt.event.MouseAdapter() {//pour la séléction des noeuds
 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("click");
                 if (evt.getButton() == MouseEvent.BUTTON1) {
-                    Noeud clicked = getNoeudAtPos(new Vector2D(evt.getX(), evt.getY()));
-                    if (clicked != null) {
-                        selectedNodes.set(currSelectedNode++ % nbrSelectabelNodes, clicked);
+                    Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
+                    Noeud NoeudClicked = getNoeudAtPos(mousePos);
+                    Lien lienClicked = getLienAtPos(mousePos);
+
+                    if (NoeudClicked != null) {
+                        selectedNodes.set(currSelectedNode++ % nbrSelectabelNodes, NoeudClicked);
+                        selectedLink = null;
+                    } else if (lienClicked != null) {
+                        selectedLink = lienClicked;
+                        setNbrSelectableNode(nbrSelectabelNodes);//déselectionne les noeuds
+
                     } else {
-                        setNbrSelectableNode(nbrSelectabelNodes);
+                        selectedLink = null;
+                        setNbrSelectableNode(nbrSelectabelNodes);//déselectionne les noeuds
                     }
-                    repaint();
+
                     if (parentFrame != null) {
                         parentFrame.update();
                     }
-                } else {
-                    Vector2D mousePos = new Vector2D(evt.getX(), evt.getY());
-                    offsetForLocation = mousePos.mul(-1);
                     repaint();
                 }
 

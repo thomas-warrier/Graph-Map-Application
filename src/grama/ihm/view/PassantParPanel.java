@@ -37,6 +37,7 @@ public class PassantParPanel extends InfoAbstractPanel {
 
     /**
      * Creates new form PassantParPanel
+     *
      * @param parent la fenetre parente
      */
     public PassantParPanel(MainInterface parent) {
@@ -103,7 +104,7 @@ public class PassantParPanel extends InfoAbstractPanel {
         DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
         if (graphPanel != null && graphPanel.getGraph() != null) {
             graphPanel.setHighlited(null);
-            
+
             if (cheminMatrice == null) {
                 cheminMatrice = new MatriceChemin(graphPanel.getGraph());
             }
@@ -183,6 +184,9 @@ public class PassantParPanel extends InfoAbstractPanel {
 
     @Override
     public void update() {
-
+        DrawGraphPanel graphPanel = getMainInterface().getDrawGraphPanel();
+        if (graphPanel != null && graphPanel.getGraph() != null) {
+            graphPanel.setLinkSelectable(false);
+        }
     }
 }
