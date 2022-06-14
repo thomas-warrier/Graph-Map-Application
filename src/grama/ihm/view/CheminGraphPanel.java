@@ -55,7 +55,7 @@ public class CheminGraphPanel extends InfoAbstractPanel {
         nbrSaut.setText("null");
         jPanel1.add(nbrSaut, java.awt.BorderLayout.EAST);
 
-        jLabel3.setText("nombre de sauts :");
+        jLabel3.setText("nombre de saut :");
         jPanel1.add(jLabel3, java.awt.BorderLayout.WEST);
 
         add(jPanel1);

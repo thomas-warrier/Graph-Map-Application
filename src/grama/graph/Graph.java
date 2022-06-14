@@ -28,7 +28,7 @@ public class Graph {
     }
 
     /**
-     * possibilité de récuperer certain en fonction de leur type, la liste n'est créé qu'une fois
+     * possibilité de récuperer certain Noeud en fonction de leur type, la liste n'est créée qu'une fois
      *
      * @param t le type des noeuds à récuperer
      * @return la liste de noeuds de type t
@@ -77,7 +77,7 @@ public class Graph {
     /**
      * ajoute un noeud s'il n'est pas déjà présent
      *
-     * @param noeud le neoud à ajouté
+     * @param noeud le noeud à ajouter
      */
     public void addNoeud(Noeud noeud) {
         if (!noeudExist(noeud)) {
@@ -86,7 +86,7 @@ public class Graph {
     }
 
     /**
-     * récuper l'instance du lien s'il existe déjà et le crée sinon
+     * récupère l'instance du lien s'il existe déjà et le crée sinon
      *
      * @param lien le lien à récuperer
      * @return Une instance d'un lien égale à "lien" ou le "lien" lui même
@@ -104,9 +104,9 @@ public class Graph {
     }
 
     /**
-     * récuper l'instance du "noeud" s'il existe déjà et le crée sinon
+     * récupère l'instance du "noeud" s'il existe déjà et le créer sinon
      *
-     * @param noeud le neoud à récuperer
+     * @param noeud le noeud à récuperer
      * @return Une instance d'un Noeud égale à "noeud" ou le "noeud" lui même
      */
     public Noeud getOrCreate(Noeud noeud) {
@@ -116,14 +116,14 @@ public class Graph {
             }
         }
         //si pas trouvé c'est qu'il doit être créé
-        //donc ajouté à la liste de neud
+        //donc ajouter à la liste de noeud
         addNoeud(noeud);
         return noeud;
     }
 
     /**
      *
-     * @param noeud le neoud dont on veux vérifier l'éxistance
+     * @param noeud le noeud dont on veux vérifier l'éxistance
      * @return true ssi noeud est dans la liste de noeud
      */
     public boolean noeudExist(Noeud noeud) {

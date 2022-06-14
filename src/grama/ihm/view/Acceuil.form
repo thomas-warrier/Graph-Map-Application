@@ -36,12 +36,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Veuillez charez un fichier pour commencer."/>
+        <Property name="text" type="java.lang.String" value="Veuillez charger un fichier pour commencer."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vous disposez du menu &lt;Vue&gt; en haut dans le menu bar pour choisir l&apos;option que vous souhaitez"/>
+        <Property name="text" type="java.lang.String" value="Vous disposez du menu &lt;Vue&gt; en haut dans le menu bar pour choisir l&apos;option que vous souhaitez."/>
       </Properties>
     </Component>
   </SubComponents>

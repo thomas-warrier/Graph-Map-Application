@@ -10,7 +10,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /**
- * pour dessiner des composant graphique
+ * pour dessiner des composants graphiques
  */
 public interface Drawable {
 

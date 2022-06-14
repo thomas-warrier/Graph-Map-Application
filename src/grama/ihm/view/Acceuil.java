@@ -41,10 +41,10 @@ public class Acceuil extends InfoAbstractPanel{
         jLabel1.setText("Bonjour bienvenue sur notre application de Graph-Map");
         add(jLabel1);
 
-        jLabel2.setText("Veuillez charez un fichier pour commencer.");
+        jLabel2.setText("Veuillez charger un fichier pour commencer.");
         add(jLabel2);
 
-        jLabel3.setText("Vous disposez du menu <Vue> en haut dans le menu bar pour choisir l'option que vous souhaitez");
+        jLabel3.setText("Vous disposez du menu <Vue> en haut dans le menu bar pour choisir l'option que vous souhaitez.");
         add(jLabel3);
     }// </editor-fold>//GEN-END:initComponents
 
