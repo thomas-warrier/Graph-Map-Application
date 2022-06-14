@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Peremt de visualiser tous les neouds à 2 distance d'un noeud (sélectionner)
+ * Permett de visualiser tous les noeuds à 2 distances d'un noeud (sélectionné)
  * @author virgile
  */
 public class Voisin2SautPanel extends InfoAbstractPanel {
@@ -78,7 +78,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 /**
- * permet d'update notre pannel et d'afficher la liste des voisins en fonction des ainsi que le nombre de voisins
+ * permet d'update notre pannel et d'afficher la liste des voisins ainsi que le nombre de voisins
  * 
  */
     @Override

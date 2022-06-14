@@ -16,7 +16,7 @@ public class StringFormater {
      * cette méthode permet de lire un fichier (méthode trés similaire a celle du cour)
      * @param file le fichier à lire
      * @return String
-     * @throws IOException propage une erreur de lecture de fichier
+     * @throws IOException propage une erreure de lecture de fichier
      */
     //use bufer reader
     public static String readFile(File file) throws IOException {
@@ -37,7 +37,7 @@ public class StringFormater {
 
     /**
      * 
-     * @param couple la String qui contient le couple à découpé
+     * @param couple la String qui contient le couple à découper
      * @return découpe la String couple en un char et un String
      * @throws FormatFileException propage une erreur de format de fichier
      */
@@ -54,9 +54,9 @@ public class StringFormater {
     }
 
     /**
-     * dessiner un text centrer à l'emplassement désireré
+     * dessiner un text centré à l'emplacement désiré
      * @param g l'objet qui permet de dessiner
-     * @param text le texte à écrire/déssineré
+     * @param text le texte à écrire/déssiner
      * @param location le centre du text
      * @param font la police d'écriture
      */

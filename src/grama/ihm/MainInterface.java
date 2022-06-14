@@ -24,7 +24,7 @@ import javax.swing.UIManager;
 import grama.ihm.view.PassantParPanel;
 
 /**
- * Permet de faire tous la gestion de l'ihm, crée la fenetre et les panel qui vont dedans afin de pouvoir analyser un graph
+ * Permet de faire toute la gestion de l'ihm, crée la fenêtre et les panels qui vont dedans afin de pouvoir analyser un graph
  *
  * @author wwwazz
  */
@@ -33,7 +33,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     
 
     /**
-     * les différent type d'affichage
+     * les différents types d'affichage
      */
     enum ViewMode {
         PRINCIPAL(0),
@@ -74,7 +74,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
      * charge un fichier
      *
      * @param fileGraph le fichier à charger
-     * @throws IOException propage une erreur si besoin
+     * @throws IOException propage une erreure si besoin
      */
     private void loadFile(File fileGraph) throws IOException {
         Graph graphmap = new Graph();
@@ -88,7 +88,7 @@ public class MainInterface extends javax.swing.JFrame implements Updatable {
     /**
      * charge un nouveau graphe
      *
-     * @param graph le graph à charger dans l'affichage
+     * @param graph le graphe à charger dans l'affichage
      */
     private void loadNewGraph(Graph graph) {
         drawGraphPanel = new DrawGraphPanel(this, graph, getFont(), Noeud.Type.ALL, Lien.Type.ALL);

@@ -118,9 +118,9 @@ public class Noeud implements Drawable {
     }
 
     /**
-     * Voisins à 1-saut (voisin direct) d'un certein type
+     * Voisins à 1-saut (voisin direct) d'un certains type
      *
-     * @param typeVoisins le type des voisins qui doivent être récuperer
+     * @param typeVoisins le type des voisins qui doivent être récuperé
      * @return Liste des voisins direct du type typeVoisins
      */
     public List<Noeud> getVoisinsOfType(Type typeVoisins) {
@@ -142,15 +142,15 @@ public class Noeud implements Drawable {
     public void addLien(Lien lien) {
         if (!listLien.contains(lien)) {
             listLien.add(lien);
-            lien.getDstADepartDe(this).addLien(lien);//doit aussi être ajouté dans l'autre sense
+            lien.getDstADepartDe(this).addLien(lien);//doit aussi être ajouté dans l'autre sens
         }
     }
 
     /**
-     * cette méthode sert a vérifier si il s'agit d'un voisin directe et si c'est le cas d'obtenir sa distance en kilométre
+     * cette méthode sert a vérifier si il s'agit d'un voisin direct et si c'est le cas d'obtenir sa distance en kilométre
      *
-     * @param node doit être un voisin directe
-     * @return un kiométrage ou null si ce n'est pas un voisin directe
+     * @param node doit être un voisin direct
+     * @return un kiométrage ou null si ce n'est pas un voisin direct
      */
     public Integer getDistanceTo(Noeud node) {
         for (Lien lien : listLien) {
@@ -187,7 +187,7 @@ public class Noeud implements Drawable {
      *
      * @param g un objet graphic
      * @param center l'emplacement où centrer le noeud
-     * @param font la police décriture
+     * @param font la police d'écriture
      * @param highlight la couleur de surlignage s'il y'en à pas alors mettre null
      */
     @Override
@@ -227,8 +227,8 @@ public class Noeud implements Drawable {
     /**
      * cette méthode retourne une liste de noeuds contenant tout les voisins a deux distance
      *
-     * @param graph le graph dans lequelle est le noeud courrant
-     * @param floydMatrice la matrice floydWarsahll qui contien les distance en saut
+     * @param graph le graph dans lequel est le noeud courrant
+     * @param floydMatrice la matrice floydWarshall qui contient les distances en saut
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
      * @return une liste de noeud contenant tout les voisins a deux distance
      */
@@ -261,18 +261,18 @@ public class Noeud implements Drawable {
     /**
      * on compare deux noeuds et on regarde lequel a le plus de voisins a deux distances d'un certains type.
      *
-     * @param noeudA le premier noeud à comparé
-     * @param noeudB le second noeud à comparé
-     * @param graph le graph de le quelle ils sont tous les 2
-     * @param floydMatrice la matrice flodyWarshall des saut
-     * @param typeNoeud les type de noeud que l'on veux comparé (gastronomique, etc...)
+     * @param noeudA le premier noeud à comparer
+     * @param noeudB le second noeud à comparer
+     * @param graph le graph dans lequel ils sont tous les 2
+     * @param floydMatrice la matrice floydWarshall des sauts
+     * @param typeNoeud les types de noeud que l'on veux comparer (gastronomique, etc...)
      * @return un int,si le int est positif c'est le noeud A qui est le plus ouvert et si le int est négatif,c'est le noeudB qui est le plus ouvert.
      */
     public static int compareOpeningTo(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
-        //se qui nous parrais le plus logique
+        //se qui nous parraît le plus logique
 //        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudA.getVoisinsOfType(typeNoeud).size();
 //        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudB.getVoisinsOfType(typeNoeud).size();
-        //se qu'on comprends de l'énoncé (on suppose qu'il est connexe)
+        //ce qu'on comprends de l'énoncé (on suppose qu'il est connexe)
         int nb2DistA = graph.getListNoeudOfType(typeNoeud).size() - noeudA.getVoisinsOfType(typeNoeud).size() - (noeudA.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
         int nb2DistB = graph.getListNoeudOfType(typeNoeud).size() - noeudB.getVoisinsOfType(typeNoeud).size() - (noeudB.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
 
@@ -280,9 +280,9 @@ public class Noeud implements Drawable {
     }
 
     /**
-     * cette méthode recupére un lien entre l'objet courant et noeudArr
+     * cette méthode récupère un lien entre l'objet courant et noeudArr
      *
-     * @param noeudArr le neoud d'arriver du lien cherché
+     * @param noeudArr le noeud d'arriver du lien cherché
      * @return le lien entre le noeud courrant et le noeudArr
      */
     public Lien getLinkBetween(Noeud noeudArr) {

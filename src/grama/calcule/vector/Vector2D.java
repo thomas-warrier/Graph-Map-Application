@@ -42,9 +42,9 @@ public class Vector2D {
     }
 
     /**
-     * Soustrai 2 {@link Vector2D}
+     * Soustrait 2 {@link Vector2D}
      *
-     * @param other le {@link Vector2D} avec lequelle soustraire
+     * @param other le {@link Vector2D} avec lequel soustraire
      * @return la soustraction du {@link Vector2D} courrant par le {@link Vector2D} other
      */
     public Vector2D sub(Vector2D other) {
@@ -54,7 +54,7 @@ public class Vector2D {
     /**
      * multiplie avec un scalaire
      *
-     * @param a le scalaire par lequelle multiplié
+     * @param a le scalaire par lequel multiplié
      * @return la multiplication du {@link Vector2D} avec le scalaire
      */
     public Vector2D mul(double a) {
@@ -73,7 +73,7 @@ public class Vector2D {
 
     /**
      *
-     * @return La norm du {@link Vector2D}
+     * @return La norme du {@link Vector2D}
      */
     public double norm() {
         return Math.sqrt(x * x + y * y);
@@ -99,7 +99,7 @@ public class Vector2D {
 
     /**
      *
-     * @return l'orientation (en radian) par rapport au vecteur orienter vers la "droite"
+     * @return l'orientation (en radian) par rapport au vecteur orienté vers la "droite"
      */
     public double getOrientation() {
         return Math.atan2(this.y, this.x);
@@ -115,7 +115,7 @@ public class Vector2D {
     }
 
     /**
-     * déssiner un point à l'emplacement par rapport au point en Haut à Gauche du Panel
+     * dessiner un point à l'emplacement par rapport au point en Haut à Gauche du Panel
      * @param g l'object graphique qui permet de dessiner
      */
     public void draw(Graphics g) {

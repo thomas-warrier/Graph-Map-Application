@@ -9,7 +9,7 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
- * Permet d'afficher des message d'erreur ou des avertissement à l'écran
+ * Permet d'afficher des messages d'erreur ou des avertissement à l'écran
  * @author virgile
  */
 public class WarningDialog {

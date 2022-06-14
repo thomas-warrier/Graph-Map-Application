@@ -51,7 +51,7 @@ public class Lien implements Drawable {
         /**
          * cette méthode permet de vérifier si un lien est du type passé en paramétre
          *
-         * @param t le type qui doit angloper le type du noeud courrant
+         * @param t le type qui doit englober le type du noeud courrant
          * @return boolean,true si il est du type souhaité,false sinon
          */
         public boolean estDeType(Type t) {
@@ -132,7 +132,7 @@ public class Lien implements Drawable {
      * @param node le {@link Noeud} de départ
      * @return Le {@link Noeud} d'arriver (en partant du noeud "node")
      */
-    public Noeud getDstADepartDe(Noeud node) {//si plusieur le qqlq return
+    public Noeud getDstADepartDe(Noeud node) {
         if (node.equals(destination)) {
             return depart;
         } else {
