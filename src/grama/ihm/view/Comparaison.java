@@ -84,7 +84,7 @@ public class Comparaison extends InfoAbstractPanel {
             graphPanel.getPanelLegende().cheminVisible(false);
 
             if (selected0 != null && selected1 != null) {
-                int ouvertureGeneral = compareOpeningTo(selected0, selected1, graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+                int ouvertureGeneral = compareOpeningTo(selected0, selected1, graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.VILLE);
                 if (ouvertureGeneral > 0) {
                     ouverteLabel.setText(selected0.getNom() + " est plus ouverte que " + selected1.getNom());
                 } else if (ouvertureGeneral < 0) {

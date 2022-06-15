@@ -110,7 +110,7 @@ public class Voisin2SautPanel extends InfoAbstractPanel {
             DefaultListModel<Noeud> listModel = new DefaultListModel<>();
             List<Drawable> nodeHighlite = new LinkedList<>();
             if (selectedNoeuds != null) {
-                List<Noeud> nodes = selectedNoeuds.getVoisin2Dist(graphPanel.getGraph(), FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+                List<Noeud> nodes = selectedNoeuds.getVoisin2Dist(graphPanel.getGraph(), Noeud.Type.ALL);
 
                 nbrVoinsin2Saut.setText(String.valueOf(nodes.size()));
                 for (Noeud node : nodes) {

@@ -17,6 +17,7 @@ import java.util.Objects;
 
 /**
  * Classe representant un sommet (Noeud) du graphe
+ *
  * @author virgile
  */
 public class Noeud implements Drawable {
@@ -232,26 +233,16 @@ public class Noeud implements Drawable {
      * @param typeNoeud dans le cas ou on veut uniquement les voisins d'un certains type
      * @return une liste de noeud contenant tout les voisins a deux distance
      */
-    public List<Noeud> getVoisin2Dist(Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
+    public List<Noeud> getVoisin2Dist(Graph graph, Type typeNoeud) {
 
-        List<Noeud> noeuds = new ArrayList();
-        int indiceNoeudCurr = graph.getIndiceNoeud(this);
-        for (int i = 0; i < graph.getListNoeud().size(); i++) {
-            Couple couple = floydMatrice.getDistByIndice(indiceNoeudCurr, i);
-            boolean toAdd = false;
-            if (couple.getVal() == 2) {
-                toAdd = true;
-            } else if (couple.getVal() == 1) {
-                for (Noeud voisinDep : this.getVoisinsOfType(typeNoeud)) {
-                    for (Noeud voisinArr : voisinDep.getVoisinsOfType(typeNoeud)) {
-                        if (graph.getListNoeud().get(i) == voisinArr) {
-                            toAdd = true;
-                        }
-                    }
+        List<Noeud> noeuds = new LinkedList();
+        noeuds.addAll(getVoisinsOfType(typeNoeud));
+        for (Noeud noeud : getVoisinsOfType(Type.ALL)) {
+            for (Noeud secondNoeud : noeud.getVoisinsOfType(typeNoeud)) {
+                if (secondNoeud.getTypeLieu().estDeType(typeNoeud) && !secondNoeud.equals(this)
+                        && !noeuds.contains(secondNoeud)) {
+                    noeuds.add(secondNoeud);
                 }
-            }
-            if (toAdd && !noeuds.contains(graph.getListNoeud().get(i))) {
-                noeuds.add(graph.getListNoeud().get(i));
             }
 
         }
@@ -269,12 +260,9 @@ public class Noeud implements Drawable {
      * @return un int,si le int est positif c'est le noeud A qui est le plus ouvert et si le int est négatif,c'est le noeudB qui est le plus ouvert.
      */
     public static int compareOpeningTo(Noeud noeudA, Noeud noeudB, Graph graph, FloydWarshall floydMatrice, Type typeNoeud) {
-        //se qui nous parraît le plus logique
-//        int nb2DistA = noeudA.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudA.getVoisinsOfType(typeNoeud).size();
-//        int nb2DistB = noeudB.getVoisin2Dist(graph, floydMatrice, typeNoeud).size() + noeudB.getVoisinsOfType(typeNoeud).size();
-        //ce qu'on comprends de l'énoncé (on suppose qu'il est connexe)
-        int nb2DistA = graph.getListNoeudOfType(typeNoeud).size() - noeudA.getVoisinsOfType(typeNoeud).size() - (noeudA.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
-        int nb2DistB = graph.getListNoeudOfType(typeNoeud).size() - noeudB.getVoisinsOfType(typeNoeud).size() - (noeudB.getTypeLieu().estDeType(typeNoeud) ? 1 : 0);
+
+        int nb2DistA = noeudA.getVoisin2Dist(graph, typeNoeud).size();
+        int nb2DistB = noeudB.getVoisin2Dist(graph, typeNoeud).size();
 
         return nb2DistA - nb2DistB;
     }
