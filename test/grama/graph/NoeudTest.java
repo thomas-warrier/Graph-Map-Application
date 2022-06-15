@@ -20,13 +20,13 @@ import org.junit.BeforeClass;
 public class NoeudTest {
 
     Noeud lyon, burgerking, asterix;
-     Graph graphmap;
+    Graph graphmap;
 
     public NoeudTest() {
         lyon = new Noeud(Noeud.Type.VILLE, "Lyon");
         burgerking = new Noeud(Noeud.Type.RESTAURANT, "Burgerking");
         asterix = new Noeud(Noeud.Type.LOISIR, "Asterix");
-        
+
         graphmap = new Graph();
 
         graphmap.loadFromString("V, Macon: A,30::R,Les Echets;N, 50::V, Villeurbanne;N,50::V, Villeurbanne;A,60::V,Meyzieu;;\n"
@@ -62,11 +62,11 @@ public class NoeudTest {
     @Test
     public void getVoisin2DistTest() {
 
-        List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, FloydWarshall.getInstanceSaut(), Noeud.Type.ALL);
+        List<Noeud> voisins2 = graphmap.getListNoeud().get(0).getVoisin2Dist(graphmap, Noeud.Type.ALL);
 
-        assertEquals("devrait être Villeurbanne", voisins2.get(0), new Noeud(Noeud.Type.VILLE, "Villeurbanne"));
-        assertEquals("devrait être McDo-Decines", voisins2.get(1), new Noeud(Noeud.Type.RESTAURANT, "McDo-Decines"));
-        assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.LOISIR, "Parck"));
+        assertEquals("devrait être Villeurbanne", voisins2.get(0), new Noeud(Noeud.Type.RESTAURANT, "Les Echets"));
+        assertEquals("devrait être McDo-Decines", voisins2.get(1), new Noeud(Noeud.Type.VILLE, "Villeurbanne"));
+        assertEquals("devrait être Parck", voisins2.get(2), new Noeud(Noeud.Type.VILLE, "Meyzieu"));
     }
 
     /**
@@ -111,6 +111,6 @@ public class NoeudTest {
     @Test
     public void testCompareOpeningTo() {
         int comparaison = Noeud.compareOpeningTo(graphmap.getListNoeud().get(0), graphmap.getListNoeud().get(1), graphmap, FloydWarshall.getInstanceSaut(), Noeud.Type.RESTAURANT);
-        assertTrue(comparaison == 0);
+        assertTrue(comparaison > 0);
     }
 }
