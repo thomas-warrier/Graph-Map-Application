@@ -1,7 +1,5 @@
 # Graph Map Analysis - Grama
 
-![img](https://cdn.discordapp.com/attachments/929500253734969378/1033444615568773191/image-20221022201904235.png)
-
 ## <u>Présentation du projet</u>
 
 Ce projet a pour vocation d'explorer et d'analyser du `graphe-MAP` via une ` interface homme-machine`, entre autre une **carte** contenant des `nœuds (localité ou site)` et des `liens (routes)` depuis une interface graphique manipulable par un utilisateur.
